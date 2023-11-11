@@ -1,4 +1,4 @@
-use crate::{assert_that, assertion_builder::AssertionBuilder};
+use crate::{assert_that, AssertionBuilder};
 
 impl<OkValue, ErrValue> AssertionBuilder<Result<OkValue, ErrValue>>
 where

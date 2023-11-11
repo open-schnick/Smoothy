@@ -1,7 +1,9 @@
-use assertion_builder::AssertionBuilder;
+mod basic;
+mod result;
 
-mod assertion_builder;
-mod assertions;
+pub struct AssertionBuilder<AssertedType> {
+    pub(crate) value: AssertedType,
+}
 
 pub fn assert_that<AssertedType>(value: AssertedType) -> AssertionBuilder<AssertedType> {
     AssertionBuilder { value }

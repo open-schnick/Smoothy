@@ -1,4 +1,4 @@
-use crate::assertion_builder::AssertionBuilder;
+use crate::AssertionBuilder;
 
 impl<AssertedType> AssertionBuilder<AssertedType>
 where
