@@ -1,27 +1,51 @@
 use smoothy::assert_that;
 
-#[test]
-fn checks_that_the_result_is_ok() {
-    let result: Result<String, ()> = Ok(String::new());
+mod assert_result {
+    use super::*;
 
-    assert_that(result).is_ok();
+    #[test]
+    fn is_ok_succeeds() {
+        let result: Result<String, ()> = Ok(String::new());
+
+        assert_that(result).is_ok();
+    }
+
+    #[test]
+    #[should_panic = "assertion failed:\n  Expected: Result to be Ok"]
+    fn is_ok_fails() {
+        let result: Result<String, ()> = Err(());
+
+        assert_that(result).is_ok();
+    }
 }
 
-#[test]
-fn checks_the_result_and_the_resulting_value() {
-    let result: Result<String, String> = Ok(String::from("Hello There"));
+mod assert_result_value {
+    use super::*;
 
-    assert_that(result)
-        .is_ok()
-        .and_value_equals(String::from("Hello There"));
-}
+    #[test]
+    fn succeeds() {
+        let result: Result<String, ()> = Ok(String::from("Hello There"));
 
-#[test]
-fn checks_the_result_and_the_resulting_value_with_from_trait() {
-    let result: Result<String, String> = Ok(String::from("Hello There"));
+        assert_that(result)
+            .is_ok()
+            .and_value_equals(String::from("Hello There"));
+    }
 
-    assert_that(result.clone())
-        .is_ok()
-        .and_value_equals(&String::from("Hello There"));
-    assert_that(result).is_ok().and_value_equals("Hello There");
+    #[test]
+    fn succeeds_with_trait() {
+        let result: Result<String, ()> = Ok(String::from("Hello There"));
+
+        assert_that(result.clone())
+            .is_ok()
+            .and_value_equals(&String::from("Hello There"));
+        assert_that(result).is_ok().and_value_equals("Hello There");
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails() {
+        let result: Result<String, ()> = Ok(String::from("Hello There"));
+
+        assert_that(result).is_ok().and_value_equals("yo");
+    }
 }

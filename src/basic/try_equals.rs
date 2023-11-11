@@ -5,7 +5,7 @@ where
     AssertedType: PartialEq + std::fmt::Debug,
 {
     // IDEA: can one combine try_equals with equals?
-    pub fn try_equals<T>(&self, expected: T)
+    pub fn try_equals<T>(self, expected: T)
     where
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
