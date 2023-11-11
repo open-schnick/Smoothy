@@ -468,3 +468,139 @@ mod with_numbers {
         }
     }
 }
+
+#[cfg(test)]
+mod with_chars {
+    use crate::assert_that;
+
+    #[test]
+    fn succeeds() {
+        assert_that('a').equals('a');
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails_for_wrong_char() {
+        assert_that('a').equals('b');
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails_for_wrong_casing() {
+        assert_that('a').equals('A');
+    }
+}
+
+#[cfg(test)]
+mod with_bools {
+    use crate::assert_that;
+
+    #[test]
+    fn succeeds_with_true() {
+        assert_that(true).equals(true);
+    }
+
+    #[test]
+    fn succeeds_with_false() {
+        assert_that(false).equals(false);
+    }
+
+    #[test]
+    fn succeeds_with_expression() {
+        fn true_func() -> bool {
+            true
+        }
+        assert_that(true_func()).equals(true);
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails() {
+        assert_that(true).equals(false);
+    }
+}
+
+#[cfg(test)]
+mod with_unit_type {
+    use crate::assert_that;
+
+    #[test]
+    fn succeeds() {
+        assert_that(()).equals(());
+    }
+}
+
+#[cfg(test)]
+mod with_tuples {
+    use crate::assert_that;
+
+    #[test]
+    fn succeeds() {
+        assert_that((1, 2)).equals((1, 2));
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails_with_different_order() {
+        assert_that((1, 2)).equals((2, 1));
+    }
+}
+
+#[cfg(test)]
+mod with_vecs {
+    use crate::assert_that;
+
+    #[test]
+    fn succeeds() {
+        assert_that([1, 2, 3]).equals([1, 2, 3]);
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails_with_different_order() {
+        assert_that([1, 2, 3]).equals([3, 2, 1]);
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails_with_different_size() {
+        let a = vec![1, 2, 3];
+        let b = vec![1, 2];
+        assert_that(a).equals(b);
+    }
+}
+
+#[cfg(test)]
+mod with_structs {
+    use crate::assert_that;
+
+    #[derive(Debug, PartialEq, Eq)]
+    struct Test {
+        data: String,
+    }
+
+    #[test]
+    fn succeeds() {
+        let a = Test {
+            data: String::new(),
+        };
+        let b = Test {
+            data: String::new(),
+        };
+
+        assert_that(a).equals(b);
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails() {
+        let a = Test {
+            data: String::new(),
+        };
+        let b = Test {
+            data: String::from("yo"),
+        };
+
+        assert_that(a).equals(b);
+    }
+}
