@@ -1,0 +1,32 @@
+permissions:
+  contents: read
+on:
+  push:
+    branches: [main]
+  pull_request:
+# Spend CI time only on latest ref: https://github.com/jonhoo/rust-ci-conf/pull/5
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+name: test
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: ${{ matrix.toolchain }} / test
+    strategy:
+      matrix:
+        toolchain: [stable, beta]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install ${{ matrix.toolchain }}
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+      - name: cargo generate-lockfile
+        if: hashFiles('Cargo.lock') == ''
+        run: cargo generate-lockfile
+      # https://twitter.com/jonhoo/status/1571290371124260865
+      - name: cargo test --locked
+        run: cargo test --locked --all-features --all-targets
