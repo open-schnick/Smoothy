@@ -35,9 +35,7 @@ impl<ErrValue> ErrAsserter<ErrValue>
 where
     ErrValue: Debug + Display,
 {
-    // TODO: think about this Into. Is AsRef better?
-    pub fn and_error_as_string_equals(self, expected: impl Into<String>) {
-        let expected: String = expected.into();
-        implementation::assert_equals(self.value.to_string(), expected);
+    pub fn and_error_to_string_equals(self, expected: impl AsRef<str>) {
+        implementation::assert_equals(self.value.to_string().as_ref(), expected.as_ref());
     }
 }

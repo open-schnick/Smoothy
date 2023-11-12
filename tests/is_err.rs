@@ -29,7 +29,7 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_as_string_equals(String::from("Hello There"));
+            .and_error_to_string_equals(String::from("Hello There"));
     }
 
     #[test]
@@ -39,7 +39,7 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_as_string_equals("Hello There");
+            .and_error_to_string_equals("Hello There");
     }
 
     #[test]
@@ -50,7 +50,7 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_as_string_equals("yo");
+            .and_error_to_string_equals("yo");
     }
 }
 
