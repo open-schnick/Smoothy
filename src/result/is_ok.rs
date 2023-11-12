@@ -24,6 +24,6 @@ where
 {
     pub fn and_value_equals(self, expected: impl Into<OkValue>) {
         let expected: OkValue = expected.into();
-        implementation::assert_equals(self.value, expected)
+        implementation::assert_equals(self.value, expected);
     }
 }

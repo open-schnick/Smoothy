@@ -26,7 +26,7 @@ where
 {
     pub fn and_error_equals(self, expected: impl Into<ErrValue>) {
         let expected: ErrValue = expected.into();
-        implementation::assert_equals(self.value, expected)
+        implementation::assert_equals(self.value, expected);
     }
 }
 
@@ -38,6 +38,6 @@ where
     // TODO: think about this Into. Is AsRef better?
     pub fn and_error_as_string_equals(self, expected: impl Into<String>) {
         let expected: String = expected.into();
-        implementation::assert_equals(self.value.to_string(), expected)
+        implementation::assert_equals(self.value.to_string(), expected);
     }
 }

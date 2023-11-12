@@ -1,4 +1,4 @@
-use crate::AssertionBuilder;
+use crate::{implementation, AssertionBuilder};
 
 impl<AssertedType> AssertionBuilder<AssertedType>
 where
@@ -10,9 +10,7 @@ where
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
     {
-        use pretty_assertions::assert_eq;
-
         let expected: AssertedType = expected.try_into().unwrap();
-        assert_eq!(self.value, expected);
+        implementation::assert_equals(self.value, expected);
     }
 }

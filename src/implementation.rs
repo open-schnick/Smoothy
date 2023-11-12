@@ -17,10 +17,8 @@ pub(crate) fn assert<T>(assertable: bool, assertion_desc: &str, actual_value: T)
 where
     T: std::fmt::Debug,
 {
-    if !assertable {
-        panic!(
-            "assertion failed:\n  Expected: {}\n  But was:  {:?}",
-            assertion_desc, actual_value
-        );
-    }
+    assert!(
+        assertable,
+        "assertion failed:\n  Expected: {assertion_desc}\n  But was:  {actual_value:?}"
+    );
 }

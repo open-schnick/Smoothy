@@ -35,6 +35,7 @@ mod assert_result_value {
     fn succeeds_with_trait() {
         let result: Result<String, ()> = Ok(String::from("Hello There"));
 
+        #[allow(clippy::needless_borrow)]
         assert_that(result.clone())
             .is_ok()
             .and_value_equals(&String::from("Hello There"));

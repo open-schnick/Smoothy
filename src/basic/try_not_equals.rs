@@ -11,6 +11,6 @@ where
         <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
     {
         let expected: AssertedType = expected.try_into().unwrap();
-        implementation::assert_not_equals(self.value, expected)
+        implementation::assert_not_equals(self.value, expected);
     }
 }
