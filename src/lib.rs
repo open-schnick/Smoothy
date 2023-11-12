@@ -1,8 +1,8 @@
 #![doc = include_str!("../README.md")]
 // enable more lint groups
 #![deny(clippy::pedantic, clippy::nursery)]
-// deny missing docs
-// #![deny(missing_docs)]
+// check documentation
+// #![deny(missing_docs, rustdoc::broken_intra_doc_links)]
 // enable extra restriction lints
 #![deny(
     clippy::as_conversions,
@@ -54,10 +54,11 @@
     clippy::redundant_pub_crate,
     clippy::needless_pass_by_value
 )]
-
 mod basic;
 mod implementation;
 mod result;
+
+pub use result::*;
 
 pub struct AssertionBuilder<AssertedType> {
     pub(crate) value: AssertedType,
