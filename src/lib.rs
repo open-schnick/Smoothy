@@ -99,6 +99,9 @@
 //! let result: Result<(), CustomError> = Err(CustomError(String::from("Oh no!")));
 //! assert_that(result).is_err().and_error_to_string_equals("Oh no!");
 //! ```
+//!
+#![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
+//!
 
 // enable more lint groups
 #![deny(clippy::pedantic, clippy::nursery)]
@@ -155,6 +158,7 @@
     clippy::redundant_pub_crate,
     clippy::needless_pass_by_value
 )]
+
 mod basic;
 mod implementation;
 mod result;

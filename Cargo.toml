@@ -3,5 +3,9 @@ name = "smoothy"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+default = []
+__private_readme_test = []
+
 [dependencies]
 pretty_assertions = "1.4.0"
