@@ -1,3 +1,4 @@
+#![doc = include_str!("../README.md")]
 // enable more lint groups
 #![deny(clippy::pedantic, clippy::nursery)]
 // deny missing docs
