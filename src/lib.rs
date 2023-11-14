@@ -119,6 +119,7 @@
     clippy::empty_structs_with_brackets,
     clippy::error_impl_error,
     clippy::expect_used,
+    clippy::unwrap_used,
     clippy::panic,
     clippy::todo,
     clippy::try_err,

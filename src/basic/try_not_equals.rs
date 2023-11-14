@@ -23,8 +23,17 @@ where
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
     {
-        // TODO: improve assertion here
-        let expected: AssertedType = expected.try_into().unwrap();
+        let conversion_result: Result<AssertedType, _> = expected.try_into();
+
+        implementation::assert(
+            conversion_result.is_ok(),
+            "TryInto conversion to succeed",
+            &conversion_result,
+        );
+
+        #[allow(clippy::unwrap_used)]
+        let expected = conversion_result.unwrap();
+
         implementation::assert_not_equals(self.value, expected);
     }
 }

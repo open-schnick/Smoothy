@@ -18,6 +18,39 @@ mod assert_result {
     }
 }
 
+mod assert_error_equals {
+    use super::*;
+    use crate::setup::{ComparableError, ConvertableError};
+
+    #[test]
+    fn succeeds() {
+        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
+
+        assert_that(result)
+            .is_err()
+            .and_error_equals(ComparableError(String::from("Hello There")));
+    }
+
+    #[test]
+    fn succeeds_with_another_error_by_trait_conversion() {
+        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
+
+        assert_that(result)
+            .is_err()
+            .and_error_equals(ConvertableError(String::from("Hello There")));
+    }
+
+    #[test]
+    #[should_panic = "assertion failed: `(left == right)`"]
+    fn fails() {
+        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
+
+        assert_that(result)
+            .is_err()
+            .and_error_equals(ConvertableError(String::from("yo")));
+    }
+}
+
 mod assert_error_as_string {
     use super::*;
     use crate::setup::NonComparableError;
@@ -51,39 +84,6 @@ mod assert_error_as_string {
         assert_that(result)
             .is_err()
             .and_error_to_string_equals("yo");
-    }
-}
-
-mod assert_error_equals {
-    use super::*;
-    use crate::setup::{ComparableError, ConvertableError};
-
-    #[test]
-    fn succeeds() {
-        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
-
-        assert_that(result)
-            .is_err()
-            .and_error_equals(ComparableError(String::from("Hello There")));
-    }
-
-    #[test]
-    fn succeeds_with_another_error_by_trait_conversion() {
-        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
-
-        assert_that(result)
-            .is_err()
-            .and_error_equals(ConvertableError(String::from("Hello There")));
-    }
-
-    #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
-    fn fails() {
-        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
-
-        assert_that(result)
-            .is_err()
-            .and_error_equals(ConvertableError(String::from("yo")));
     }
 }
 

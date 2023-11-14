@@ -24,6 +24,7 @@ where
     pub fn is_ok(self) -> OkAsserter<OkValue> {
         implementation::assert(self.value.is_ok(), "Result to be Ok", &self.value);
 
+        #[allow(clippy::unwrap_used)]
         let value = self.value.unwrap();
 
         OkAsserter { value }

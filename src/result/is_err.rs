@@ -24,6 +24,7 @@ where
     pub fn is_err(self) -> ErrAsserter<ErrValue> {
         implementation::assert(self.value.is_err(), "Result to be an error", &self.value);
 
+        #[allow(clippy::unwrap_used)]
         let value = self.value.err().unwrap();
 
         ErrAsserter { value }
