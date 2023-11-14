@@ -1,6 +1,15 @@
 [package]
 name = "smoothy"
 version = "0.1.0"
+description = "Write smooth assertions in a fluent and human readable way"
+authors = ["Open Schnick"]
+documentation = "https://docs.rs/smoothy"
+readme = "README.md"
+homepage = "https://github.com/open-schnick/smoothy"
+repository = "https://github.com/open-schnick/smoothy"
+license = "MIT"
+keywords = ["testing", "assert", "assertions", "fluent", "tests"]
+categories = ["development-tools::testing"]
 edition = "2021"
 
 [features]
