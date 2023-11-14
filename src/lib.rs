@@ -2,7 +2,7 @@
 //!
 //! # Examples
 //!
-//! All asserted are stared by calling [assert_that] on a value.
+//! All asserted are stared by calling [`assert_that`] on a value.
 //! After that various assertions based on the type of the asserted value can be made.
 //!
 //! ## Basic value assertions
@@ -11,7 +11,7 @@
 //!
 //! ### Equality
 //!
-//! [equals](struct.AssertionBuilder.html#method.equals) and [not_equals](struct.AssertionBuilder.html#method.not_equals) take anything that can be converted to the asserted type to improve ergonimics.  
+//! [`equals`](struct.AssertionBuilder.html#method.equals) and [`not_equals`](struct.AssertionBuilder.html#method.not_equals) take anything that can be converted to the asserted type to improve ergonomics.  
 //! This is done by implementing the [Into] trait.
 //!
 //! ```
@@ -26,7 +26,7 @@
 //! assert_that(String::from("Hello")).not_equals("Hello There");
 //! ```
 //!
-//! Same for [try_into_equals](struct.AssertionBuilder.html#method.try_into_equals) and [try_into_not_equals](struct.AssertionBuilder.html#method.try_into_not_equals) but here the trait [TryInto] is used.
+//! Same for [`try_into_equals`](struct.AssertionBuilder.html#method.try_into_equals) and [`try_into_not_equals`](struct.AssertionBuilder.html#method.try_into_not_equals) but here the trait [`TryInto`] is used.
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -40,8 +40,8 @@
 //!
 //! ## Results
 //!
-//! Results can be asserted by calling [is_err](struct.AssertionBuilder.html#method.is_err) or [is_ok](struct.AssertionBuilder.html#method.is_ok).
-//! Futhermore their actual content can be asserted aswell.
+//! Results can be asserted by calling [`is_err`](struct.AssertionBuilder.html#method.is_err) or [`is_ok`](struct.AssertionBuilder.html#method.is_ok).
+//! Furthermore their actual content can be asserted as well.
 //!
 //! ### Ok
 //!
@@ -71,7 +71,7 @@
 //! assert_that(result).is_err();
 //! ```
 //!
-//! When the [Err]-value implements [PartialEq] one can use [and_error_equals](struct.ErrAsserter.html#method.and_error_equals)
+//! When the [`Err`]-value implements [`PartialEq`] one can use [`and_error_equals`](struct.ErrAsserter.html#method.and_error_equals)
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -82,7 +82,7 @@
 //! assert_that(result).is_err().and_error_equals(CustomError(String::from("Oh no!")));
 //! ```
 //!
-//! Alternativly one can assert the error message (given the error implements [Display](std::fmt::Display)):
+//! Alternatively one can assert the error message (given the error implements [Display](std::fmt::Display)):
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -106,7 +106,7 @@
 // enable more lint groups
 #![deny(clippy::pedantic, clippy::nursery)]
 // check documentation
-// #![deny(missing_docs, rustdoc::broken_intra_doc_links)]
+#![deny(missing_docs, rustdoc::broken_intra_doc_links)]
 // enable extra restriction lints
 #![deny(
     clippy::as_conversions,
@@ -159,16 +159,30 @@
     clippy::needless_pass_by_value
 )]
 
+pub use result::*;
+
 mod basic;
 mod implementation;
 mod result;
 
-pub use result::*;
-
+/// Main struct to enable various assertions on `AssertedType`
 pub struct AssertionBuilder<AssertedType> {
     pub(crate) value: AssertedType,
 }
 
+/// Entrypoint for all assertions
+///
+/// Enables various assertions on variable based on its type
+///
+/// # Examples
+/// ```
+/// # use smoothy::{assert_that, AssertionBuilder};
+/// #
+/// let assertable = String::from("Hello World!");
+/// let assertion: AssertionBuilder<String> = assert_that(assertable);
+/// // add your assertions here
+/// ```
+#[must_use]
 pub const fn assert_that<AssertedType>(value: AssertedType) -> AssertionBuilder<AssertedType> {
     AssertionBuilder { value }
 }
