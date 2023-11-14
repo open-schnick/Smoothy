@@ -2,6 +2,11 @@
 
 Write smooth assertions in a fluent and readable way.
 
+[![check](https://github.com/open-schnick/Smoothy/actions/workflows/check.yml/badge.svg)](https://github.com/open-schnick/Smoothy/actions/workflows/check.yml)
+[![test](https://github.com/open-schnick/Smoothy/actions/workflows/test.yml/badge.svg)](https://github.com/open-schnick/Smoothy/actions/workflows/test.yml)
+![License](https://img.shields.io/crates/l/smoothy)
+![Crates.io](https://img.shields.io/crates/v/smoothy)
+
 ## Features
 
 The crate is heavily inspired by [AssertJ](https://assertj.github.io/doc/)
