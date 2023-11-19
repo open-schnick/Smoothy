@@ -11,7 +11,7 @@ mod assert_result {
     }
 
     #[test]
-    #[should_panic = "assertion failed:\n  Expected: Result to be an error"]
+    #[should_panic = "assertion failed: `(Result is Err)`\n           found:  Ok(())"]
     fn is_an_error_fails() {
         let result: Result<(), String> = Ok(());
         assert_that(result).is_err();

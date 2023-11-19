@@ -22,7 +22,7 @@ where
     /// # Panics
     /// When the [Result] is an [Err]
     pub fn is_ok(self) -> OkAsserter<OkValue> {
-        implementation::assert(self.value.is_ok(), "Result to be Ok", &self.value);
+        implementation::assert(self.value.is_ok(), "Result is Ok", &self.value);
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.unwrap();

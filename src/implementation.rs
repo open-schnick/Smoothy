@@ -1,3 +1,5 @@
+//! Implementation details of the actual assertions and the failure output
+
 pub(crate) fn assert_equals<T>(actual: T, expected: T)
 where
     T: PartialEq + std::fmt::Debug,
@@ -19,6 +21,6 @@ where
 {
     assert!(
         assertable,
-        "assertion failed:\n  Expected: {assertion_desc}\n  But was:  {actual_value:?}"
+        "assertion failed: `({assertion_desc})`\n           found:  {actual_value:?}"
     );
 }

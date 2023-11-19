@@ -27,7 +27,7 @@ where
 
         implementation::assert(
             conversion_result.is_ok(),
-            "TryInto conversion to succeed",
+            "TryInto conversion succeeds",
             &conversion_result,
         );
 
