@@ -180,7 +180,7 @@ mod implementation;
 mod result;
 
 /// Main struct to enable various assertions on `AssertedType`
-pub struct AssertionBuilder<AssertedType> {
+pub struct BasicAsserter<AssertedType> {
     pub(crate) value: AssertedType,
 }
 
@@ -190,13 +190,13 @@ pub struct AssertionBuilder<AssertedType> {
 ///
 /// # Examples
 /// ```
-/// # use smoothy::{assert_that, AssertionBuilder};
+/// # use smoothy::{assert_that, BasicAsserter};
 /// #
 /// let assertable = String::from("Hello World!");
-/// let assertion: AssertionBuilder<String> = assert_that(assertable);
+/// let assertion: BasicAsserter<String> = assert_that(assertable);
 /// // add your assertions here
 /// ```
 #[must_use]
-pub const fn assert_that<AssertedType>(value: AssertedType) -> AssertionBuilder<AssertedType> {
-    AssertionBuilder { value }
+pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<AssertedType> {
+    BasicAsserter { value }
 }

@@ -1,6 +1,6 @@
-use crate::{implementation, AssertionBuilder};
+use crate::{implementation, BasicAsserter};
 
-impl<AssertedType> AssertionBuilder<AssertedType>
+impl<AssertedType> BasicAsserter<AssertedType>
 where
     AssertedType: PartialEq + std::fmt::Debug,
 {

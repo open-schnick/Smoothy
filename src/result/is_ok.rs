@@ -1,7 +1,7 @@
-use crate::{implementation, AssertionBuilder};
+use crate::{implementation, BasicAsserter};
 use std::fmt::Debug;
 
-impl<OkValue, ErrValue> AssertionBuilder<Result<OkValue, ErrValue>>
+impl<OkValue, ErrValue> BasicAsserter<Result<OkValue, ErrValue>>
 where
     OkValue: Debug + PartialEq,
     ErrValue: Debug + PartialEq,
