@@ -4,8 +4,8 @@ Write smooth assertions in a fluent and readable way.
 
 [![check](https://github.com/open-schnick/Smoothy/actions/workflows/check.yml/badge.svg)](https://github.com/open-schnick/Smoothy/actions/workflows/check.yml)
 [![test](https://github.com/open-schnick/Smoothy/actions/workflows/test.yml/badge.svg)](https://github.com/open-schnick/Smoothy/actions/workflows/test.yml)
-![License](https://img.shields.io/crates/l/smoothy)
-![Crates.io](https://img.shields.io/crates/v/smoothy)
+[![License](https://img.shields.io/crates/l/smoothy)](https://github.com/open-schnick/Smoothy/blob/master/LICENSE)
+[![Crates.io](https://img.shields.io/crates/v/smoothy)](https://crates.io/crates/smoothy)
 
 ## Features
 
