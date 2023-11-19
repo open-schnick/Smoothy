@@ -11,8 +11,9 @@
 //!
 //! ### Equality
 //!
-//! [`equals`](struct.AssertionBuilder.html#method.equals) and [`not_equals`](struct.AssertionBuilder.html#method.not_equals) take anything that can be converted to the asserted type to improve ergonomics.  
-//! This is done by implementing the [Into] trait.
+//! There are two ways to assert equality:
+//! - [`is`](struct.AssertionBuilder.html#method.is) compares the value with something of the same type.
+//! - [`equals`](struct.AssertionBuilder.html#method.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -36,6 +37,18 @@
 //! ```
 //! # use smoothy::assert_that;
 //! assert_that(1u8).try_into_not_equals(2i8);
+//! ```
+//!
+//! When one wants to asserts a value while assuring the same type without any conversions is used [`is`](struct.AssertionBuilder.html#method.is)] can be used.
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that(1).is(1);
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that(1).is_not(2);
 //! ```
 //!
 //! ## Results

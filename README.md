@@ -58,7 +58,6 @@ assert_that(result)
 
 ## TODO:
 
-- `is` to assert equality in a type safe way (compared to the `Into<T>` stuff)
+- option support
 - vec support (length, contains)
 - string support (length, contains, starts_with, ends_with)
-- Documentation and testing :D (especially the difference between `is` and `equals`)
