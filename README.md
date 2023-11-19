@@ -44,7 +44,8 @@ use smoothy::assert_that;
 let result: Result<u8, String> = Ok(42);
 assert_that(result)
     .is_ok()
-    .and_value_equals(42);
+    .and_value()
+    .equals(42);
 ```
 
 ```rust
@@ -53,7 +54,9 @@ use smoothy::assert_that;
 let result: Result<(), String> = Err(String::from("ups!"));
 assert_that(result)
     .is_err()
-    .and_error_to_string_equals("ups!");
+    .and_error()
+    .to_string()
+    .equals("ups!");
 ```
 
 ## TODO:

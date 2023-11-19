@@ -28,7 +28,8 @@ mod assert_result_value {
 
         assert_that(result)
             .is_ok()
-            .and_value_equals(String::from("Hello There"));
+            .and_value()
+            .equals(String::from("Hello There"));
     }
 
     #[test]
@@ -38,8 +39,24 @@ mod assert_result_value {
         #[allow(clippy::needless_borrow)]
         assert_that(result.clone())
             .is_ok()
-            .and_value_equals(&String::from("Hello There"));
-        assert_that(result).is_ok().and_value_equals("Hello There");
+            .and_value()
+            .equals(&String::from("Hello There"));
+        assert_that(result)
+            .is_ok()
+            .and_value()
+            .equals("Hello There");
+    }
+
+    #[test]
+    fn succeeds_recursivly() {
+        let result: Result<Result<String, ()>, ()> = Ok(Ok(String::from("Hello There")));
+
+        assert_that(result)
+            .is_ok()
+            .and_value()
+            .is_ok()
+            .and_value()
+            .equals("Hello There")
     }
 
     #[test]
@@ -47,6 +64,6 @@ mod assert_result_value {
     fn fails() {
         let result: Result<String, ()> = Ok(String::from("Hello There"));
 
-        assert_that(result).is_ok().and_value_equals("yo");
+        assert_that(result).is_ok().and_value().equals("yo");
     }
 }

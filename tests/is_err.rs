@@ -18,7 +18,7 @@ mod assert_result {
     }
 }
 
-mod assert_error_equals {
+mod assert_error {
     use super::*;
     use crate::setup::{ComparableError, ConvertableError};
 
@@ -28,7 +28,8 @@ mod assert_error_equals {
 
         assert_that(result)
             .is_err()
-            .and_error_equals(ComparableError(String::from("Hello There")));
+            .and_error()
+            .equals(ComparableError(String::from("Hello There")));
     }
 
     #[test]
@@ -37,7 +38,21 @@ mod assert_error_equals {
 
         assert_that(result)
             .is_err()
-            .and_error_equals(ConvertableError(String::from("Hello There")));
+            .and_error()
+            .equals(ConvertableError(String::from("Hello There")));
+    }
+
+    #[test]
+    fn succeeds_recursivly() {
+        let result: Result<(), Result<(), ComparableError>> =
+            Err(Err(ComparableError(String::from("Hello There"))));
+
+        assert_that(result)
+            .is_err()
+            .and_error()
+            .is_err()
+            .and_error()
+            .equals(ConvertableError(String::from("Hello There")))
     }
 
     #[test]
@@ -47,7 +62,8 @@ mod assert_error_equals {
 
         assert_that(result)
             .is_err()
-            .and_error_equals(ConvertableError(String::from("yo")));
+            .and_error()
+            .equals(ConvertableError(String::from("yo")));
     }
 }
 
@@ -62,7 +78,9 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_to_string_equals(String::from("Hello There"));
+            .and_error()
+            .to_string()
+            .equals(String::from("Hello There"));
     }
 
     #[test]
@@ -72,7 +90,9 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_to_string_equals("Hello There");
+            .and_error()
+            .to_string()
+            .equals("Hello There");
     }
 
     #[test]
@@ -83,7 +103,9 @@ mod assert_error_as_string {
 
         assert_that(result)
             .is_err()
-            .and_error_to_string_equals("yo");
+            .and_error()
+            .to_string()
+            .equals("yo");
     }
 }
 

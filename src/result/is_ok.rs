@@ -36,28 +36,20 @@ pub struct OkAsserter<OkValue> {
     value: OkValue,
 }
 
-impl<OkValue> OkAsserter<OkValue>
-where
-    OkValue: Debug + PartialEq,
-{
-    /// Asserts that the value of the [Ok] is equal to the expected value
-    ///
-    /// This is done by transforming the expected-value to a instance of `OkValue` by using the [Into]-trait
-    /// and then comparing both values with [`PartialEq`]
+impl<OkValue> OkAsserter<OkValue> {
+    /// Prepares the [Ok] value for further assertions.
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::{assert_that, BasicAsserter};
     /// #
-    /// let result: Result<String, ()> = Ok(String::from("Hello There"));
+    /// let result: Result<String, ()> = Ok(String::from("Hello World!"));
     ///
-    /// assert_that(result).is_ok().and_value_equals("Hello There");
+    /// let asserter: BasicAsserter<String> = assert_that(result).is_ok().and_value();
+    /// // further assertions
+    /// asserter.equals("Hello World!");
     /// ```
-    ///
-    /// # Panics
-    /// When the values are not matching according to [`PartialEq`]
-    pub fn and_value_equals(self, expected: impl Into<OkValue>) {
-        let expected: OkValue = expected.into();
-        implementation::assert_equals(self.value, expected);
+    pub fn and_value(self) -> BasicAsserter<OkValue> {
+        BasicAsserter { value: self.value }
     }
 }

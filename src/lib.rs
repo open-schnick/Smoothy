@@ -71,7 +71,7 @@
 //! ```
 //! # use smoothy::assert_that;
 //! let result: Result<u8, ()> = Ok(1);
-//! assert_that(result).is_ok().and_value_equals(1);
+//! assert_that(result).is_ok().and_value().equals(1);
 //! ```
 //!
 //! ### Err
@@ -92,7 +92,7 @@
 //! struct CustomError(String);
 //!
 //! let result: Result<(), CustomError> = Err(CustomError(String::from("Oh no!")));
-//! assert_that(result).is_err().and_error_equals(CustomError(String::from("Oh no!")));
+//! assert_that(result).is_err().and_error().equals(CustomError(String::from("Oh no!")));
 //! ```
 //!
 //! Alternatively one can assert the error message (given the error implements [Display](std::fmt::Display)):
@@ -110,7 +110,11 @@
 //! # }
 //!
 //! let result: Result<(), CustomError> = Err(CustomError(String::from("Oh no!")));
-//! assert_that(result).is_err().and_error_to_string_equals("Oh no!");
+//! assert_that(result)
+//!     .is_err()
+//!     .and_error()
+//!     .to_string()
+//!     .equals("Oh no!");
 //! ```
 //!
 #![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
