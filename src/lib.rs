@@ -179,7 +179,7 @@ mod basic;
 mod implementation;
 mod result;
 
-/// Main struct to enable various assertions on `AssertedType`
+/// Main struct with various assertions on `AssertedType`
 pub struct BasicAsserter<AssertedType> {
     pub(crate) value: AssertedType,
 }
