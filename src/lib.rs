@@ -179,7 +179,7 @@
 
 pub use result::*;
 
-mod basic;
+mod equality;
 mod implementation;
 mod result;
 
