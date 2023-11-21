@@ -59,8 +59,24 @@ assert_that(result)
     .equals("ups!");
 ```
 
+```rust
+use smoothy::assert_that;
+
+let option: Option<()> = None;
+assert_that(option).is_none();
+```
+
+```rust
+use smoothy::assert_that;
+
+let option: Option<u8> = Some(1);
+assert_that(option)
+    .is_some()
+    .and_value()
+    .equals(1)
+```
+
 ## TODO:
 
-- option support
 - vec support (length, contains)
 - string support (length, contains, starts_with, ends_with)

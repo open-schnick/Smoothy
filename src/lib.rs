@@ -117,6 +117,30 @@
 //!     .equals("Oh no!");
 //! ```
 //!
+//! ## Option
+//!
+//! Options can be asserted by calling [`is_none`](struct.AssertionBuilder.html#method.is_none) or [`is_some`](struct.AssertionBuilder.html#method.is_some).
+//! Instances of [`Some`] can be further asserted with [`and_value`](struct.SomeAsserter.html#method.and_value).
+//!
+//! ### None
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! let option: Option<()> = None;
+//!
+//! assert_that(option).is_none();
+//! ```
+//!
+//! ### Some
+//!
+//! ```
+//! # use smoothy::{assert_that, BasicAsserter};
+//! let option: Option<u8> = Some(1);
+//! let asserter: BasicAsserter<u8> = assert_that(option).is_some().and_value();
+//! // further assertions
+//! asserter.equals(1);
+//! ```
+//!
 #![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
 //!
 
@@ -177,10 +201,12 @@
     clippy::needless_pass_by_value
 )]
 
+pub use option::*;
 pub use result::*;
 
 mod equality;
 mod implementation;
+mod option;
 mod result;
 
 /// Main struct with various assertions on `AssertedType`
