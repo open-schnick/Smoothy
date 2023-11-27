@@ -7,8 +7,7 @@ permissions:
 on:
   workflow_dispatch:
   push:
-    branch:
-      - main
+    branches: [main]
 
 jobs:
   create-release-pr:
