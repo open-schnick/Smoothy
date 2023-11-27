@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1](https://github.com/open-schnick/Smoothy/compare/v0.3.0...v0.3.1) - 2023-11-27
+
+### Other
+- add missing test for to_string
+- move to_string implementation into own string module
+- reduce manual overhead by running release-plz on every main commit
+
 ## [0.3.0](https://github.com/open-schnick/Smoothy/compare/v0.2.0...v0.3.0) - 2023-11-27
 
 ### Added
