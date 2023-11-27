@@ -208,6 +208,7 @@ mod equality;
 mod implementation;
 mod option;
 mod result;
+mod string;
 
 /// Main struct with various assertions on `AssertedType`
 pub struct BasicAsserter<AssertedType> {
