@@ -4,7 +4,11 @@ permissions:
   pull-requests: write
   contents: write
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branch:
+      - main
 
 jobs:
   create-release-pr:
