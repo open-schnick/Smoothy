@@ -3,8 +3,8 @@ use std::fmt::Debug;
 
 impl<OkValue, ErrValue> BasicAsserter<Result<OkValue, ErrValue>>
 where
-    OkValue: Debug + PartialEq,
-    ErrValue: Debug + PartialEq,
+    OkValue: Debug,
+    ErrValue: Debug,
 {
     /// Asserts that the [Result] is an [Ok].
     ///
