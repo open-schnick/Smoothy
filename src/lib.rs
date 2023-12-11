@@ -141,6 +141,24 @@
 //! asserter.equals(1);
 //! ```
 //!
+//! ## Iteratables
+//!
+//! Anything that implements [IntoIterator] can be asserted in content and size.
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! #
+//! let vec: Vec<u8> = vec![];
+//! assert_that(vec).is_empty();
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! #
+//! let vec: Vec<u8> = vec![1, 2, 3];
+//! assert_that(vec).is_not_empty();
+//! ```
+//!
 #![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
 //!
 
@@ -206,6 +224,7 @@ pub use result::*;
 
 mod equality;
 mod implementation;
+mod iter;
 mod option;
 mod result;
 mod string;

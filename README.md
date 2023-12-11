@@ -76,6 +76,19 @@ assert_that(option)
     .equals(1)
 ```
 
+```rust
+use smoothy::assert_that;
+
+let iterable: Vec<String> = vec![];
+assert_that(iterable).is_empty();
+```
+
+```rust
+use smoothy::assert_that;
+
+assert_that(vec![1, 2, 3]).is_not_empty();
+```
+
 ## TODO:
 
 - vec support (length, contains)
