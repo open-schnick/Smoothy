@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/open-schnick/Smoothy/compare/v0.3.1...v0.3.2) - 2023-12-11
+
+### Added
+- add is_empty and is_not_empty for iterables
+
+### Fixed
+- clippy warnings
+
+### Other
+- move is_not_empty into own module
+
 ## [0.3.1](https://github.com/open-schnick/Smoothy/compare/v0.3.0...v0.3.1) - 2023-12-04
 
 ### Fixed
