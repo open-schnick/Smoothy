@@ -21,12 +21,11 @@ fn succeeds_with_number() {
 
 #[test]
 fn succeeds_with_struct() {
-    let asserter: BasicAsserter<String> = assert_that(TestStruct::default()).to_string();
+    let asserter: BasicAsserter<String> = assert_that(TestStruct).to_string();
     asserter.equals("TestStruct");
 }
 
 mod utils {
-    #[derive(Default)]
     pub struct TestStruct;
 
     impl ToString for TestStruct {

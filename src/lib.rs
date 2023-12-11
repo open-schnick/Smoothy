@@ -143,7 +143,7 @@
 //!
 //! ## Iteratables
 //!
-//! Anything that implements [IntoIterator] can be asserted in content and size.
+//! Anything that implements [`IntoIterator`] can be asserted in content and size.
 //!
 //! ```
 //! # use smoothy::assert_that;

@@ -6,7 +6,7 @@ where
     Iterable: IntoIterator<Item = Item>,
     Item: Debug,
 {
-    /// Asserts that the [Iterable] is not empty.
+    /// Asserts that the Iterable is not empty.
     ///
     /// # Examples
     /// ```
@@ -17,7 +17,7 @@ where
     /// ```
     ///
     /// # Panics
-    /// When the [Iterable] is empty.
+    /// When the Iterable is empty.
     pub fn is_not_empty(self) {
         let mut iter = self.value.into_iter();
         let next_element = iter.next();
@@ -25,6 +25,6 @@ where
             next_element.is_some(),
             "Iterator is not empty",
             next_element,
-        )
+        );
     }
 }
