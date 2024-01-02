@@ -52,7 +52,7 @@ mod assert_error {
             .and_error()
             .is_err()
             .and_error()
-            .equals(ConvertableError(String::from("Hello There")))
+            .equals(ConvertableError(String::from("Hello There")));
     }
 
     #[test]

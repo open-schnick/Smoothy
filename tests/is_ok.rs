@@ -56,7 +56,7 @@ mod assert_result_value {
             .and_value()
             .is_ok()
             .and_value()
-            .equals("Hello There")
+            .equals("Hello There");
     }
 
     #[test]
