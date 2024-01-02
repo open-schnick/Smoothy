@@ -216,12 +216,15 @@
     clippy::shadow_reuse,
     clippy::missing_panics_doc,
     clippy::redundant_pub_crate,
-    clippy::needless_pass_by_value
+    clippy::needless_pass_by_value,
+    clippy::module_name_repetitions
 )]
 
-pub use option::*;
-pub use result::*;
+pub use connector::AssertionConnector;
+pub use option::SomeAsserter;
+pub use result::{ErrAsserter, OkAsserter};
 
+mod connector;
 mod equality;
 mod implementation;
 mod iter;
