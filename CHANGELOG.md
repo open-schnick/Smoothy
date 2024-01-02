@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3](https://github.com/open-schnick/Smoothy/compare/v0.3.2...v0.3.3) - 2024-01-02
+
+### Added
+- basic equality assertions now return AssertionConnector to enable multiple assertions on the same type
+- introduce AssertionConnector
+
+### Fixed
+- clippy warnings in tests
+
+### Other
+- add missing ; to README sample code
+- migrate structure diagram to mermaid and update README
+- add must_use with explanation to functions that transform the assertable but do not assert
+
 ## [0.3.2](https://github.com/open-schnick/Smoothy/compare/v0.3.1...v0.3.2) - 2023-12-11
 
 ### Added
