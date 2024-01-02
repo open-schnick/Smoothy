@@ -96,12 +96,13 @@ stateDiagram-v2
     [*] --> BasicAsserter&ltAssertable&gt : assert_that
     BasicAsserter&ltAssertable&gt --> Anything
     state "Assertable is any type" as Anything {
-        [*] --> [*] : is
-        [*] --> [*] : is_not
-        [*] --> [*] : equals
-        [*] --> [*] : not_equals
-        [*] --> [*] : try_into_equals
-        [*] --> [*]  : try_into_not_equqls
+        [*] --> AssertionConnector&ltAssertable&gt : is
+        [*] --> AssertionConnector&ltAssertable&gt : is_not
+        [*] --> AssertionConnector&ltAssertable&gt : equals
+        [*] --> AssertionConnector&ltAssertable&gt : not_equals
+        [*] --> AssertionConnector&ltAssertable&gt : try_into_equals
+        [*] --> AssertionConnector&ltAssertable&gt : try_into_not_equqls
+        AssertionConnector&ltAssertable&gt --> [*] : and
     }
     BasicAsserter&ltAssertable&gt --> Result
     state "Assertable is Result&ltOk, Err&gt" as Result {

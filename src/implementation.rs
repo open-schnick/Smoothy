@@ -1,5 +1,19 @@
 //! Implementation details of the actual assertions and the failure output
 
+pub(crate) fn assert_ref_equals<T>(actual: &T, expected: T)
+where
+    T: PartialEq + std::fmt::Debug,
+{
+    assert_equals(actual, &expected);
+}
+
+pub(crate) fn assert_ref_not_equals<T>(actual: &T, expected: T)
+where
+    T: PartialEq + std::fmt::Debug,
+{
+    assert_not_equals(actual, &expected);
+}
+
 pub(crate) fn assert_equals<T>(actual: T, expected: T)
 where
     T: PartialEq + std::fmt::Debug,
