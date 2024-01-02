@@ -49,6 +49,7 @@ impl<OkValue> OkAsserter<OkValue> {
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
+    #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn and_value(self) -> BasicAsserter<OkValue> {
         BasicAsserter { value: self.value }
     }

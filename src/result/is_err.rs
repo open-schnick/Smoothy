@@ -49,6 +49,7 @@ impl<ErrValue> ErrAsserter<ErrValue> {
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
+    #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn and_error(self) -> BasicAsserter<ErrValue> {
         BasicAsserter { value: self.value }
     }

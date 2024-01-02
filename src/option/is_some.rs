@@ -48,6 +48,7 @@ impl<SomeValue> SomeAsserter<SomeValue> {
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
+    #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn and_value(self) -> BasicAsserter<SomeValue> {
         BasicAsserter { value: self.value }
     }

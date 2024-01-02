@@ -14,6 +14,7 @@ where
     /// // further assertions
     /// asserter.equals("42");
     /// ```
+    #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn to_string(self) -> BasicAsserter<String> {
         BasicAsserter {
             value: self.value.to_string(),

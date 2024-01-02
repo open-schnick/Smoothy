@@ -246,7 +246,7 @@ pub struct BasicAsserter<AssertedType> {
 /// let assertion: BasicAsserter<String> = assert_that(assertable);
 /// // add your assertions here
 /// ```
-#[must_use]
+#[must_use = "Without assertions this function does nothing"]
 pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<AssertedType> {
     BasicAsserter { value }
 }
