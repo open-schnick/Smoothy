@@ -89,7 +89,40 @@ use smoothy::assert_that;
 assert_that(vec![1, 2, 3]).is_not_empty();
 ```
 
-## TODO:
+## Assertion Structure Diagram
 
-- vec support (length, contains)
-- string support (length, contains, starts_with, ends_with)
+```mermaid
+stateDiagram-v2
+    [*] --> BasicAsserter&ltAssertable&gt : assert_that
+    BasicAsserter&ltAssertable&gt --> Anything
+    state "Assertable is any type" as Anything {
+        [*] --> [*] : is
+        [*] --> [*] : is_not
+        [*] --> [*] : equals
+        [*] --> [*] : not_equals
+        [*] --> [*] : try_into_equals
+        [*] --> [*]  : try_into_not_equqls
+    }
+    BasicAsserter&ltAssertable&gt --> Result
+    state "Assertable is Result&ltOk, Err&gt" as Result {
+        [*] --> OkAsserter&ltOk&gt : is_ok
+        OkAsserter&ltOk&gt --> BasicAsserter&ltOk&gt : and_value
+        [*] --> ErrAsserter&ltErr&gt : is_err
+        ErrAsserter&ltErr&gt --> BasicAsserter&ltErr&gt : and_error
+    }
+    BasicAsserter&ltAssertable&gt --> Option
+    state "Assertable is Option&ltSome&gt" as Option {
+        [*] --> [*] : is_none
+        [*] --> SomeAsserter&ltSome&gt : is_some
+        SomeAsserter&ltSome&gt --> BasicAsserter&ltSome&gt : and_value
+    }
+    BasicAsserter&ltAssertable&gt --> ImplString
+    state "Assertable implements ToString" as ImplString {
+        [*] --> BasicAsserter&ltString&gt : to_string
+    }
+    BasicAsserter&ltAssertable&gt --> ImplIntoIter
+    state "Assertable implements IntoIter&ltItem&gt" as ImplIntoIter {
+        [*] --> [*] : is_empty
+        [*] --> [*] : is_not_empty
+    }
+```
