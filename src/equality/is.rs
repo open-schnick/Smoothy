@@ -1,4 +1,4 @@
-use crate::{implementation, BasicAsserter};
+use crate::{implementation, AssertionConnector, BasicAsserter};
 
 impl<AssertedType> BasicAsserter<AssertedType>
 where
@@ -15,7 +15,8 @@ where
     ///
     /// # Panics
     /// When the values are not matching.
-    pub fn is(self, expected: AssertedType) {
-        implementation::assert_equals(self.value, expected);
+    pub fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
+        implementation::assert_ref_equals(&self.value, expected);
+        AssertionConnector { value: self.value }
     }
 }

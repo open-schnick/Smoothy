@@ -1,4 +1,4 @@
-use crate::{implementation, BasicAsserter};
+use crate::{implementation, AssertionConnector, BasicAsserter};
 
 impl<AssertedType> BasicAsserter<AssertedType>
 where
@@ -18,7 +18,7 @@ where
     ///
     /// # Panics
     /// When the transformation fails or the values are not matching according to [`PartialEq`]
-    pub fn try_into_equals<T>(self, expected: T)
+    pub fn try_into_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
@@ -34,6 +34,8 @@ where
         #[allow(clippy::unwrap_used)]
         let expected = conversion_result.unwrap();
 
-        implementation::assert_equals(self.value, expected);
+        implementation::assert_ref_equals(&self.value, expected);
+
+        AssertionConnector { value: self.value }
     }
 }

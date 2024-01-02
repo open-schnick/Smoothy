@@ -1,4 +1,4 @@
-use crate::{implementation, BasicAsserter};
+use crate::{implementation, AssertionConnector, BasicAsserter};
 
 impl<AssertedType> BasicAsserter<AssertedType>
 where
@@ -19,8 +19,9 @@ where
     ///
     /// # Panics
     /// When the values are matching according to [`PartialEq`]
-    pub fn not_equals(self, expected: impl Into<AssertedType>) {
+    pub fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
         let expected: AssertedType = expected.into();
-        implementation::assert_not_equals(self.value, expected);
+        implementation::assert_ref_not_equals(&self.value, expected);
+        AssertionConnector { value: self.value }
     }
 }
