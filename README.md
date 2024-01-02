@@ -73,7 +73,7 @@ let option: Option<u8> = Some(1);
 assert_that(option)
     .is_some()
     .and_value()
-    .equals(1)
+    .equals(1);
 ```
 
 ```rust
