@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/open-schnick/Smoothy/compare/v0.3.3...v0.4.0) - 2024-01-03
+
+### Added
+- introduce iter indices for easy access to the values of an iterable
+
+### Other
+- [**breaking**] remove private feature flag by replacing readme inclusion with doctest attribute
+- add missing indices tests
+
 ## [0.3.3](https://github.com/open-schnick/Smoothy/compare/v0.3.2...v0.3.3) - 2024-01-02
 
 ### Added
