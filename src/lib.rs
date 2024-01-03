@@ -168,7 +168,7 @@
 //! assert_that([1, 2, 3]).nth(0).is(1);
 //! ```
 //!
-#![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
+#![cfg_attr(doctest, doc = include_str!("../README.md"))]
 //!
 
 // enable more lint groups
