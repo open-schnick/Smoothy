@@ -159,6 +159,15 @@
 //! assert_that(vec).is_not_empty();
 //! ```
 //!
+//! ```
+//! # use smoothy::assert_that;
+//! #
+//! assert_that([1, 2, 3]).first().is(1);
+//! assert_that([1, 2, 3]).second().is(2);
+//! assert_that([1, 2, 3]).third().is(3);
+//! assert_that([1, 2, 3]).nth(0).is(1);
+//! ```
+//!
 #![cfg_attr(feature = "__private_readme_test", doc = include_str!("../README.md"))]
 //!
 

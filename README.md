@@ -89,6 +89,18 @@ use smoothy::assert_that;
 assert_that(vec![1, 2, 3]).is_not_empty();
 ```
 
+```rust
+use smoothy::assert_that;
+
+assert_that([1, 2, 3]).first().is(1);
+```
+
+```rust
+use smoothy::assert_that;
+
+assert_that([1, 2, 3]).nth(1).is(2);
+```
+
 ## Assertion Structure Diagram
 
 ```mermaid
@@ -125,5 +137,9 @@ stateDiagram-v2
     state "Assertable implements IntoIter&ltItem&gt" as ImplIntoIter {
         [*] --> [*] : is_empty
         [*] --> [*] : is_not_empty
+        [*] --> BasicAsserter&ltItem&gt: first
+        [*] --> BasicAsserter&ltItem&gt: second
+        [*] --> BasicAsserter&ltItem&gt: third
+        [*] --> BasicAsserter&ltItem&gt: nth
     }
 ```

@@ -532,8 +532,19 @@ mod with_vecs {
     use smoothy::assert_that;
 
     #[test]
-    fn succeeds() {
+    fn succeeds_with_const() {
         assert_that([1, 2, 3]).equals([1, 2, 3]);
+    }
+
+    #[test]
+    fn succeeds_with_slices() {
+        assert_that(&[1, 2, 3]).equals(&[1, 2, 3]);
+    }
+
+    #[test]
+    fn succeeds_with_vecs() {
+        assert_that(vec![1, 2, 3]).equals(vec![1, 2, 3]);
+        assert_that(vec![1, 2, 3]).equals([1, 2, 3]);
     }
 
     #[test]
