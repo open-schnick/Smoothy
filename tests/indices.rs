@@ -75,3 +75,15 @@ mod nth {
             .equals("Hello World!");
     }
 }
+
+mod combined {
+    use super::*;
+
+    #[test]
+    fn succeeds() {
+        let vec = vec!["First", "Second", "Third"];
+        assert_that(vec.clone()).first().equals("First");
+        assert_that(vec.clone()).second().equals("Second");
+        assert_that(vec.clone()).third().equals("Third");
+    }
+}
