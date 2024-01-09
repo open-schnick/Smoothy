@@ -162,6 +162,13 @@
 //! ```
 //! # use smoothy::assert_that;
 //! #
+//! let vec: Vec<u8> = vec![1, 2, 3];
+//! assert_that(vec).size().is(3);
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! #
 //! assert_that([1, 2, 3]).first().is(1);
 //! assert_that([1, 2, 3]).second().is(2);
 //! assert_that([1, 2, 3]).third().is(3);
