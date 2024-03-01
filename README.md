@@ -41,6 +41,12 @@ assert_that(String::from("Hello")).equals("Hello");
 ```rust
 use smoothy::assert_that;
 
+assert_that("Hello World").contains("Hello").and().contains("World");
+```
+
+```rust
+use smoothy::assert_that;
+
 let result: Result<u8, String> = Ok(42);
 assert_that(result)
     .is_ok()
@@ -132,6 +138,11 @@ stateDiagram-v2
     BasicAsserter&ltAssertable&gt --> ImplString
     state "Assertable implements ToString" as ImplString {
         [*] --> BasicAsserter&ltString&gt : to_string
+    }
+    BasicAsserter&ltAssertable&gt --> ImplAsRefStr
+    state "Assertable implements AsRef&ltstr&gt" as ImplAsRefStr {
+        [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : contains
+        AssertionConnector&ltAsRef&ltstr&gt&gt --> [*] : and
     }
     BasicAsserter&ltAssertable&gt --> ImplIntoIter
     state "Assertable implements IntoIter&ltItem&gt" as ImplIntoIter {

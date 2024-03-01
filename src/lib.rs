@@ -51,6 +51,15 @@
 //! assert_that(1).is_not(2);
 //! ```
 //!
+//! ## String-likes
+//!
+//! String-likes can be asserted by calling [`contains`](struct.AssertionBuilder.html#method.contains)
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that("Hello World").contains("Hello").and().contains("World");
+//! ```
+//!
 //! ## Results
 //!
 //! Results can be asserted by calling [`is_err`](struct.AssertionBuilder.html#method.is_err) or [`is_ok`](struct.AssertionBuilder.html#method.is_ok).
