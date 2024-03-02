@@ -20,8 +20,8 @@ where
 
         implementation::assert(
             asserted_value.contains(pattern.as_ref()),
-            "Input contains pattern",
-            self.value.as_ref(),
+            "Value contains pattern",
+            asserted_value,
         );
 
         AssertionConnector { value: self.value }

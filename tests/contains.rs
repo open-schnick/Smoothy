@@ -18,7 +18,7 @@ fn succeeds_with_string() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Input contains pattern)`\n           found:  \"Hello World\""]
+#[should_panic = "assertion failed: `(Value contains pattern)`\n           found:  \"Hello World\""]
 fn fails() {
     assert_that("Hello World").contains("BlaFasel");
 }
