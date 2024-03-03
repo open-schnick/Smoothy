@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3](https://github.com/open-schnick/Smoothy/compare/v0.4.2...v0.4.3) - 2024-03-03
+
+### Added
+- introduce is_matching for string-likes
+
+### Other
+- small improvements to pipeline
+- disable running tests on beta
+- change contains error message
+
 ## [0.4.2](https://github.com/open-schnick/Smoothy/compare/v0.4.1...v0.4.2) - 2024-03-01
 
 ### Added
