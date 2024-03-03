@@ -1,14 +1,13 @@
-name: release
-
 permissions:
   pull-requests: write
   contents: write
-
 on:
-  workflow_dispatch:
   push:
     branches: [main]
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+name: release
 jobs:
   create-release-pr:
     name: Release-plz
