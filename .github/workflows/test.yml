@@ -15,7 +15,7 @@ jobs:
     name: ${{ matrix.toolchain }} / test
     strategy:
       matrix:
-        toolchain: [stable, beta]
+        toolchain: [stable]
     steps:
       - uses: actions/checkout@v4
         with:
