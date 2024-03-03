@@ -142,6 +142,7 @@ stateDiagram-v2
     BasicAsserter&ltAssertable&gt --> ImplAsRefStr
     state "Assertable implements AsRef&ltstr&gt" as ImplAsRefStr {
         [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : contains
+        [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : is_matching
         AssertionConnector&ltAsRef&ltstr&gt&gt --> [*] : and
     }
     BasicAsserter&ltAssertable&gt --> ImplIntoIter

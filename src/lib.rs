@@ -53,11 +53,17 @@
 //!
 //! ## String-likes
 //!
-//! String-likes can be asserted by calling [`contains`](struct.AssertionBuilder.html#method.contains)
+//! String-likes can be asserted by calling [`contains`](struct.AssertionBuilder.html#method.contains) or by calling [`is_matching`](struct.AssertionBuilder.html#method.is_matching).
 //!
 //! ```
 //! # use smoothy::assert_that;
 //! assert_that("Hello World").contains("Hello").and().contains("World");
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! # use regex::Regex;
+//! assert_that("Hello World").is_matching(&Regex::new(r"\bHello\b").unwrap());
 //! ```
 //!
 //! ## Results
