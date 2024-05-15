@@ -26,11 +26,12 @@ fn succeeds_with_struct() {
 }
 
 mod utils {
+    use std::fmt::Display;
     pub struct TestStruct;
 
-    impl ToString for TestStruct {
-        fn to_string(&self) -> String {
-            String::from("TestStruct")
+    impl Display for TestStruct {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "TestStruct")
         }
     }
 }
