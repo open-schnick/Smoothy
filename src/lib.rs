@@ -190,6 +190,18 @@
 //! assert_that([1, 2, 3]).nth(0).is(1);
 //! ```
 //!
+//! ## Accessors
+//!
+//! Sometimes one wants to assert only one specific value of a struct.
+//! To do so one can use the [`map`](struct.BasicAsserter.html#method.map) method.
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! struct Struct(pub String);
+//!   
+//! assert_that(Struct("hello".to_string())).map(|s| s.0).equals("hello");
+//! ```
+//!
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
 //!
 
@@ -255,6 +267,7 @@ pub use connector::AssertionConnector;
 pub use option::SomeAsserter;
 pub use result::{ErrAsserter, OkAsserter};
 
+mod accessors;
 mod connector;
 mod equality;
 mod implementation;
