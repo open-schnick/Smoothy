@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4](https://github.com/open-schnick/Smoothy/compare/v0.4.3...v0.4.4) - 2024-05-15
+
+### Added
+- add BasicAsserter.map as basic accessor
+
+### Other
+- *(tests)* fix clippy warning
+- fix typo in must_use
+
 ## [0.4.3](https://github.com/open-schnick/Smoothy/compare/v0.4.2...v0.4.3) - 2024-03-03
 
 ### Added
