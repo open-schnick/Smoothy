@@ -21,6 +21,7 @@ impl<AssertedType> AssertionConnector<AssertedType> {
     ///
     /// assert_that(1).equals(1).and().is(1);
     /// ```
+    #[track_caller]
     #[must_use = "Connecting an assertion without second assertion does nothing"]
     pub fn and(self) -> BasicAsserter<AssertedType> {
         BasicAsserter { value: self.value }

@@ -15,6 +15,7 @@ where
     ///
     /// # Panics
     /// When the values are not matching.
+    #[track_caller]
     pub fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
         implementation::assert_ref_equals(&self.value, expected);
         AssertionConnector { value: self.value }

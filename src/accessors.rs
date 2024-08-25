@@ -33,6 +33,7 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     ///     .inner_value()
     ///     .equals("hello");
     /// ```
+    #[track_caller]
     #[must_use = "Mapping an assertion without second assertion does nothing"]
     pub fn map<NewAssertedType>(
         self,

@@ -20,6 +20,7 @@ where
     ///
     /// # Panics
     /// When the [Option] is [None]
+    #[track_caller]
     pub fn is_some(self) -> SomeAsserter<SomeValue> {
         implementation::assert(self.value.is_some(), "Option is Some", &self.value);
 
@@ -48,6 +49,7 @@ impl<SomeValue> SomeAsserter<SomeValue> {
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
+    #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn and_value(self) -> BasicAsserter<SomeValue> {
         BasicAsserter { value: self.value }

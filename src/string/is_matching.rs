@@ -18,6 +18,7 @@ where
     ///
     /// # Panics
     /// When the value does not match the regex
+    #[track_caller]
     pub fn is_matching(self, regex: &Regex) -> AssertionConnector<AssertedType> {
         let asserted_value = self.value.as_ref();
 

@@ -18,6 +18,7 @@ where
     ///
     /// # Panics
     /// When the [Option] is [Some]
+    #[track_caller]
     pub fn is_none(self) {
         implementation::assert(self.value.is_none(), "Option is None", &self.value);
     }

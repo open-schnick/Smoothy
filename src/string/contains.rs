@@ -15,6 +15,7 @@ where
     ///
     /// # Panics
     /// When the value does not contain the pattern
+    #[track_caller]
     pub fn contains(self, pattern: impl AsRef<str>) -> AssertionConnector<AssertedType> {
         let asserted_value = self.value.as_ref();
 
