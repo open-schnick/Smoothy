@@ -18,6 +18,7 @@ where
     ///
     /// # Panics
     /// When the Iterable is empty.
+    #[track_caller]
     pub fn is_not_empty(self) {
         let mut iter = self.value.into_iter();
         let next_element = iter.next();

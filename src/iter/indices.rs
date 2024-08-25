@@ -25,6 +25,7 @@ where
     ///
     /// # Panics
     /// When the Iterator does not contain a first element.
+    #[track_caller]
     #[must_use = "Accessing the first element only asserts that size > 0. If you want to assert the size use assert_that(iter).size().equals(1) instead"]
     pub fn first(self) -> BasicAsserter<Item> {
         let mut iter = self.value.into_iter();
@@ -57,6 +58,7 @@ where
     ///
     /// # Panics
     /// When the Iterator does not contain a second element.
+    #[track_caller]
     #[must_use = "Accessing the second element only asserts that size > 1. If you want to assert the size use assert_that(iter).size().equals(2) instead"]
     pub fn second(self) -> BasicAsserter<Item> {
         let mut iter = self.value.into_iter();
@@ -93,6 +95,7 @@ where
     ///
     /// # Panics
     /// When the Iterator does not contain a third element.
+    #[track_caller]
     #[must_use = "Accessing the third element only asserts that size > 2. If you want to assert the size use assert_that(iter).size().equals(3) instead"]
     pub fn third(self) -> BasicAsserter<Item> {
         let mut iter = self.value.into_iter();
@@ -129,6 +132,7 @@ where
     ///
     /// # Panics
     /// When the Iterator does not contain a nth element.
+    #[track_caller]
     #[must_use = "Accessing the nth element only asserts that size is at least nth. If you want to assert the size use assert_that(iter).size().equals(nth) instead"]
     pub fn nth(self, nth: usize) -> BasicAsserter<Item> {
         let mut iter = self.value.into_iter();

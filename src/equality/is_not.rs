@@ -15,6 +15,7 @@ where
     ///
     /// # Panics
     /// When the values are matching.
+    #[track_caller]
     pub fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
         implementation::assert_ref_not_equals(&self.value, expected);
         AssertionConnector { value: self.value }

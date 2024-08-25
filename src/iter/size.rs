@@ -25,6 +25,7 @@ where
     ///
     /// # Panics
     /// When the Iterator does not contain a first element.
+    #[track_caller]
     #[must_use = "Accessing the count of the iterable does not assert anything"]
     pub fn size(self) -> BasicAsserter<usize> {
         let size = self.value.into_iter().count();

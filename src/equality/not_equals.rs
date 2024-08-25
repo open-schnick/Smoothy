@@ -4,7 +4,7 @@ impl<AssertedType> BasicAsserter<AssertedType>
 where
     AssertedType: PartialEq + std::fmt::Debug,
 {
-    // FIXME: the type inference for {integers} is bad as i32 does not implement Into<u16>
+    // NOTE: the type inference for {integers} is bad as i32 does not implement Into<u16>
     /// Asserts that the assertable is *not* equal to the expected value.
     ///
     /// This is done by transforming the expected-value to a instance of `AssertedType` by using the [Into]-trait
@@ -19,6 +19,7 @@ where
     ///
     /// # Panics
     /// When the values are matching according to [`PartialEq`]
+    #[track_caller]
     pub fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
         let expected: AssertedType = expected.into();
         implementation::assert_ref_not_equals(&self.value, expected);

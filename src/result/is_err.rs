@@ -21,6 +21,7 @@ where
     ///
     /// # Panics
     /// When the [Result] is an [Ok]
+    #[track_caller]
     pub fn is_err(self) -> ErrAsserter<ErrValue> {
         implementation::assert(self.value.is_err(), "Result is Err", &self.value);
 
@@ -49,6 +50,7 @@ impl<ErrValue> ErrAsserter<ErrValue> {
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
+    #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
     pub fn and_error(self) -> BasicAsserter<ErrValue> {
         BasicAsserter { value: self.value }
