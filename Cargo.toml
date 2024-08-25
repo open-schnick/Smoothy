@@ -1,6 +1,6 @@
 [package]
 name = "smoothy"
-version = "0.4.4"
+version = "0.4.5"
 description = "Write smooth assertions in a fluent and human readable way"
 authors = ["Open Schnick"]
 documentation = "https://docs.rs/smoothy"

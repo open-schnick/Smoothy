@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.5](https://github.com/open-schnick/Smoothy/compare/v0.4.4...v0.4.5) - 2024-08-25
+
+### Added
+- make all public functions track the caller
+
 ## [0.4.4](https://github.com/open-schnick/Smoothy/compare/v0.4.3...v0.4.4) - 2024-05-15
 
 ### Added
