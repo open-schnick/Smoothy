@@ -1,6 +1,14 @@
 //! Write smooth assertions in a fluent and human readable way.
 //!
-//! # Examples
+//! 1. [Overview](#overview)
+//! 2. [Basic value assertions](#basic-value-assertions)
+//! 3. [String-likes](#string-likes)
+//! 4. [Result](#result)
+//! 5. [Option](#option)
+//! 6. [Iteratables](#iteratables)
+//! 7. [Accessors](#accessors)
+//!
+//! # Overview
 //!
 //! All asserted are stared by calling [`assert_that`] on a value.
 //! After that various assertions based on the type of the asserted value can be made.
@@ -66,7 +74,7 @@
 //! assert_that("Hello World").is_matching(&Regex::new(r"\bHello\b").unwrap());
 //! ```
 //!
-//! ## Results
+//! ## Result
 //!
 //! Results can be asserted by calling [`is_err`](struct.AssertionBuilder.html#method.is_err) or [`is_ok`](struct.AssertionBuilder.html#method.is_ok).
 //! Furthermore their actual content can be asserted as well.
