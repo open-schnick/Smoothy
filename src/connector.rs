@@ -5,7 +5,7 @@ use crate::BasicAsserter;
 /// # Examples
 /// ```
 /// # use smoothy::assert_that;
-///
+/// #
 /// assert_that(1).equals(1).and().is(1);
 /// ```
 pub struct AssertionConnector<AssertedType> {
@@ -18,7 +18,7 @@ impl<AssertedType> AssertionConnector<AssertedType> {
     /// # Examples
     /// ```
     /// # use smoothy::assert_that;
-    ///
+    /// #
     /// assert_that(1).equals(1).and().is(1);
     /// ```
     #[track_caller]
