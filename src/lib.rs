@@ -65,7 +65,10 @@
 //!
 //! ```
 //! # use smoothy::assert_that;
-//! assert_that("Hello World").contains_string("Hello").and().contains_string("World");
+//! assert_that("Hello World")
+//!     .contains_string("Hello")
+//!     .and()
+//!     .contains_string("World");
 //! ```
 //!
 //! ```
@@ -115,7 +118,10 @@
 //! struct CustomError(String);
 //!
 //! let result: Result<(), CustomError> = Err(CustomError(String::from("Oh no!")));
-//! assert_that(result).is_err().and_error().equals(CustomError(String::from("Oh no!")));
+//! assert_that(result)
+//!     .is_err()
+//!     .and_error()
+//!     .equals(CustomError(String::from("Oh no!")));
 //! ```
 //!
 //! Alternatively one can assert the error message (given the error implements [Display](std::fmt::Display)):
@@ -206,10 +212,11 @@
 //! ```
 //! # use smoothy::assert_that;
 //! struct Struct(pub String);
-//!   
-//! assert_that(Struct("hello".to_string())).map(|s| s.0).equals("hello");
-//! ```
 //!
+//! assert_that(Struct("hello".to_string()))
+//!     .map(|s| s.0)
+//!     .equals("hello");
+//! ```
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
 //!
 

@@ -10,7 +10,9 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     /// # use smoothy::assert_that;
     /// struct Struct(pub String);
     ///
-    /// assert_that(Struct("hello".to_string())).map(|s| s.0).equals("hello");
+    /// assert_that(Struct("hello".to_string()))
+    ///     .map(|s| s.0)
+    ///     .equals("hello");
     /// ```
     ///
     /// The mapping could be hidden by a trait

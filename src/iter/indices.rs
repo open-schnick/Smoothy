@@ -82,7 +82,11 @@ where
     /// ```
     /// # use smoothy::assert_that;
     /// #
-    /// let vec: Vec<String> = vec!["First".to_string(), "Second".to_string(), "Third".to_string()];
+    /// let vec: Vec<String> = vec![
+    ///     "First".to_string(),
+    ///     "Second".to_string(),
+    ///     "Third".to_string(),
+    /// ];
     /// assert_that(vec).third().equals("Third");
     /// ```
     ///
@@ -119,7 +123,11 @@ where
     /// ```
     /// # use smoothy::assert_that;
     /// #
-    /// let vec: Vec<String> = vec!["First".to_string(), "Second".to_string(), "Third".to_string()];
+    /// let vec: Vec<String> = vec![
+    ///     "First".to_string(),
+    ///     "Second".to_string(),
+    ///     "Third".to_string(),
+    /// ];
     /// assert_that(vec).nth(2).equals("Third");
     /// ```
     ///

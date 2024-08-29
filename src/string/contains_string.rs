@@ -10,7 +10,10 @@ where
     /// ```
     /// # use smoothy::{assert_that, BasicAsserter};
     /// #
-    /// assert_that("Hello World").contains_string("Hello").and().contains_string("World");
+    /// assert_that("Hello World")
+    ///     .contains_string("Hello")
+    ///     .and()
+    ///     .contains_string("World");
     /// ```
     ///
     /// # Panics
