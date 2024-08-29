@@ -119,7 +119,8 @@ stateDiagram-v2
         [*] --> AssertionConnector&ltAssertable&gt : equals
         [*] --> AssertionConnector&ltAssertable&gt : not_equals
         [*] --> AssertionConnector&ltAssertable&gt : try_into_equals
-        [*] --> AssertionConnector&ltAssertable&gt : try_into_not_equqls
+        [*] --> AssertionConnector&ltAssertable&gt : try_into_not_equals
+        [*] --> AssertionConnector&ltAssertable&gt : map
         AssertionConnector&ltAssertable&gt --> [*] : and
     }
     BasicAsserter&ltAssertable&gt --> Result
