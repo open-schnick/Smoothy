@@ -41,7 +41,7 @@ assert_that(String::from("Hello")).equals("Hello");
 ```rust
 use smoothy::assert_that;
 
-assert_that("Hello World").contains("Hello").and().contains("World");
+assert_that("Hello World").contains_string("Hello").and().contains_string("World");
 ```
 
 ```rust

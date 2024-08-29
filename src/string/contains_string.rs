@@ -10,18 +10,18 @@ where
     /// ```
     /// # use smoothy::{assert_that, BasicAsserter};
     /// #
-    /// assert_that("Hello World").contains("Hello").and().contains("World");
+    /// assert_that("Hello World").contains_string("Hello").and().contains_string("World");
     /// ```
     ///
     /// # Panics
     /// When the value does not contain the pattern
     #[track_caller]
-    pub fn contains(self, pattern: impl AsRef<str>) -> AssertionConnector<AssertedType> {
+    pub fn contains_string(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(
-            asserted_value.contains(pattern.as_ref()),
-            "Value contains pattern",
+            asserted_value.contains(string.as_ref()),
+            "Value contains string",
             asserted_value,
         );
 
