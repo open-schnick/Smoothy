@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/open-schnick/Smoothy/compare/v0.4.5...v0.5.0) - 2024-08-29
+
+### Other
+- move lint definition out of lib.rs and into Cargo.toml
+- check for nightly formatting and switch clippy action
+- switch to nightly formatting
+- remove redundant lockfile generation for tests
+- fix whitespace in code comments of BasicConnector
+- [**breaking**] rename contains on string-likes to contains_string
+- add 'map' to structural overview and fix typo
+- add toc
+
 ## [0.4.5](https://github.com/open-schnick/Smoothy/compare/v0.4.4...v0.4.5) - 2024-08-25
 
 ### Added
