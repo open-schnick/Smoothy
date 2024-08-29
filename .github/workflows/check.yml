@@ -11,17 +11,21 @@ name: check
 jobs:
   fmt:
     runs-on: ubuntu-latest
-    name: stable / fmt
+    strategy:
+      matrix:
+        toolchain: [nightly]
+    name: ${{ matrix.toolchain }} / fmt
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - name: Install stable
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install ${{ matrix.toolchain }}
+        uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: ${{ matrix.toolchain }}
           components: rustfmt
-      - name: cargo fmt --check
-        run: cargo fmt --check
+      - name: cargo +${{ matrix.toolchain }} fmt --check
+        run: cargo +${{ matrix.toolchain }} fmt --check
   clippy:
     runs-on: ubuntu-latest
     name: ${{ matrix.toolchain }} / clippy
@@ -42,9 +46,10 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
           components: clippy
       - name: cargo clippy
-        uses: actions-rs/clippy-check@v1
+        uses: giraffate/clippy-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: "github-pr-check"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   docs:
     runs-on: ubuntu-latest
     name: stable / doc
