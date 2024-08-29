@@ -21,8 +21,8 @@ where
     /// When the values are matching according to [`PartialEq`]
     #[track_caller]
     pub fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
-        let expected: AssertedType = expected.into();
-        implementation::assert_ref_not_equals(&self.value, expected);
+        let transformed_expected: AssertedType = expected.into();
+        implementation::assert_ref_not_equals(&self.value, transformed_expected);
         AssertionConnector { value: self.value }
     }
 }

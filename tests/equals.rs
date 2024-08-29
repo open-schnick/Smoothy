@@ -73,7 +73,7 @@ mod with_numbers {
 
         #[test]
         fn max() {
-            assert_that(u32::MAX).equals(4294967295u32);
+            assert_that(u32::MAX).equals(4_294_967_295_u32);
         }
 
         #[test]
@@ -112,7 +112,7 @@ mod with_numbers {
 
         #[test]
         fn max() {
-            assert_that(u64::MAX).equals(18446744073709551615u64);
+            assert_that(u64::MAX).equals(18_446_744_073_709_551_615_u64);
         }
 
         #[test]
@@ -157,7 +157,7 @@ mod with_numbers {
 
         #[test]
         fn max() {
-            assert_that(u128::MAX).equals(340282366920938463463374607431768211455u128);
+            assert_that(u128::MAX).equals(340_282_366_920_938_463_463_374_607_431_768_211_455_u128);
         }
 
         #[test]
@@ -263,12 +263,12 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(i32::MIN).equals(-2147483648i32);
+            assert_that(i32::MIN).equals(-2_147_483_648_i32);
         }
 
         #[test]
         fn max() {
-            assert_that(i32::MAX).equals(2147483647i32);
+            assert_that(i32::MAX).equals(2_147_483_647_i32);
         }
 
         #[test]
@@ -302,12 +302,12 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(i64::MIN).equals(-9223372036854775808i64);
+            assert_that(i64::MIN).equals(-9_223_372_036_854_775_808_i64);
         }
 
         #[test]
         fn max() {
-            assert_that(i64::MAX).equals(9223372036854775807i64);
+            assert_that(i64::MAX).equals(9_223_372_036_854_775_807_i64);
         }
 
         #[test]
@@ -347,12 +347,13 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(i128::MIN).equals(-170141183460469231731687303715884105728i128);
+            assert_that(i128::MIN)
+                .equals(-170_141_183_460_469_231_731_687_303_715_884_105_728_i128);
         }
 
         #[test]
         fn max() {
-            assert_that(i128::MAX).equals(170141183460469231731687303715884105727i128);
+            assert_that(i128::MAX).equals(170_141_183_460_469_231_731_687_303_715_884_105_727_i128);
         }
 
         #[test]
@@ -398,12 +399,12 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(f32::MIN).equals(-3.4028235e38);
+            assert_that(f32::MIN).equals(-3.402_823_5e38);
         }
 
         #[test]
         fn max() {
-            assert_that(f32::MAX).equals(3.4028235e38);
+            assert_that(f32::MAX).equals(3.402_823_5e38);
         }
 
         #[test]
@@ -425,12 +426,12 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(f64::MIN).equals(-1.7976931348623157e308);
+            assert_that(f64::MIN).equals(-1.797_693_134_862_315_7e308);
         }
 
         #[test]
         fn max() {
-            assert_that(f64::MAX).equals(1.7976931348623157e308);
+            assert_that(f64::MAX).equals(1.797_693_134_862_315_7e308);
         }
 
         #[test]
@@ -491,7 +492,7 @@ mod with_bools {
 
     #[test]
     fn succeeds_with_expression() {
-        fn true_func() -> bool {
+        const fn true_func() -> bool {
             true
         }
         assert_that(true_func()).equals(true);

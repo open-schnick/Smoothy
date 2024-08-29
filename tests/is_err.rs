@@ -121,7 +121,7 @@ mod setup {
         }
     }
 
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Eq)]
     pub struct ComparableError(pub String);
 
     impl Display for ComparableError {
@@ -134,7 +134,7 @@ mod setup {
 
     impl From<ConvertableError> for ComparableError {
         fn from(error: ConvertableError) -> Self {
-            ComparableError(error.0)
+            Self(error.0)
         }
     }
 }

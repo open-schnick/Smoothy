@@ -1,4 +1,5 @@
 //! Implementation details of the actual assertions and the failure output
+#![allow(clippy::redundant_pub_crate, clippy::needless_pass_by_value)]
 
 #[track_caller]
 pub(crate) fn assert_ref_equals<T>(actual: &T, expected: T)
