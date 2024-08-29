@@ -23,8 +23,5 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.toolchain }}
-      - name: cargo generate-lockfile
-        if: hashFiles('Cargo.lock') == ''
-        run: cargo generate-lockfile
-      - name: cargo test --locked
-        run: cargo test --locked --all-features
+      - name: cargo test
+        run: cargo test --all --all-features
