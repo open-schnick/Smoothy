@@ -59,6 +59,27 @@
 //! assert_that(1).is_not(2);
 //! ```
 //!
+//! ### Booleans
+//!
+//! There are convenience methods for asserting booleans:
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that(true).is_true();
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that(false).is_false();
+//! ```
+//!
+//! Or one can assert with equality:
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that(true).is(true);
+//! ```
+//!
 //! ## String-likes
 //!
 //! String-likes can be asserted by calling [`contains_string`](struct.AssertionBuilder.html#method.contains_string) or by calling [`is_matching`](struct.AssertionBuilder.html#method.is_matching).
@@ -225,6 +246,7 @@ pub use option::SomeAsserter;
 pub use result::{ErrAsserter, OkAsserter};
 
 mod accessors;
+mod boolean;
 mod connector;
 mod equality;
 mod implementation;

@@ -35,6 +35,12 @@ assert_that(1u8).try_into_equals(1i8);
 ```rust
 use smoothy::assert_that;
 
+assert_that(true).is_true();
+```
+
+```rust
+use smoothy::assert_that;
+
 assert_that(String::from("Hello")).equals("Hello");
 ```
 
@@ -139,6 +145,11 @@ stateDiagram-v2
     BasicAsserter&ltAssertable&gt --> ImplString
     state "Assertable implements ToString" as ImplString {
         [*] --> BasicAsserter&ltString&gt : to_string
+    }
+    BasicAsserter&ltAssertable&gt --> ImplToBool
+    state "Assertable implements Into<bool>" as ImplToBool {
+        [*] --> BasicAsserter&ltbool&gt : is_true
+        [*] --> BasicAsserter&ltbool&gt : is_false
     }
     BasicAsserter&ltAssertable&gt --> ImplAsRefStr
     state "Assertable implements AsRef&ltstr&gt" as ImplAsRefStr {
