@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/open-schnick/Smoothy/compare/v0.5.0...v0.5.1) - 2024-08-31
+
+### Added
+- add is_true and is_false convenience functions for booleans
+
 ## [0.5.0](https://github.com/open-schnick/Smoothy/compare/v0.4.5...v0.5.0) - 2024-08-29
 
 ### Other
