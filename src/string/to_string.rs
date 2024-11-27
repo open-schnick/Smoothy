@@ -4,7 +4,7 @@ impl<AssertedType> BasicAsserter<AssertedType>
 where
     AssertedType: ToString,
 {
-    /// Converts the assertable to a string for futher assertions
+    /// Converts the assertable to a string for further assertions
     ///
     /// # Examples
     /// ```

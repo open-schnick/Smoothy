@@ -43,7 +43,7 @@ mod assert_error {
     }
 
     #[test]
-    fn succeeds_recursivly() {
+    fn succeeds_recursively() {
         let result: Result<(), Result<(), ComparableError>> =
             Err(Err(ComparableError(String::from("Hello There"))));
 

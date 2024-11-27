@@ -6,7 +6,7 @@ where
     Iterable: IntoIterator<Item = Item>,
     Item: Debug,
 {
-    /// Convinience function for getting the size of the Iterator.
+    /// Convenience function for getting the size of the Iterator.
     ///
     /// # Examples
     /// ```

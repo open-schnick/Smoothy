@@ -6,7 +6,7 @@ where
     Iterable: IntoIterator<Item = Item>,
     Item: Debug,
 {
-    /// Convinience function for accessing the first (0th) element of the Iterable.
+    /// Convenience function for accessing the first (0th) element of the Iterable.
     ///
     /// # Examples
     /// ```
@@ -39,7 +39,7 @@ where
         BasicAsserter { value: item }
     }
 
-    /// Convinience function for accessing the second (1th) element of the Iterable.
+    /// Convenience function for accessing the second (1st) element of the Iterable.
     ///
     /// # Examples
     /// ```
@@ -76,7 +76,7 @@ where
         BasicAsserter { value: item }
     }
 
-    /// Convinience function for accessing the third (2th) element of the Iterable.
+    /// Convenience function for accessing the third (2nd) element of the Iterable.
     ///
     /// # Examples
     /// ```
@@ -117,7 +117,7 @@ where
         BasicAsserter { value: item }
     }
 
-    /// Convinience function for accessing the nth element of the Iterable.
+    /// Convenience function for accessing the nth element of the Iterable.
     ///
     /// # Examples
     /// ```

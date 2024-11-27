@@ -1,7 +1,7 @@
 use crate::{assert_that, BasicAsserter};
 
 impl<AssertedType> BasicAsserter<AssertedType> {
-    /// Maps the inner value to a assertion of a different type
+    /// Maps the inner value to an assertion of a different type
     ///
     /// This allows for a property access of inner values or functions
     ///

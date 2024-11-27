@@ -1,11 +1,11 @@
-//! Write smooth assertions in a fluent and human readable way.
+//! Write smooth assertions in a fluent and human-readable way.
 //!
 //! 1. [Overview](#overview)
 //! 2. [Basic value assertions](#basic-value-assertions)
 //! 3. [String-likes](#string-likes)
 //! 4. [Result](#result)
 //! 5. [Option](#option)
-//! 6. [Iteratables](#iteratables)
+//! 6. [Iterables](#iterables)
 //! 7. [Accessors](#accessors)
 //!
 //! # Overview
@@ -20,8 +20,8 @@
 //! ### Equality
 //!
 //! There are two ways to assert equality:
-//! - [`is`](struct.AssertionBuilder.html#method.is) compares the value with something of the same type.
-//! - [`equals`](struct.AssertionBuilder.html#method.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
+//! - [`is`](struct.BasicAsserter.html#method.is) compares the value with something of the same type.
+//! - [`equals`](struct.BasicAsserter.html#method.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -35,7 +35,7 @@
 //! assert_that(String::from("Hello")).not_equals("Hello There");
 //! ```
 //!
-//! Same for [`try_into_equals`](struct.AssertionBuilder.html#method.try_into_equals) and [`try_into_not_equals`](struct.AssertionBuilder.html#method.try_into_not_equals) but here the trait [`TryInto`] is used.
+//! Same for [`try_into_equals`](struct.BasicAsserter.html#method.try_into_equals) and [`try_into_not_equals`](struct.BasicAsserter.html#method.try_into_not_equals) but here the trait [`TryInto`] is used.
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -47,7 +47,7 @@
 //! assert_that(1u8).try_into_not_equals(2i8);
 //! ```
 //!
-//! When one wants to asserts a value while assuring the same type without any conversions is used [`is`](struct.AssertionBuilder.html#method.is)] can be used.
+//! When one wants to assert a value while assuring the same type without any conversions is used [`is`](struct.BasicAsserter.html#method.is) can be used.
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -82,7 +82,7 @@
 //!
 //! ## String-likes
 //!
-//! String-likes can be asserted by calling [`contains_string`](struct.AssertionBuilder.html#method.contains_string) or by calling [`is_matching`](struct.AssertionBuilder.html#method.is_matching).
+//! String-likes can be asserted by calling [`contains_string`](struct.BasicAsserter.html#method.contains_string) or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -100,8 +100,8 @@
 //!
 //! ## Result
 //!
-//! Results can be asserted by calling [`is_err`](struct.AssertionBuilder.html#method.is_err) or [`is_ok`](struct.AssertionBuilder.html#method.is_ok).
-//! Furthermore their actual content can be asserted as well.
+//! Results can be asserted by calling [`is_err`](struct.BasicAsserter.html#method.is_err) or [`is_ok`](struct.BasicAsserter.html#method.is_ok).
+//! Furthermore, their actual content can be asserted as well.
 //!
 //! ### Ok
 //!
@@ -131,7 +131,7 @@
 //! assert_that(result).is_err();
 //! ```
 //!
-//! When the [`Err`]-value implements [`PartialEq`] one can use [`and_error_equals`](struct.ErrAsserter.html#method.and_error_equals)
+//! Asserting the [Err]-value:
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -169,7 +169,7 @@
 //!
 //! ## Option
 //!
-//! Options can be asserted by calling [`is_none`](struct.AssertionBuilder.html#method.is_none) or [`is_some`](struct.AssertionBuilder.html#method.is_some).
+//! Options can be asserted by calling [`is_none`](struct.BasicAsserter.html#method.is_none) or [`is_some`](struct.BasicAsserter.html#method.is_some).
 //! Instances of [`Some`] can be further asserted with [`and_value`](struct.SomeAsserter.html#method.and_value).
 //!
 //! ### None
@@ -191,7 +191,7 @@
 //! asserter.equals(1);
 //! ```
 //!
-//! ## Iteratables
+//! ## Iterables
 //!
 //! Anything that implements [`IntoIterator`] can be asserted in content and size.
 //!

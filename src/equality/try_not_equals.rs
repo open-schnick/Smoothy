@@ -6,7 +6,7 @@ where
 {
     /// Asserts that the assertable is *not* equal to the expected value.
     ///
-    /// This is done by transforming the expected-value to a instance of `AssertedType` by using the [`TryInto`]-trait
+    /// This is done by transforming the expected-value to an instance of `AssertedType` by using the [`TryInto`]-trait
     /// and then comparing both values with [`PartialEq`]
     ///
     /// # Examples

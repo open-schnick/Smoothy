@@ -48,7 +48,7 @@ mod assert_result_value {
     }
 
     #[test]
-    fn succeeds_recursivly() {
+    fn succeeds_recursively() {
         let result: Result<Result<String, ()>, ()> = Ok(Ok(String::from("Hello There")));
 
         assert_that(result)
