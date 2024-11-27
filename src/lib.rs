@@ -82,7 +82,8 @@
 //!
 //! ## String-likes
 //!
-//! String-likes can be asserted by calling [`contains_string`](struct.BasicAsserter.html#method.contains_string) or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
+//! String-likes can be asserted by calling [`contains_string`](struct.BasicAsserter.html#method.contains_string), [`starts_with_string`](struct.BasicAsserter.html#method.contains_string)
+//! or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
 //!
 //! ```
 //! # use smoothy::assert_that;
@@ -90,6 +91,11 @@
 //!     .contains_string("Hello")
 //!     .and()
 //!     .contains_string("World");
+//! ```
+//!
+//! ```
+//! # use smoothy::assert_that;
+//! assert_that("Hello World").starts_with_string("Hello");
 //! ```
 //!
 //! ```
