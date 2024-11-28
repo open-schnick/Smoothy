@@ -1,3 +1,5 @@
+// cant be in Cargo.toml as the tests don't need docs 
+#![deny(missing_docs)] 
 //! Write smooth assertions in a fluent and human-readable way.
 //!
 //! 1. [Overview](#overview)
@@ -241,7 +243,7 @@
 //! struct Struct(pub String);
 //!
 //! assert_that(Struct("hello".to_string()))
-//!     .map(|s| s.0)
+//!     .map(|s| s.0.clone())
 //!     .equals("hello");
 //! ```
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
