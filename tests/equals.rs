@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, EqualityAssertion};
 
 mod with_numbers {
     use super::*;
@@ -457,7 +457,7 @@ mod with_numbers {
 }
 
 mod with_chars {
-    use smoothy::assert_that;
+    use super::*;
 
     #[test]
     fn succeeds() {
@@ -478,7 +478,7 @@ mod with_chars {
 }
 
 mod with_bools {
-    use smoothy::assert_that;
+    use super::*;
 
     #[test]
     fn succeeds_with_true() {
@@ -506,7 +506,7 @@ mod with_bools {
 }
 
 mod with_unit_type {
-    use smoothy::assert_that;
+    use super::*;
 
     #[test]
     fn succeeds() {
@@ -515,7 +515,7 @@ mod with_unit_type {
 }
 
 mod with_tuples {
-    use smoothy::assert_that;
+    use super::*;
 
     #[test]
     fn succeeds() {
@@ -530,7 +530,7 @@ mod with_tuples {
 }
 
 mod with_vecs {
-    use smoothy::assert_that;
+    use super::*;
 
     #[test]
     fn succeeds_with_const() {
@@ -564,7 +564,7 @@ mod with_vecs {
 }
 
 mod with_structs {
-    use smoothy::assert_that;
+    use super::*;
 
     #[derive(Debug, PartialEq, Eq)]
     struct Test {
