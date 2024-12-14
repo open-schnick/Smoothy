@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, IteratorAssertion};
 
 #[test]
 fn succeeds() {

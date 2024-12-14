@@ -1,4 +1,4 @@
-use smoothy::{assert_that, EqualityAssertion};
+use smoothy::{assert_that, EqualityAssertion, IteratorAssertion};
 
 mod first {
     use super::*;
@@ -49,7 +49,7 @@ mod third {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Iterator has second item)`\n           found:  None"]
+    #[should_panic = "assertion failed: `(Iterator has third item)`\n           found:  None"]
     fn fails_with_empty_vec() {
         assert_that::<Vec<&str>>(vec![])
             .third()
