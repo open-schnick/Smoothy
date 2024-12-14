@@ -1,4 +1,4 @@
-use smoothy::{assert_that, BasicAsserter, EqualityAssertion};
+use smoothy::{assert_that, BasicAsserter, EqualityAssertion, OptionAssertion};
 
 mod assert_option {
     use super::*;
