@@ -10,15 +10,15 @@ pub trait StringAssertion<AssertedType> {
     /// # use smoothy::prelude::*;
     /// #
     /// assert_that("Hello World")
-    ///     .contains_string("Hello")
+    ///     .contains("Hello")
     ///     .and()
-    ///     .contains_string("World");
+    ///     .contains("World");
     /// ```
     ///
     /// # Panics
     /// When the value does not contain the pattern
     #[track_caller]
-    fn contains_string(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType>;
+    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType>;
 
     /// Asserts that the value is matching the regex
     ///
@@ -56,7 +56,7 @@ impl<AssertedType> StringAssertion<AssertedType> for BasicAsserter<AssertedType>
 where
     AssertedType: AsRef<str>,
 {
-    fn contains_string(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType> {
+    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(

@@ -94,9 +94,9 @@
 //! ```
 //! # use smoothy::prelude::*;
 //! assert_that("Hello World")
-//!     .contains_string("Hello")
+//!     .contains("Hello")
 //!     .and()
-//!     .contains_string("World");
+//!     .contains("World");
 //! ```
 //!
 //! ```
