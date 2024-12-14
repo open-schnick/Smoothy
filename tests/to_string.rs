@@ -1,4 +1,4 @@
-use smoothy::*;
+use smoothy::{assert_that, BasicAsserter, EqualityAssertion};
 use utils::TestStruct;
 
 #[test]
