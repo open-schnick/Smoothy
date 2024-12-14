@@ -1,4 +1,5 @@
-use smoothy::{assert_that, EqualityAssertion};
+use crate::setup::{ComparableError, ConvertableError};
+use smoothy::{assert_that, EqualityAssertion, ResultAssertion};
 use std::fmt::Display;
 
 mod assert_result {
@@ -20,7 +21,6 @@ mod assert_result {
 
 mod assert_error {
     use super::*;
-    use crate::setup::{ComparableError, ConvertableError};
 
     #[test]
     fn succeeds() {

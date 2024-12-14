@@ -22,8 +22,10 @@
 //! ### Equality
 //!
 //! There are two ways to assert equality:
-//! - [`is`](struct.BasicAsserter.html#method.is) compares the value with something of the same type.
-//! - [`equals`](struct.BasicAsserter.html#method.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
+//! - [`is`](trait.EqualityAssertion.html#tymethod.is) compares the value with something of the same type.
+//! - [`equals`](trait.EqualityAssertion.html#tymethod.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
+//!
+//! [All equality assertions](trait.EqualityAssertion.html)
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -37,7 +39,7 @@
 //! assert_that(String::from("Hello")).not_equals("Hello There");
 //! ```
 //!
-//! Same for [`try_into_equals`](struct.BasicAsserter.html#method.try_into_equals) and [`try_into_not_equals`](struct.BasicAsserter.html#method.try_into_not_equals) but here the trait [`TryInto`] is used.
+//! Same for [`try_into_equals`](trait.EqualityAssertion.html#tymethod.try_into_equals) and [`try_into_not_equals`](trait.EqualityAssertion.html#tymethod.try_into_not_equals) but here the trait [`TryInto`] is used.
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -49,7 +51,7 @@
 //! assert_that(1u8).try_into_not_equals(2i8);
 //! ```
 //!
-//! When one wants to assert a value while assuring the same type without any conversions is used [`is`](struct.BasicAsserter.html#method.is) can be used.
+//! When one wants to assert a value while assuring the same type without any conversions is used [`is`](trait.EqualityAssertion.html#tymethod.is) can be used.
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -87,6 +89,8 @@
 //! String-likes can be asserted by calling [`contains_string`](struct.BasicAsserter.html#method.contains_string), [`starts_with_string`](struct.BasicAsserter.html#method.contains_string)
 //! or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
 //!
+//! [All string assertions](trait.StringAssertion.html)
+//!
 //! ```
 //! # use smoothy::prelude::*;
 //! assert_that("Hello World")
@@ -108,8 +112,10 @@
 //!
 //! ## Result
 //!
-//! Results can be asserted by calling [`is_err`](struct.BasicAsserter.html#method.is_err) or [`is_ok`](struct.BasicAsserter.html#method.is_ok).
+//! Results can be asserted by calling [`is_err`](trait.ResultAssertion.html#tymethod.is_err) or [`is_ok`](trait.ResultAssertion.html#tymethod.is_ok).
 //! Furthermore, their actual content can be asserted as well.
+//!
+//! [All result assertions](trait.ResultAssertion.html)
 //!
 //! ### Ok
 //!
@@ -177,8 +183,10 @@
 //!
 //! ## Option
 //!
-//! Options can be asserted by calling [`is_none`](struct.BasicAsserter.html#method.is_none) or [`is_some`](struct.BasicAsserter.html#method.is_some).
+//! Options can be asserted by calling [`is_none`](trait.OptionAssertion.html#tymethod.is_none) or [`is_some`](trait.OptionAssertion.html#tymethod.is_some).
 //! Instances of [`Some`] can be further asserted with [`and_value`](struct.SomeAsserter.html#method.and_value).
+//!
+//! [All option assertions](trait.OptionAssertion.html)
 //!
 //! ### None
 //!
@@ -202,6 +210,8 @@
 //! ## Iterables
 //!
 //! Anything that implements [`IntoIterator`] can be asserted in content and size.
+//!
+//! [All iterable assertions](trait.IteratorAssertion.html)
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -257,13 +267,14 @@ mod string;
 pub use connector::AssertionConnector;
 pub use equality::EqualityAssertion;
 pub use option::{OptionAssertion, SomeAsserter};
-pub use result::{ErrAsserter, OkAsserter};
+pub use result::{ErrAsserter, OkAsserter, ResultAssertion};
 pub use string::StringAssertion;
 
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
-        assert_that, BasicAsserter, EqualityAssertion, OptionAssertion, StringAssertion,
+        assert_that, BasicAsserter, EqualityAssertion, OptionAssertion, ResultAssertion,
+        StringAssertion,
     };
 }
 
