@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, OptionAssertion};
 
 #[test]
 fn succeeds() {
