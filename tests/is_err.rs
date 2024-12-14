@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, EqualityAssertion};
 use std::fmt::Display;
 
 mod assert_result {
