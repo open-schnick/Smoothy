@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, StringAssertion};
 
 #[allow(clippy::unnecessary_to_owned)]
 #[test]
