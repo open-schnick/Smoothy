@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/open-schnick/Smoothy/compare/v0.5.2...v0.6.0) - 2024-12-14
+
+### Added
+
+- introduce prelude to ease future complexity of imports
+
+### Other
+
+- [**breaking**] rename contains_string to contains in StringAssertion
+- [**breaking**] use a trait-based approach for defining iterator assertions
+- [**breaking**] use a trait-based approach for defining result assertions
+- [**breaking**] use a trait-based approach for defining string assertions
+- [**breaking**] use a trait-based approach for defining option assertions
+- [**breaking**] use a trait-based approach for defining equality assertions
+- move to_string into accessors
+- remove redundant examples from README.md
+- move lint into lib.rs
+
 ## [0.5.2](https://github.com/open-schnick/Smoothy/compare/v0.5.1...v0.5.2) - 2024-11-27
 
 ### Added
