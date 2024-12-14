@@ -257,13 +257,14 @@ mod string;
 pub use connector::AssertionConnector;
 pub use equality::EqualityAssertion;
 pub use option::{OptionAssertion, SomeAsserter};
-pub use result::{ErrAsserter, OkAsserter};
+pub use result::{ErrAsserter, OkAsserter, ResultAsserter};
 pub use string::StringAssertion;
 
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
-        assert_that, BasicAsserter, EqualityAssertion, OptionAssertion, StringAssertion,
+        assert_that, BasicAsserter, EqualityAssertion, OptionAssertion, ResultAsserter,
+        StringAssertion,
     };
 }
 

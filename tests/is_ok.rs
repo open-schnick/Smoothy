@@ -1,4 +1,4 @@
-use smoothy::{assert_that, EqualityAssertion};
+use smoothy::{assert_that, EqualityAssertion, ResultAsserter};
 
 mod assert_result {
     use super::*;
