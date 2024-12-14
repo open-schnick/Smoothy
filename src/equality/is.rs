@@ -8,7 +8,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that("Hello World!").is("Hello World!");
     /// ```

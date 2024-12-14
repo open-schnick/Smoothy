@@ -8,13 +8,13 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(true).is_true();
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(false).is_true();
     /// ```
@@ -35,13 +35,13 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(false).is_false();
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(true).is_false();
     /// ```

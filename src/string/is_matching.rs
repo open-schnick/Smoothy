@@ -9,7 +9,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// # use regex::Regex;
     /// #
     /// assert_that("I categorically deny having triskaidekaphobia.")
@@ -19,6 +19,7 @@ where
     /// # Panics
     /// When the value does not match the regex
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_matching(self, regex: &Regex) -> AssertionConnector<AssertedType> {
         let asserted_value = self.value.as_ref();
 

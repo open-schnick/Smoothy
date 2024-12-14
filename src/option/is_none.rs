@@ -9,7 +9,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let option: Option<String> = None;
     ///
@@ -19,6 +19,7 @@ where
     /// # Panics
     /// When the [Option] is [Some]
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_none(self) {
         implementation::assert(self.value.is_none(), "Option is None", &self.value);
     }

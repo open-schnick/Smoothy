@@ -12,7 +12,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<(), String> = Err(String::new());
     ///
@@ -22,6 +22,7 @@ where
     /// # Panics
     /// When the [Result] is an [Ok]
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_err(self) -> ErrAsserter<ErrValue> {
         implementation::assert(self.value.is_err(), "Result is Err", &self.value);
 
@@ -42,7 +43,7 @@ impl<ErrValue> ErrAsserter<ErrValue> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<(), String> = Err(String::from("Hello World!"));
     ///

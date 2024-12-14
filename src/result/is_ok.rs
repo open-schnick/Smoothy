@@ -12,7 +12,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<String, ()> = Ok(String::new());
     ///
@@ -22,6 +22,7 @@ where
     /// # Panics
     /// When the [Result] is an [Err]
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_ok(self) -> OkAsserter<OkValue> {
         implementation::assert(self.value.is_ok(), "Result is Ok", &self.value);
 
@@ -42,7 +43,7 @@ impl<OkValue> OkAsserter<OkValue> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<String, ()> = Ok(String::from("Hello World!"));
     ///

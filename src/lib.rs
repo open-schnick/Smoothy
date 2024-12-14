@@ -1,5 +1,5 @@
-// cant be in Cargo.toml as the tests don't need docs 
-#![deny(missing_docs)] 
+// cant be in Cargo.toml as the tests don't need docs
+#![deny(missing_docs)]
 //! Write smooth assertions in a fluent and human-readable way.
 //!
 //! 1. [Overview](#overview)
@@ -26,13 +26,13 @@
 //! - [`equals`](struct.BasicAsserter.html#method.equals) compares the value with something that can be converted into the same type. This is done by using the [Into] trait.
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1).equals(1);
 //! assert_that(String::from("Hello")).equals("Hello");
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1).not_equals(2);
 //! assert_that(String::from("Hello")).not_equals("Hello There");
 //! ```
@@ -40,24 +40,24 @@
 //! Same for [`try_into_equals`](struct.BasicAsserter.html#method.try_into_equals) and [`try_into_not_equals`](struct.BasicAsserter.html#method.try_into_not_equals) but here the trait [`TryInto`] is used.
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1u8).try_into_equals(1i8);
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1u8).try_into_not_equals(2i8);
 //! ```
 //!
 //! When one wants to assert a value while assuring the same type without any conversions is used [`is`](struct.BasicAsserter.html#method.is) can be used.
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1).is(1);
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(1).is_not(2);
 //! ```
 //!
@@ -66,19 +66,19 @@
 //! There are convenience methods for asserting booleans:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(true).is_true();
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(false).is_false();
 //! ```
 //!
 //! Or one can assert with equality:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that(true).is(true);
 //! ```
 //!
@@ -88,7 +88,7 @@
 //! or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that("Hello World")
 //!     .contains_string("Hello")
 //!     .and()
@@ -96,12 +96,12 @@
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! assert_that("Hello World").starts_with_string("Hello");
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! # use regex::Regex;
 //! assert_that("Hello World").is_matching(&Regex::new(r"\bHello\b").unwrap());
 //! ```
@@ -116,7 +116,7 @@
 //! Basic assertion that the result is [Ok]:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! let result: Result<u8, ()> = Ok(1);
 //! assert_that(result).is_ok();
 //! ```
@@ -124,7 +124,7 @@
 //! Asserting the [Ok]-value:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! let result: Result<u8, ()> = Ok(1);
 //! assert_that(result).is_ok().and_value().equals(1);
 //! ```
@@ -134,7 +134,7 @@
 //! Basic assertion that the result is [Err]:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! let result: Result<(), String> = Err(String::from("Oh no!"));
 //! assert_that(result).is_err();
 //! ```
@@ -142,7 +142,7 @@
 //! Asserting the [Err]-value:
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! #[derive(Debug, PartialEq)]
 //! struct CustomError(String);
 //!
@@ -156,7 +156,7 @@
 //! Alternatively one can assert the error message (given the error implements [Display](std::fmt::Display)):
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! # use std::fmt::{Display, Formatter};
 //! #[derive(Debug)]
 //! struct CustomError(String);
@@ -183,7 +183,7 @@
 //! ### None
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! let option: Option<()> = None;
 //!
 //! assert_that(option).is_none();
@@ -192,7 +192,7 @@
 //! ### Some
 //!
 //! ```
-//! # use smoothy::{assert_that, BasicAsserter};
+//! # use smoothy::prelude::*;
 //! let option: Option<u8> = Some(1);
 //! let asserter: BasicAsserter<u8> = assert_that(option).is_some().and_value();
 //! // further assertions
@@ -204,29 +204,25 @@
 //! Anything that implements [`IntoIterator`] can be asserted in content and size.
 //!
 //! ```
-//! # use smoothy::assert_that;
-//! #
+//! # use smoothy::prelude::*;
 //! let vec: Vec<u8> = vec![];
 //! assert_that(vec).is_empty();
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
-//! #
+//! # use smoothy::prelude::*;
 //! let vec: Vec<u8> = vec![1, 2, 3];
 //! assert_that(vec).is_not_empty();
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
-//! #
+//! # use smoothy::prelude::*;
 //! let vec: Vec<u8> = vec![1, 2, 3];
 //! assert_that(vec).size().is(3);
 //! ```
 //!
 //! ```
-//! # use smoothy::assert_that;
-//! #
+//! # use smoothy::prelude::*;
 //! assert_that([1, 2, 3]).first().is(1);
 //! assert_that([1, 2, 3]).second().is(2);
 //! assert_that([1, 2, 3]).third().is(3);
@@ -239,7 +235,7 @@
 //! To do so one can use the [`map`](struct.BasicAsserter.html#method.map) method.
 //!
 //! ```
-//! # use smoothy::assert_that;
+//! # use smoothy::prelude::*;
 //! struct Struct(pub String);
 //!
 //! assert_that(Struct("hello".to_string()))
@@ -262,6 +258,11 @@ pub use connector::AssertionConnector;
 pub use option::SomeAsserter;
 pub use result::{ErrAsserter, OkAsserter};
 
+/// The prelude for smoothy. Contains the most important structs, traits and functions but not all
+pub mod prelude {
+    pub use crate::{assert_that, BasicAsserter};
+}
+
 /// Main struct with various assertions on `AssertedType`
 pub struct BasicAsserter<AssertedType> {
     pub(crate) value: AssertedType,
@@ -273,7 +274,7 @@ pub struct BasicAsserter<AssertedType> {
 ///
 /// # Examples
 /// ```
-/// # use smoothy::{assert_that, BasicAsserter};
+/// # use smoothy::prelude::*;
 /// #
 /// let assertable = String::from("Hello World!");
 /// let assertion: BasicAsserter<String> = assert_that(assertable);

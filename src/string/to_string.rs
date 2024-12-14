@@ -8,7 +8,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let asserter: BasicAsserter<String> = assert_that(42).to_string();
     /// // further assertions
