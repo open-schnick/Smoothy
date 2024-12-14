@@ -1,5 +1,5 @@
 use regex::Regex;
-use smoothy::{assert_that, AssertionConnector};
+use smoothy::{assert_that, AssertionConnector, StringAssertion};
 
 #[test]
 fn succeeds() {
