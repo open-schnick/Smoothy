@@ -247,11 +247,6 @@
 //!     .equals("hello");
 //! ```
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
-//!
-
-pub use connector::AssertionConnector;
-pub use option::SomeAsserter;
-pub use result::{ErrAsserter, OkAsserter};
 
 mod accessors;
 mod boolean;
@@ -262,6 +257,10 @@ mod iter;
 mod option;
 mod result;
 mod string;
+
+pub use connector::AssertionConnector;
+pub use option::SomeAsserter;
+pub use result::{ErrAsserter, OkAsserter};
 
 /// Main struct with various assertions on `AssertedType`
 pub struct BasicAsserter<AssertedType> {
