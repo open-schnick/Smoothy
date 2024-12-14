@@ -12,7 +12,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<(), String> = Err(String::new());
     ///
@@ -42,7 +42,7 @@ impl<ErrValue> ErrAsserter<ErrValue> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<(), String> = Err(String::from("Hello World!"));
     ///

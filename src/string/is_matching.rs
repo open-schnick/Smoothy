@@ -9,7 +9,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// # use regex::Regex;
     /// #
     /// assert_that("I categorically deny having triskaidekaphobia.")

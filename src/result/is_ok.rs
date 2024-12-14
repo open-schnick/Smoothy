@@ -12,7 +12,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<String, ()> = Ok(String::new());
     ///
@@ -42,7 +42,7 @@ impl<OkValue> OkAsserter<OkValue> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let result: Result<String, ()> = Ok(String::from("Hello World!"));
     ///

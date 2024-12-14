@@ -11,7 +11,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let option: Option<String> = Some(String::new());
     ///
@@ -41,7 +41,7 @@ impl<SomeValue> SomeAsserter<SomeValue> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// #
     /// let option: Option<String> = Some(String::from("Hello World!"));
     ///

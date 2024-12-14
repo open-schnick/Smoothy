@@ -10,7 +10,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).is_empty();

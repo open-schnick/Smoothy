@@ -12,7 +12,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(String::from("Hello World!")).equals("Hello World!");
     /// ```
