@@ -8,7 +8,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that("Hello World!").is_not("Hello There!");
     /// ```
@@ -16,6 +16,7 @@ where
     /// # Panics
     /// When the values are matching.
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
         implementation::assert_ref_not_equals(&self.value, expected);
         AssertionConnector { value: self.value }

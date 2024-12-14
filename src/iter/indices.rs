@@ -10,14 +10,14 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec!["Hello World!".to_string()];
     /// assert_that(vec).first().equals("Hello World!");
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).first().equals("Hello World!");
@@ -43,14 +43,14 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec!["First".to_string(), "Second".to_string()];
     /// assert_that(vec).second().equals("Second");
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).second().equals("Hello World!");
@@ -80,7 +80,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![
     ///     "First".to_string(),
@@ -91,7 +91,7 @@ where
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).third().equals("Hello World!");
@@ -121,7 +121,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![
     ///     "First".to_string(),
@@ -132,7 +132,7 @@ where
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).nth(0).equals("Hello World!");

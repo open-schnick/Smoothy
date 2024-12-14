@@ -11,7 +11,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// assert_that(42u8).try_into_equals(42i8);
     /// ```

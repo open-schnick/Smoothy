@@ -10,7 +10,7 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).is_empty();
@@ -19,6 +19,7 @@ where
     /// # Panics
     /// When the Iterable is not empty.
     #[track_caller]
+    #[allow(clippy::wrong_self_convention)]
     pub fn is_empty(self) {
         let mut iter = self.value.into_iter();
         let next_element = iter.next();

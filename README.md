@@ -21,7 +21,7 @@ All asserted are stared by calling `assert_that` on a value.
 After that various assertions based on the type of the asserted value can be made.
 
 ```rust
-use smoothy::assert_that;
+use smoothy::prelude::*;
 
 assert_that(42).equals(42);
 assert_that(true).is_true();

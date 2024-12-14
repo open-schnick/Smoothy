@@ -7,7 +7,7 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// struct Struct(pub String);
     ///
     /// assert_that(Struct("hello".to_string()))
@@ -18,7 +18,7 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     /// The mapping could be hidden by a trait
     ///
     /// ```rust
-    /// # use smoothy::{assert_that, BasicAsserter};
+    /// # use smoothy::prelude::*;
     /// struct Struct(pub String);
     ///
     /// pub trait SmoothyExt {

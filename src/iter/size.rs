@@ -10,14 +10,14 @@ where
     ///
     /// # Examples
     /// ```
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec!["Hello World!".to_string()];
     /// assert_that(vec).size().is(1);
     /// ```
     ///
     /// ```should_panic
-    /// # use smoothy::assert_that;
+    /// # use smoothy::prelude::*;
     /// #
     /// let vec: Vec<String> = vec![];
     /// assert_that(vec).size().is(42);
