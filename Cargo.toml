@@ -19,6 +19,9 @@ default = []
 pretty_assertions = "1.4.0"
 regex = "1"
 
+[lints.rust]
+missing_docs = "deny"
+
 [lints.rustdoc]
 broken_intra_doc_links = "deny"
 private_intra_doc_links = "deny"

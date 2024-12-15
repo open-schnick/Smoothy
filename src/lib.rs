@@ -1,5 +1,3 @@
-// cant be in Cargo.toml as the tests don't need docs
-#![deny(missing_docs)]
 //! Write smooth assertions in a fluent and human-readable way.
 //!
 //! 1. [Overview](#overview)

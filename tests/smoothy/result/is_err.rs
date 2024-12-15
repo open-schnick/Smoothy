@@ -1,4 +1,4 @@
-use crate::setup::{ComparableError, ConvertableError};
+use crate::result::is_err::setup::{ComparableError, ConvertableError, NonComparableError};
 use smoothy::{assert_that, EqualityAssertion, ResultAssertion};
 use std::fmt::Display;
 
@@ -69,7 +69,6 @@ mod assert_error {
 
 mod assert_error_as_string {
     use super::*;
-    use crate::setup::NonComparableError;
 
     #[test]
     fn succeeds() {
