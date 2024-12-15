@@ -1,9 +1,10 @@
 use crate::{implementation, AssertionConnector, BasicAsserter};
+use std::fmt::Debug;
 
 /// Specifies various equality assertions. Implemented on [`BasicAsserter`]
 pub trait EqualityAssertion<AssertedType>
 where
-    AssertedType: PartialEq + std::fmt::Debug,
+    AssertedType: PartialEq + Debug,
 {
     // NOTE: the type inference for {integers} is bad as i32 does not implement Into<u16>
     /// Asserts that the assertable is equal to the expected value.
@@ -59,7 +60,7 @@ where
     fn try_into_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
         T: TryInto<AssertedType>,
-        <T as TryInto<AssertedType>>::Error: std::fmt::Debug;
+        <T as TryInto<AssertedType>>::Error: Debug;
 
     /// Asserts that the assertable is *not* equal to the expected value.
     ///
@@ -79,7 +80,7 @@ where
     fn try_into_not_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
         T: TryInto<AssertedType>,
-        <T as TryInto<AssertedType>>::Error: std::fmt::Debug;
+        <T as TryInto<AssertedType>>::Error: Debug;
 
     /// Asserts that the assertable is equal to the expected value while having the same type.
     ///
@@ -113,7 +114,7 @@ where
 
 impl<AssertedType> EqualityAssertion<AssertedType> for BasicAsserter<AssertedType>
 where
-    AssertedType: PartialEq + std::fmt::Debug,
+    AssertedType: PartialEq + Debug,
 {
     fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
         let transformed_expected: AssertedType = expected.into();
@@ -130,7 +131,7 @@ where
     fn try_into_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
         T: TryInto<AssertedType>,
-        <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
+        <T as TryInto<AssertedType>>::Error: Debug,
     {
         let conversion_result: Result<AssertedType, _> = expected.try_into();
 
@@ -151,7 +152,7 @@ where
     fn try_into_not_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
         T: TryInto<AssertedType>,
-        <T as TryInto<AssertedType>>::Error: std::fmt::Debug,
+        <T as TryInto<AssertedType>>::Error: Debug,
     {
         let conversion_result: Result<AssertedType, _> = expected.try_into();
 

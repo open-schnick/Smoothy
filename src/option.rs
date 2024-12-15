@@ -2,7 +2,10 @@ use crate::{implementation, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`Option`]. Implemented on [`BasicAsserter`]
-pub trait OptionAssertion<AssertedValue> {
+pub trait OptionAssertion<OptionValue>
+where
+    OptionValue: Debug,
+{
     /// Asserts that the [Option] is [Some].
     ///
     /// Allows the usage of chained assertions on an option-type (see [`SomeAsserter`]).
@@ -20,7 +23,7 @@ pub trait OptionAssertion<AssertedValue> {
     /// When the [Option] is [None]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_some(self) -> SomeAsserter<AssertedValue>;
+    fn is_some(self) -> SomeAsserter<OptionValue>;
 
     /// Asserts that the [Option] is [None].
     ///

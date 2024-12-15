@@ -1,7 +1,12 @@
 use crate::{implementation, BasicAsserter};
+use std::fmt::Debug;
 
 /// Specifies various assertions on [`Result`]. Implemented on [`BasicAsserter`]
-pub trait ResultAssertion<OkValue, ErrValue> {
+pub trait ResultAssertion<OkValue, ErrValue>
+where
+    OkValue: Debug,
+    ErrValue: Debug,
+{
     /// Asserts that the [Result] is an [Ok].
     ///
     /// Allows the usage of chained assertions on an ok-value (see [`OkAsserter`]).
@@ -44,8 +49,8 @@ pub trait ResultAssertion<OkValue, ErrValue> {
 impl<OkValue, ErrValue> ResultAssertion<OkValue, ErrValue>
     for BasicAsserter<Result<OkValue, ErrValue>>
 where
-    OkValue: std::fmt::Debug,
-    ErrValue: std::fmt::Debug,
+    OkValue: Debug,
+    ErrValue: Debug,
 {
     fn is_ok(self) -> OkAsserter<OkValue> {
         implementation::assert(self.value.is_ok(), "Result is Ok", &self.value);

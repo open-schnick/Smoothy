@@ -2,7 +2,10 @@ use crate::{implementation, AssertionConnector, BasicAsserter};
 use regex::Regex;
 
 /// Specifies various assertions on [`String`]. Implemented on [`BasicAsserter`]
-pub trait StringAssertion<AssertedType> {
+pub trait StringAssertion<StringLike>
+where
+    StringLike: AsRef<str>,
+{
     /// Asserts that the value contains the pattern
     ///
     /// # Examples
@@ -18,7 +21,7 @@ pub trait StringAssertion<AssertedType> {
     /// # Panics
     /// When the value does not contain the pattern
     #[track_caller]
-    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType>;
+    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
 
     /// Asserts that the value is matching the regex
     ///
@@ -35,7 +38,7 @@ pub trait StringAssertion<AssertedType> {
     /// When the value does not match the regex
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_matching(self, regex: &Regex) -> AssertionConnector<AssertedType>;
+    fn is_matching(self, regex: &Regex) -> AssertionConnector<StringLike>;
 
     /// Asserts that the value starts with the pattern
     ///
@@ -49,14 +52,14 @@ pub trait StringAssertion<AssertedType> {
     /// # Panics
     /// When the value does not start with the pattern
     #[track_caller]
-    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType>;
+    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
 }
 
-impl<AssertedType> StringAssertion<AssertedType> for BasicAsserter<AssertedType>
+impl<StringLike> StringAssertion<StringLike> for BasicAsserter<StringLike>
 where
-    AssertedType: AsRef<str>,
+    StringLike: AsRef<str>,
 {
-    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType> {
+    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(
@@ -68,7 +71,7 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn is_matching(self, regex: &Regex) -> AssertionConnector<AssertedType> {
+    fn is_matching(self, regex: &Regex) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(
@@ -80,7 +83,7 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<AssertedType> {
+    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(

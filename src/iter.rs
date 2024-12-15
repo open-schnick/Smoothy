@@ -2,7 +2,11 @@ use crate::{implementation, implementation::assert, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
-pub trait IteratorAssertion<Item> {
+pub trait IteratorAssertion<Iterable, Item>
+where
+    Iterable: IntoIterator<Item = Item>,
+    Item: Debug,
+{
     /// Convenience function for getting the size of the Iterator.
     ///
     /// # Examples
@@ -159,7 +163,7 @@ pub trait IteratorAssertion<Item> {
     fn nth(self, nth: usize) -> BasicAsserter<Item>;
 }
 
-impl<Iterable, Item> IteratorAssertion<Item> for BasicAsserter<Iterable>
+impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
 where
     Iterable: IntoIterator<Item = Item>,
     Item: Debug,
@@ -172,7 +176,7 @@ where
     fn is_not_empty(self) {
         let mut iter = self.value.into_iter();
         let next_element = iter.next();
-        assert(
+        implementation::assert(
             next_element.is_some(),
             "Iterator is not empty",
             next_element,
