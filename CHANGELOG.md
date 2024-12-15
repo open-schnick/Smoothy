@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1](https://github.com/open-schnick/Smoothy/compare/v0.7.0...v0.7.1) - 2024-12-15
+
+### Other
+
+- update README.md to include renames
+
 ## [0.7.0](https://github.com/open-schnick/Smoothy/compare/v0.6.0...v0.7.0) - 2024-12-15
 
 ### Other
