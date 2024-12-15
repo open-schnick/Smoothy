@@ -101,13 +101,13 @@
 //!
 //! ```
 //! # use smoothy::prelude::*;
-//! assert_that("Hello World").starts_with_string("Hello");
+//! assert_that("Hello World").starts_with("Hello");
 //! ```
 //!
 //! ```
 //! # use smoothy::prelude::*;
 //! # use regex::Regex;
-//! assert_that("Hello World").is_matching(&Regex::new(r"\bHello\b").unwrap());
+//! assert_that("Hello World").matches(&Regex::new(r"\bHello\b").unwrap());
 //! ```
 //!
 //! ## Result

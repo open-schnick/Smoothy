@@ -31,14 +31,14 @@ where
     /// # use regex::Regex;
     /// #
     /// assert_that("I categorically deny having triskaidekaphobia.")
-    ///     .is_matching(&Regex::new(r"\b\w{13}\b").unwrap());
+    ///     .matches(&Regex::new(r"\b\w{13}\b").unwrap());
     /// ```
     ///
     /// # Panics
     /// When the value does not match the regex
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_matching(self, regex: &Regex) -> AssertionConnector<StringLike>;
+    fn matches(self, regex: &Regex) -> AssertionConnector<StringLike>;
 
     /// Asserts that the value starts with the pattern
     ///
@@ -46,13 +46,13 @@ where
     /// ```
     /// # use smoothy::prelude::*;
     /// #
-    /// assert_that("Hello World").starts_with_string("Hello");
+    /// assert_that("Hello World").starts_with("Hello");
     /// ```
     ///
     /// # Panics
     /// When the value does not start with the pattern
     #[track_caller]
-    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
+    fn starts_with(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
 }
 
 impl<StringLike> StringAssertion<StringLike> for BasicAsserter<StringLike>
@@ -71,7 +71,7 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn is_matching(self, regex: &Regex) -> AssertionConnector<StringLike> {
+    fn matches(self, regex: &Regex) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(
@@ -83,7 +83,7 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn starts_with_string(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
+    fn starts_with(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(
