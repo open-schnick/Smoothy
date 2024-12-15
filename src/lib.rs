@@ -255,21 +255,18 @@
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
 
 mod accessors;
-mod boolean;
+mod assertions;
 mod connector;
-mod equality;
 mod implementation;
-mod iter;
-mod option;
-mod result;
-mod string;
 
+pub use assertions::{
+    equality::EqualityAssertion,
+    iter::IteratorAssertion,
+    option::{OptionAssertion, SomeAsserter},
+    result::{ErrAsserter, OkAsserter, ResultAssertion},
+    string::StringAssertion,
+};
 pub use connector::AssertionConnector;
-pub use equality::EqualityAssertion;
-pub use iter::IteratorAssertion;
-pub use option::{OptionAssertion, SomeAsserter};
-pub use result::{ErrAsserter, OkAsserter, ResultAssertion};
-pub use string::StringAssertion;
 
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
