@@ -1,4 +1,4 @@
-use smoothy::assert_that;
+use smoothy::{assert_that, BooleanAssertion};
 
 #[cfg(test)]
 mod is_true {

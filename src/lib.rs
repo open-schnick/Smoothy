@@ -260,6 +260,7 @@ mod connector;
 mod implementation;
 
 pub use assertions::{
+    boolean::BooleanAssertion,
     equality::EqualityAssertion,
     iter::IteratorAssertion,
     option::{OptionAssertion, SomeAsserter},
@@ -271,8 +272,8 @@ pub use connector::AssertionConnector;
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
-        assert_that, BasicAsserter, EqualityAssertion, IteratorAssertion, OptionAssertion,
-        ResultAssertion, StringAssertion,
+        assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, IteratorAssertion,
+        OptionAssertion, ResultAssertion, StringAssertion,
     };
 }
 
