@@ -33,14 +33,35 @@ where
     pretty_assertions::assert_ne!(actual, expected);
 }
 
-// TODO: make the assertion outputs nice and always the same
+#[track_caller]
+pub(crate) fn assert_no_actual(assertable: bool, assertion_desc: &str) {
+    type DoesNotMatter = ();
+    assert_internal::<DoesNotMatter>(assertable, assertion_desc, None);
+}
+
 #[track_caller]
 pub(crate) fn assert<T>(assertable: bool, assertion_desc: &str, actual_value: T)
 where
     T: std::fmt::Debug,
 {
-    assert!(
-        assertable,
-        "assertion failed: `({assertion_desc})`\n           found:  {actual_value:?}"
-    );
+    assert_internal(assertable, assertion_desc, Some(actual_value));
+}
+
+// TODO: make the assertion outputs nice and always the same
+#[track_caller]
+fn assert_internal<T>(assertable: bool, assertion_desc: &str, actual_value: Option<T>)
+where
+    T: std::fmt::Debug,
+{
+    match actual_value {
+        Some(value) => {
+            assert!(
+                assertable,
+                "assertion failed: `({assertion_desc})`\n           found:  {value:?}",
+            );
+        }
+        None => {
+            assert!(assertable, "assertion failed: `({assertion_desc})`",);
+        }
+    };
 }
