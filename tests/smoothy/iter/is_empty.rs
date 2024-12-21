@@ -7,7 +7,7 @@ fn succeeds() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator is empty)`\n           found:  Some(\"\")"]
+#[should_panic = "assertion failed: `(Iterator is empty)`\n           found:  [\"\"]"]
 fn fails() {
     let vec: Vec<String> = vec![String::default()];
     assert_that(vec).is_empty();

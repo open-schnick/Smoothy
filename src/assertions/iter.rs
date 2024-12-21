@@ -1,4 +1,4 @@
-use crate::{implementation, implementation::assert, BasicAsserter};
+use crate::{implementation, implementation::assert, AssertionConnector, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
@@ -44,7 +44,7 @@ where
     /// When the Iterable is empty.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not_empty(self);
+    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>;
 
     /// Asserts that the Iterable is empty.
     ///
@@ -173,20 +173,16 @@ where
         BasicAsserter { value: size }
     }
 
-    fn is_not_empty(self) {
-        let mut iter = self.value.into_iter();
-        let next_element = iter.next();
-        implementation::assert(
-            next_element.is_some(),
-            "Iterator is not empty",
-            next_element,
-        );
+    fn is_not_empty(self) -> AssertionConnector<Vec<Item>> {
+        let vec = self.value.into_iter().collect::<Vec<Item>>();
+        implementation::assert(!vec.is_empty(), "Iterator is not empty", &vec);
+
+        AssertionConnector { value: vec }
     }
 
     fn is_empty(self) {
-        let mut iter = self.value.into_iter();
-        let next_element = iter.next();
-        assert(next_element.is_none(), "Iterator is empty", next_element);
+        let vec = self.value.into_iter().collect::<Vec<Item>>();
+        assert(vec.is_empty(), "Iterator is empty", vec);
     }
 
     fn first(self) -> BasicAsserter<Item> {
