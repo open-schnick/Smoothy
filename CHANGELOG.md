@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0](https://github.com/open-schnick/Smoothy/compare/v0.7.0...v0.8.0) - 2024-12-21
+
+### Added
+
+- [**breaking**] add "contains" on IteratorAssertions
+- is_not_empty returns assertion connector for further iterator assertions
+
+### Other
+
+- update deps
+- add implementation for assertions without actual value
+- remove redundant test
+- update README.md to include renames
+
 ## [0.7.0](https://github.com/open-schnick/Smoothy/compare/v0.6.0...v0.7.0) - 2024-12-15
 
 ### Other
