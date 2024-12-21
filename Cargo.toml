@@ -16,7 +16,7 @@ edition = "2021"
 default = []
 
 [dependencies]
-pretty_assertions = "1.4.0"
+pretty_assertions = "1"
 regex = "1"
 
 [lints.rust]
