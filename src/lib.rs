@@ -275,11 +275,6 @@ pub mod prelude {
     };
 }
 
-/// Main struct with various assertions on `AssertedType`
-pub struct BasicAsserter<AssertedType> {
-    pub(crate) value: AssertedType,
-}
-
 /// Entrypoint for all assertions
 ///
 /// Enables various assertions on variable based on its type
@@ -295,4 +290,9 @@ pub struct BasicAsserter<AssertedType> {
 #[must_use = "Without assertions this function does nothing"]
 pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<AssertedType> {
     BasicAsserter { value }
+}
+
+/// Main struct with various assertions on `AssertedType`
+pub struct BasicAsserter<AssertedType> {
+    pub(crate) value: AssertedType,
 }
