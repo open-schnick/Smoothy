@@ -1,8 +1,10 @@
-use crate::{implementation, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`Result`]. Implemented on [`BasicAsserter`]
-pub trait ResultAssertion<OkValue, ErrValue>
+///
+/// This trait is sealed and cannot be implemented outside Smoothy.
+pub trait ResultAssertion<OkValue, ErrValue>: private::Sealed
 where
     OkValue: Debug,
     ErrValue: Debug,

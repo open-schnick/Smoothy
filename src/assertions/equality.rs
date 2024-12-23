@@ -1,8 +1,10 @@
-use crate::{implementation, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, AssertionConnector, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various equality assertions. Implemented on [`BasicAsserter`]
-pub trait EqualityAssertion<AssertedType>
+///
+/// This trait is sealed and cannot be implemented outside Smoothy.
+pub trait EqualityAssertion<AssertedType>: private::Sealed
 where
     AssertedType: PartialEq + Debug,
 {

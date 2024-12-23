@@ -1,8 +1,10 @@
-use crate::{implementation, implementation::assert, AssertionConnector, BasicAsserter};
+use crate::{implementation, implementation::assert, private, AssertionConnector, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
-pub trait IteratorAssertion<Iterable, Item>
+///
+/// This trait is sealed and cannot be implemented outside Smoothy.
+pub trait IteratorAssertion<Iterable, Item>: private::Sealed
 where
     Iterable: IntoIterator<Item = Item>,
     Item: Debug,

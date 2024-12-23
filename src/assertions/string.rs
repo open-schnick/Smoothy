@@ -1,8 +1,10 @@
-use crate::{implementation, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, AssertionConnector, BasicAsserter};
 use regex::Regex;
 
 /// Specifies various assertions on [`String`]. Implemented on [`BasicAsserter`]
-pub trait StringAssertion<StringLike>
+///
+/// This trait is sealed and cannot be implemented outside Smoothy.
+pub trait StringAssertion<StringLike>: private::Sealed
 where
     StringLike: AsRef<str>,
 {

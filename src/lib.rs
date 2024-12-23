@@ -296,3 +296,10 @@ pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<Ass
 pub struct BasicAsserter<AssertedType> {
     pub(crate) value: AssertedType,
 }
+
+/// Helper construct to prevent implementation of the assertion extension traits outside the crate
+mod private {
+    pub trait Sealed {}
+
+    impl<AssertedType> Sealed for crate::BasicAsserter<AssertedType> {}
+}

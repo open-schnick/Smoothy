@@ -1,8 +1,10 @@
-use crate::{implementation, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`Option`]. Implemented on [`BasicAsserter`]
-pub trait OptionAssertion<OptionValue>
+///
+/// This trait is sealed and cannot be implemented outside Smoothy.
+pub trait OptionAssertion<OptionValue>: private::Sealed
 where
     OptionValue: Debug,
 {
