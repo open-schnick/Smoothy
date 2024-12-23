@@ -188,6 +188,33 @@ where
     #[track_caller]
     fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>;
 
+    /// Asserts that the iterable contains each item at least once in any place in the iterator
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["First", "Second", "Third"];
+    ///
+    /// assert_that(vec).contains_all(["Second", "First"]);
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["First", "Second", "Third"];
+    ///
+    /// assert_that(vec).contains_all(["Does not exist", "Also does not exist"]);
+    /// ```
+    ///
+    /// # Panics
+    /// When the Iterator does not contain at least one of the expected items.
+    #[track_caller]
+    fn contains_all(
+        self,
+        expected_items: impl IntoIterator<Item = impl Into<Item>>,
+    ) -> AssertionConnector<Vec<Item>>;
+
     /// Asserts that the iterable contains only the expected items any place in the iterator
     ///
     /// # Examples
@@ -303,6 +330,30 @@ where
         let found = actual_items.iter().any(|actual| *actual == expected_item);
 
         implementation::assert_no_actual(found, "Iterator contains item");
+
+        AssertionConnector {
+            value: actual_items,
+        }
+    }
+
+    fn contains_all(
+        self,
+        expected_items: impl IntoIterator<Item = impl Into<Item>>,
+    ) -> AssertionConnector<Vec<Item>> {
+        let actual_items = self.value.into_iter().collect::<Vec<Item>>();
+        #[allow(clippy::shadow_reuse)]
+        let expected_items = expected_items
+            .into_iter()
+            .map(Into::into)
+            .collect::<Vec<Item>>();
+
+        let not_found = expected_items
+            .iter()
+            .filter(|ele| !actual_items.contains(ele))
+            .collect::<Vec<&Item>>();
+
+        // TODO: the output is really not good
+        implementation::assert(not_found.is_empty(), "Iterator contains items", &not_found);
 
         AssertionConnector {
             value: actual_items,
