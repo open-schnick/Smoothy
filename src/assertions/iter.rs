@@ -1,4 +1,4 @@
-use crate::{implementation, implementation::assert, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, AssertionConnector, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
@@ -163,12 +163,36 @@ where
     #[track_caller]
     #[must_use = "Accessing the nth element only asserts that size is at least nth. If you want to assert the size use assert_that(iter).size().equals(nth) instead"]
     fn nth(self, nth: usize) -> BasicAsserter<Item>;
+
+    /// Asserts that the iterable contains the item at least once in any place in the iterator
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["First", "Second", "Third"];
+    ///
+    /// assert_that(vec).contains("Second");
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["First", "Second", "Third"];
+    ///
+    /// assert_that(vec).contains("Does not exist");
+    /// ```
+    ///
+    /// # Panics
+    /// When the Iterator does not contain the expected element.
+    #[track_caller]
+    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>;
 }
 
 impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
 where
     Iterable: IntoIterator<Item = Item>,
-    Item: Debug,
+    Item: Debug + PartialEq,
 {
     fn size(self) -> BasicAsserter<usize> {
         let size = self.value.into_iter().count();
@@ -184,7 +208,7 @@ where
 
     fn is_empty(self) {
         let vec = self.value.into_iter().collect::<Vec<Item>>();
-        assert(vec.is_empty(), "Iterator is empty", vec);
+        implementation::assert(vec.is_empty(), "Iterator is empty", vec);
     }
 
     fn first(self) -> BasicAsserter<Item> {
@@ -241,5 +265,18 @@ where
         let item = maybe_item.unwrap();
 
         BasicAsserter { value: item }
+    }
+
+    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>> {
+        let actual_items = self.value.into_iter().collect::<Vec<Item>>();
+        let expected_item = expected.into();
+
+        let found = actual_items.iter().any(|actual| *actual == expected_item);
+
+        implementation::assert_no_actual(found, "Iterator contains item");
+
+        AssertionConnector {
+            value: actual_items,
+        }
     }
 }
