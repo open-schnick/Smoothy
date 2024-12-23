@@ -7,7 +7,7 @@ use std::fmt::Debug;
 pub trait IteratorAssertion<Iterable, Item>: private::Sealed
 where
     Iterable: IntoIterator<Item = Item>,
-    Item: Debug,
+    Item: Debug + PartialEq,
 {
     /// Convenience function for getting the size of the Iterator.
     ///
