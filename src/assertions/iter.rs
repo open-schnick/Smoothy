@@ -184,9 +184,38 @@ where
     /// ```
     ///
     /// # Panics
-    /// When the Iterator does not contain the expected element.
+    /// When the Iterator does not contain the expected item.
     #[track_caller]
     fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>;
+
+    /// Asserts that the iterable contains only the expected items any place in the iterator
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["A", "B", "A", "C"];
+    ///
+    /// // Order does not matter
+    /// assert_that(vec).contains_only(["C", "A", "A", "B"]);
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec!["A", "B", "C"];
+    ///
+    /// // Missing "C"
+    /// assert_that(vec).contains_only(["A", "B"]);
+    /// ```
+    ///
+    /// # Panics
+    /// When the Iterator contains additional elements other than the specified ones.
+    #[track_caller]
+    fn contains_only(
+        self,
+        expected_items: impl IntoIterator<Item = impl Into<Item>>,
+    ) -> AssertionConnector<Vec<Item>>;
 }
 
 impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
@@ -274,6 +303,56 @@ where
         let found = actual_items.iter().any(|actual| *actual == expected_item);
 
         implementation::assert_no_actual(found, "Iterator contains item");
+
+        AssertionConnector {
+            value: actual_items,
+        }
+    }
+
+    fn contains_only(
+        self,
+        expected_items: impl IntoIterator<Item = impl Into<Item>>,
+    ) -> AssertionConnector<Vec<Item>> {
+        let actual_items = self.value.into_iter().collect::<Vec<Item>>();
+        #[allow(clippy::shadow_reuse)]
+        let mut expected_items = expected_items
+            .into_iter()
+            .map(Into::into)
+            .collect::<Vec<Item>>();
+
+        let mut missing_in_expected = Vec::with_capacity(actual_items.len());
+
+        for actual in &actual_items {
+            match expected_items
+                .iter()
+                .position(|expected| expected == actual)
+            {
+                None => {
+                    // Element not found in expected -> actual has more elements than expected
+                    missing_in_expected.push(actual);
+                }
+                Some(index) => {
+                    expected_items.remove(index);
+                }
+            }
+        }
+
+        // TODO: the output is really not good
+        if !missing_in_expected.is_empty() {
+            implementation::assert(
+                missing_in_expected.is_empty(),
+                "Iterator contains only the expected items",
+                &missing_in_expected,
+            );
+        }
+
+        if !expected_items.is_empty() {
+            implementation::assert(
+                expected_items.is_empty(),
+                "Iterator contains only the expected items",
+                &expected_items,
+            );
+        }
 
         AssertionConnector {
             value: actual_items,
