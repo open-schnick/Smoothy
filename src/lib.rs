@@ -84,8 +84,8 @@
 //!
 //! ## String-likes
 //!
-//! String-likes can be asserted by calling [`contains_string`](struct.BasicAsserter.html#method.contains_string), [`starts_with_string`](struct.BasicAsserter.html#method.contains_string)
-//! or by calling [`is_matching`](struct.BasicAsserter.html#method.is_matching).
+//! String-likes can be asserted by calling [`contains`](trait.StringAssertion.html#tymethod.contains), [`starts_with`](trait.StringAssertion.html#tymethod.starts_with)
+//! or by calling [`matches`](trait.StringAssertion.html#tymethod.matches).
 //!
 //! [All string assertions](trait.StringAssertion.html)
 //!
