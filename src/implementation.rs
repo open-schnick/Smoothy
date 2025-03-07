@@ -1,5 +1,5 @@
 //! Implementation details of the actual assertions and the failure output
-#![allow(clippy::redundant_pub_crate, clippy::needless_pass_by_value)]
+#![allow(clippy::redundant_pub_crate, clippy::needless_pass_by_value, dead_code)]
 
 #[track_caller]
 pub(crate) fn assert_ref_equals<T>(actual: &T, expected: T)
@@ -63,5 +63,5 @@ where
         None => {
             assert!(assertable, "assertion failed: `({assertion_desc})`",);
         }
-    };
+    }
 }
