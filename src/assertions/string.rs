@@ -1,5 +1,4 @@
 use crate::{implementation, private, AssertionConnector, BasicAsserter};
-use regex::Regex;
 
 /// Specifies various assertions on [`String`]. Implemented on [`BasicAsserter`]
 ///
@@ -38,9 +37,11 @@ where
     ///
     /// # Panics
     /// When the value does not match the regex
+    #[cfg(feature = "regex")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "regex")))]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn matches(self, regex: &Regex) -> AssertionConnector<StringLike>;
+    fn matches(self, regex: &regex::Regex) -> AssertionConnector<StringLike>;
 
     /// Asserts that the value starts with the pattern
     ///
@@ -73,7 +74,8 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn matches(self, regex: &Regex) -> AssertionConnector<StringLike> {
+    #[cfg(feature = "regex")]
+    fn matches(self, regex: &regex::Regex) -> AssertionConnector<StringLike> {
         let asserted_value = self.value.as_ref();
 
         implementation::assert(

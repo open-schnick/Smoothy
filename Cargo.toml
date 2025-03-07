@@ -13,11 +13,17 @@ categories = ["development-tools::testing"]
 edition = "2021"
 
 [features]
-default = []
+default = ["regex"]
+regex = ["dep:regex"]
 
 [dependencies]
 pretty_assertions = "1"
-regex = "1"
+regex = { version = "1", optional = true }
+
+[package.metadata.docs.rs]
+all-features = true
+# enable unstable features in the documentation
+rustdoc-args = ["--cfg", "docsrs"]
 
 [lints.rust]
 missing_docs = "deny"

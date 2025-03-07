@@ -277,7 +277,10 @@
 //!     .map(|s| s.0.clone())
 //!     .equals("hello");
 //! ```
+// Include code samples from the readme as doc-tests
 #![cfg_attr(doctest, doc = include_str!("../README.md"))]
+// Render feature requirements in docs.rs
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod accessors;
 mod assertions;
