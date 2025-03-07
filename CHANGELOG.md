@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1](https://github.com/open-schnick/Smoothy/compare/v0.8.0...v0.8.1) - 2025-03-07
+
+### Added
+
+- move 'matches' string assertion behind feature flag which is enabled per default
+
+### Other
+
+- fix top level rustdoc links
+
 ## [0.8.0](https://github.com/open-schnick/Smoothy/compare/v0.7.0...v0.8.0) - 2025-03-07
 
 ### Added
