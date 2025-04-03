@@ -237,6 +237,32 @@
 //! assert_that([1, 2, 3]).nth(0).is(1);
 //! ```
 //!
+//! ### JSON
+//!
+//! JSON values as used by [`serde_json`] can be asserted about JSON types and valuse.
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! use serde_json::json;
+//! let json = json!({"test": 42});
+//!
+//! assert_that(json)
+//!     .is_object()
+//!     .and()
+//!     .get("test")
+//!     .is_number()
+//!     .and()
+//!     .equals(42);
+//! ```
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! use serde_json::json;
+//! let json = json!("test");
+//!
+//! assert_that(json).is_string().and().equals("test");
+//! ```
+//!
 //! ### Content assertions
 //!
 //! The content of iterables can be asserted in different ways depending on the invariants one wants to assert
@@ -287,6 +313,9 @@ mod assertions;
 mod connector;
 mod implementation;
 
+#[cfg_attr(docsrs, doc(cfg(feature = "json")))]
+#[cfg(feature = "json")]
+pub use assertions::json::{JsonObjectAssertion, JsonValueAssertion};
 pub use assertions::{
     boolean::BooleanAssertion,
     equality::EqualityAssertion,
@@ -303,6 +332,9 @@ pub mod prelude {
         assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, IteratorAssertion,
         OptionAssertion, ResultAssertion, StringAssertion,
     };
+    #[cfg_attr(docsrs, doc(cfg(feature = "json")))]
+    #[cfg(feature = "json")]
+    pub use crate::{JsonObjectAssertion, JsonValueAssertion};
 }
 
 /// Entrypoint for all assertions
