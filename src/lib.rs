@@ -237,6 +237,16 @@
 //! assert_that([1, 2, 3]).nth(0).is(1);
 //! ```
 //!
+//! ### JSON
+//!
+//! JSON values as used by [`serde_json`] can be asserted about JSON types and valuse.
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! assert_that(result).is_object().and().get("test").is_number().and().equals(42);
+//! assert_that(result).is_string().and().equals("test");
+//! ```
+//!
 //! ### Content assertions
 //!
 //! The content of iterables can be asserted in different ways depending on the invariants one wants to assert
@@ -297,11 +307,23 @@ pub use assertions::{
 };
 pub use connector::AssertionConnector;
 
+#[cfg(feature = "json")]
+pub use assertions::json::{
+    JsonValueAssertion,
+    JsonObjectAssertion,
+};
+
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
         assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, IteratorAssertion,
         OptionAssertion, ResultAssertion, StringAssertion,
+    };
+
+    #[cfg(feature = "json")]
+    pub use crate::{
+        JsonValueAssertion,
+        JsonObjectAssertion,
     };
 }
 
