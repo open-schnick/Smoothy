@@ -333,9 +333,10 @@ where
         let actual_items = self.value.into_iter().collect::<Vec<Item>>();
         let expected_item = expected.into();
 
-        let found = actual_items.iter().any(|actual| *actual == expected_item);
-
-        implementation::assert_no_actual(found, "Iterator contains item");
+        implementation::assert_no_actual(
+            actual_items.contains(&expected_item),
+            "Iterator contains item",
+        );
 
         AssertionConnector {
             value: actual_items,
