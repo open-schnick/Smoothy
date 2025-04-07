@@ -129,14 +129,14 @@ pub trait JsonValueAssertion: private::Sealed {
 
 impl JsonValueAssertion for BasicAsserter<Value> {
     fn is_null(self) {
-        implementation::assert(self.value.is_null(), "JSON Value is null", &self.value);
+        implementation::assert_no_expected(self.value.is_null(), self.value, "JSON to be null");
     }
 
     fn is_boolean(self) -> AssertionConnector<bool> {
-        implementation::assert(
+        implementation::assert_no_expected(
             self.value.is_boolean(),
-            "JSON Value is a boolean",
             &self.value,
+            "JSON to be a boolean value",
         );
 
         #[allow(clippy::unreachable)]
@@ -149,10 +149,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
     }
 
     fn is_number(self) -> AssertionConnector<Number> {
-        implementation::assert(
+        implementation::assert_no_expected(
             self.value.is_number(),
-            "JSON Value is a number",
             &self.value,
+            "JSON to be a number",
         );
 
         #[allow(clippy::unreachable)]
@@ -165,10 +165,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
     }
 
     fn is_string(self) -> AssertionConnector<String> {
-        implementation::assert(
+        implementation::assert_no_expected(
             self.value.is_string(),
-            "JSON Value is a string",
             &self.value,
+            "JSON to be a string",
         );
 
         #[allow(clippy::unreachable)]
@@ -181,7 +181,11 @@ impl JsonValueAssertion for BasicAsserter<Value> {
     }
 
     fn is_array(self) -> AssertionConnector<Vec<Value>> {
-        implementation::assert(self.value.is_array(), "JSON Value is an array", &self.value);
+        implementation::assert_no_expected(
+            self.value.is_array(),
+            &self.value,
+            "JSON to be an array",
+        );
 
         #[allow(clippy::unreachable)]
         let Value::Array(value) = self.value
@@ -193,10 +197,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
     }
 
     fn is_object(self) -> AssertionConnector<Map<String, Value>> {
-        implementation::assert(
+        implementation::assert_no_expected(
             self.value.is_object(),
-            "JSON Value is an object",
             &self.value,
+            "JSON to be an object",
         );
 
         #[allow(clippy::unreachable)]
@@ -236,10 +240,7 @@ impl JsonObjectAssertion for BasicAsserter<Map<String, Value>> {
     fn get(mut self, key: &str) -> BasicAsserter<Value> {
         let maybe_item = self.value.remove(key);
 
-        implementation::assert_no_actual(
-            maybe_item.is_some(),
-            &format!("JSON Object has kef '{key}'"),
-        );
+        implementation::assert(maybe_item.is_some(), &self.value, "to have the key", key);
 
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();

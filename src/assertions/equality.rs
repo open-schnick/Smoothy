@@ -137,10 +137,10 @@ where
     {
         let conversion_result: Result<AssertedType, _> = expected.try_into();
 
-        implementation::assert(
+        implementation::assert_no_expected(
             conversion_result.is_ok(),
-            "TryInto conversion succeeds",
             &conversion_result,
+            "to be a successful conversion",
         );
 
         #[allow(clippy::unwrap_used)]
@@ -158,10 +158,10 @@ where
     {
         let conversion_result: Result<AssertedType, _> = expected.try_into();
 
-        implementation::assert(
+        implementation::assert_no_expected(
             conversion_result.is_ok(),
-            "TryInto conversion succeeds",
             &conversion_result,
+            "to be a successful conversion",
         );
 
         #[allow(clippy::unwrap_used)]

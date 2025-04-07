@@ -2,5 +2,9 @@
 source: tests/smoothy/string/matches.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Value is matching regex)`
-           found:  "I deny having fun."
+[31mAssertion failed![0m
+
+Expected
+  [31m"I deny having fun."[0m
+to be matched by
+  [32m"\\b\\w{13}\\b"[0m

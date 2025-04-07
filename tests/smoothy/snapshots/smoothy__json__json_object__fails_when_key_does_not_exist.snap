@@ -2,4 +2,9 @@
 source: tests/smoothy/json.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(JSON Object has kef 'does not exist')`
+[31mAssertion failed![0m
+
+Expected
+  [31m{"key": String("value")}[0m
+to have the key
+  [32m"does not exist"[0m

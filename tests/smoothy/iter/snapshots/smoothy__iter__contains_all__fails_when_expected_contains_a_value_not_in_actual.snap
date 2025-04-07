@@ -2,5 +2,11 @@
 source: tests/smoothy/iter/contains_all.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Iterator contains items)`
-           found:  [420]
+[31mAssertion failed![0m
+
+Expected
+  [31m[1, 2, 2, 1, 3, 3][0m
+to contain all of
+  [1, 420]
+but did not contain
+  [32m[420][0m

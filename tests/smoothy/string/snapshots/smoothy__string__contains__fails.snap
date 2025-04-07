@@ -2,5 +2,9 @@
 source: tests/smoothy/string/contains.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Value contains string)`
-           found:  "Hello World"
+[31mAssertion failed![0m
+
+Expected
+  [31m"Hello World"[0m
+to contain
+  [32m"BlaFasel"[0m

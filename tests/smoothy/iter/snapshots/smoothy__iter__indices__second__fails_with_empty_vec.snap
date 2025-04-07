@@ -2,5 +2,8 @@
 source: tests/smoothy/iter/indices.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Iterator has second item)`
-           found:  None
+[31mAssertion failed![0m
+
+Expected
+  [31m[][0m
+to contain a second item

@@ -2,5 +2,9 @@
 source: tests/smoothy/string/starts_with.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Value starts with 'BlaFasel')`
-           found:  "Hello World"
+[31mAssertion failed![0m
+
+Expected
+  [31m"Hello World"[0m
+to start with
+  [32m"BlaFasel"[0m

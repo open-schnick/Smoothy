@@ -2,5 +2,8 @@
 source: tests/smoothy/json.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(JSON Value is a string)`
-           found:  Number(42)
+[31mAssertion failed![0m
+
+Expected
+  [31mNumber(42)[0m
+JSON to be a string
