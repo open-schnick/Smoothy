@@ -166,6 +166,8 @@ where
 
     /// Asserts that the iterable contains the item at least once in any place in the iterator
     ///
+    /// [See top-level docs for more details on content assertions](index.html#content-assertions)
+    ///
     /// # Examples
     /// ```
     /// # use smoothy::prelude::*;
@@ -189,6 +191,8 @@ where
     fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>;
 
     /// Asserts that the iterable contains each item at least once in any place in the iterator
+    ///
+    /// [See top-level docs for more details on content assertions](index.html#content-assertions)
     ///
     /// # Examples
     /// ```
@@ -216,6 +220,8 @@ where
     ) -> AssertionConnector<Vec<Item>>;
 
     /// Asserts that the iterable contains only the expected items any place in the iterator
+    ///
+    /// [See top-level docs for more details on content assertions](index.html#content-assertions)
     ///
     /// # Examples
     /// ```

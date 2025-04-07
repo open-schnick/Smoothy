@@ -6,7 +6,8 @@
 //! 4. [Result](#result)
 //! 5. [Option](#option)
 //! 6. [Iterables](#iterables)
-//! 7. [Accessors](#accessors)
+//! 7. [Json](#json)
+//! 8. [Accessors](#accessors)
 //!
 //! # Overview
 //!
@@ -237,7 +238,34 @@
 //! assert_that([1, 2, 3]).nth(0).is(1);
 //! ```
 //!
-//! ### JSON
+//! ### Content assertions
+//!
+//! The content of iterables can be asserted in different ways depending on the invariants one wants to assert
+//!
+//! - *Ordered* The order of expected items must match the order of the actual items.
+//! - *In Sequence* The expected items must be in the same order as the actual items without any items in between.
+//! - *Exclusive* Only the expected items should exist in the iterable and all the expected items should be present in the iterable.
+//!
+//! | Assertion                  | Ordered | In Sequence | Exclusive | Note                |
+//! |----------------------------|---------|-------------|-----------|---------------------|
+//! | [`contains`](trait.IteratorAssertion.html#tymethod.contains) / [`contains_all`](trait.IteratorAssertion.html#tymethod.contains_all)    | false   | false       | false     |                     |
+//! | [`contains_only`](trait.IteratorAssertion.html#tymethod.contains_only)              | false   | false       | true      |                     |
+//! | -                          | false   | true        | false     | Does not make sense |
+//! | -                          | false   | true        | true      | Does not make sense |
+//! | `contains_in_order` (WIP)    | true    | false       | false     |                     |
+//! | -                | true    | false       | true      | Could be useful, but is it needed?                    |
+//! | `contains_in_sequence` (WIP) | true    | true        | false     |                     |
+//! | [`is`](trait.EqualityAssertion.html#tymethod.is) / [`equals`](trait.EqualityAssertion.html#tymethod.equals)                | true    | true        | true      |                     |
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! assert_that([1, 2, 3]).is([1, 2, 3]);
+//! assert_that([1, 2, 3]).contains(1);
+//! assert_that([1, 2, 3]).contains_all([2, 1]);
+//! assert_that([1, 2, 3, 2]).contains_only([3, 1, 2, 2]);
+//! ```
+//!
+//! ## JSON
 //!
 //! JSON values as used by [`serde_json`] can be asserted about JSON types and valuse.
 //!
@@ -261,33 +289,6 @@
 //! let json = json!("test");
 //!
 //! assert_that(json).is_string().and().equals("test");
-//! ```
-//!
-//! ### Content assertions
-//!
-//! The content of iterables can be asserted in different ways depending on the invariants one wants to assert
-//!
-//! - *Ordered* The order of expected items must match the order of the actual items
-//! - *In Sequence* The expected items must be in the same order as the actual items without any items in between
-//! - *Exclusive* Only the expected items should exist in the iterable
-//!
-//! | Assertion                  | Ordered | In Sequence | Exclusive | Note                |
-//! |----------------------------|---------|-------------|-----------|---------------------|
-//! | [`contains`](trait.IteratorAssertion.html#tymethod.contains) / [`contains_all`](trait.IteratorAssertion.html#tymethod.contains_all)    | false   | false       | false     |                     |
-//! | [`contains_only`](trait.IteratorAssertion.html#tymethod.contains_only)              | false   | false       | true      |                     |
-//! | -                          | false   | true        | false     | Does not make sense |
-//! | -                          | false   | true        | true      | Does not make sense |
-//! | `contains_in_order` (WIP)    | true    | false       | false     |                     |
-//! | [`is`](trait.EqualityAssertion.html#tymethod.is) / [`equals`](trait.EqualityAssertion.html#tymethod.equals)                | true    | false       | true      |                     |
-//! | `contains_in_sequence` (WIP) | true    | true        | false     |                     |
-//! | [`is`](trait.EqualityAssertion.html#tymethod.is) / [`equals`](trait.EqualityAssertion.html#tymethod.equals)                | true    | true        | true      |                     |
-//!
-//! ```
-//! # use smoothy::prelude::*;
-//! assert_that([1, 2, 3]).is([1, 2, 3]);
-//! assert_that([1, 2, 3]).contains(1);
-//! assert_that([1, 2, 3]).contains_all([1, 2]);
-//! assert_that([1, 2, 3]).contains_only([1, 2, 3]);
 //! ```
 //!
 //! ## Accessors
