@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use serde_json::{json, Value};
 use smoothy::{
     assert_that, BooleanAssertion, EqualityAssertion, IteratorAssertion, JsonValueAssertion,
@@ -13,9 +14,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_null_fails_with_values_other_than_null() {
-        assert_that(json!("Hello World!")).is_null();
+        failing_assertion!({
+            assert_that(json!("Hello World!")).is_null();
+        });
     }
 
     #[test]
@@ -24,9 +26,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_boolean_fails_with_values_other_than_boolean() {
-        assert_that(json!("Hello World!")).is_boolean();
+        failing_assertion!({
+            assert_that(json!("Hello World!")).is_boolean();
+        });
     }
 
     #[test]
@@ -35,9 +38,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_number_fails_with_values_other_than_numbers() {
-        assert_that(json!(null)).is_number();
+        failing_assertion!({
+            assert_that(json!(null)).is_number();
+        });
     }
 
     #[test]
@@ -49,9 +53,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_string_fails_with_values_other_than_strings() {
-        assert_that(json!(42)).is_string();
+        failing_assertion!({
+            assert_that(json!(42)).is_string();
+        });
     }
 
     #[test]
@@ -60,9 +65,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_array_fails_with_values_other_than_arrays() {
-        assert_that(json!(42)).is_array();
+        failing_assertion!({
+            assert_that(json!(42)).is_array();
+        });
     }
 
     #[test]
@@ -74,9 +80,10 @@ mod json_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed"]
     fn is_object_fails_with_values_other_than_objects() {
-        assert_that(json!(42)).is_object();
+        failing_assertion!({
+            assert_that(json!(42)).is_object();
+        });
     }
 }
 
@@ -84,6 +91,15 @@ mod json_value {
 mod json_object {
     use super::*;
     use smoothy::JsonObjectAssertion;
+
+    #[test]
+    fn fails_when_key_does_not_exist() {
+        failing_assertion!({
+            let object = json!({"key": "value"});
+
+            assert_that(object).is_object().and().get("does not exist");
+        });
+    }
 
     #[test]
     fn using_macro() {

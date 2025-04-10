@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, IteratorAssertion};
 
 #[test]
@@ -28,9 +29,10 @@ fn expected_element_is_converted_to_asserted_type() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator contains item)`"]
 fn fails_when_iterator_does_not_contain_element() {
-    let vec = vec!["A", "B", "C"];
+    failing_assertion!({
+        let vec = vec!["A", "B", "C"];
 
-    assert_that(vec).contains("Does not exist in iterator");
+        assert_that(vec).contains("Does not exist in iterator");
+    });
 }

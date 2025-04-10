@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/json.rs
+expression: assertion_failed_output
+---
+assertion failed: `(JSON Value is a boolean)`
+           found:  String("Hello World!")

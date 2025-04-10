@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/iter/indices.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Iterator has first item)`
+           found:  None

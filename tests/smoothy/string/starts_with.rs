@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, StringAssertion};
 
 #[allow(clippy::unnecessary_to_owned)]
@@ -19,7 +20,8 @@ fn succeeds_with_string() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Value starts with 'BlaFasel')`\n           found:  \"Hello World\""]
 fn fails() {
-    assert_that("Hello World").starts_with("BlaFasel");
+    failing_assertion!({
+        assert_that("Hello World").starts_with("BlaFasel");
+    });
 }

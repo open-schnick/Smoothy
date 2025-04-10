@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, AssertionConnector, EqualityAssertion, IteratorAssertion};
 
 #[test]
@@ -14,8 +15,9 @@ fn connects_with_other_iter_assertions() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator is not empty)`\n           found:  []"]
 fn fails() {
-    let vec: Vec<String> = vec![];
-    assert_that(vec).is_not_empty();
+    failing_assertion!({
+        let vec: Vec<String> = vec![];
+        assert_that(vec).is_not_empty();
+    });
 }

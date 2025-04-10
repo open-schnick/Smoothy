@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use regex::Regex;
 use smoothy::{assert_that, AssertionConnector, StringAssertion};
 
@@ -17,7 +18,8 @@ fn succeeds_with_string() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Value is matching regex)`\n           found:  \"I deny having fun.\""]
 fn fails() {
-    assert_that("I deny having fun.".to_string()).matches(&Regex::new(r"\b\w{13}\b").unwrap());
+    failing_assertion!({
+        assert_that("I deny having fun.".to_string()).matches(&Regex::new(r"\b\w{13}\b").unwrap());
+    });
 }

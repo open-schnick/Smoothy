@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/iter/contains_only.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Iterator contains only the expected items)`
+           found:  [3]

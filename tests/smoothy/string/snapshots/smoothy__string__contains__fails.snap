@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/string/contains.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Value contains string)`
+           found:  "Hello World"

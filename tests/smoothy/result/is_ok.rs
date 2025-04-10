@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, EqualityAssertion, ResultAssertion};
 
 mod assert_result {
@@ -11,11 +12,12 @@ mod assert_result {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Result is Ok)`\n           found:  Err(())"]
     fn is_ok_fails() {
-        let result: Result<String, ()> = Err(());
+        failing_assertion!({
+            let result: Result<String, ()> = Err(());
 
-        assert_that(result).is_ok();
+            assert_that(result).is_ok();
+        });
     }
 }
 
