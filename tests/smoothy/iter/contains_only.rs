@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, IteratorAssertion};
 
 #[test]
@@ -35,20 +36,25 @@ fn expected_items_are_converted_via_into() {
         .contains_only(["A", "B", "C"]);
 }
 
+// bin ich lost? ist das wirklich das was ich gerade testen will?
+
 #[test]
-#[should_panic = "assertion failed: `(Iterator contains only the expected items)`\n           found:  [2, 1, 3, 3]"]
 fn fails_when_actual_contains_additional_values() {
-    assert_that([1, 2, 2, 1, 3, 3]).contains_only([1, 2]);
+    failing_assertion!({
+        assert_that([1, 2, 2, 1, 3, 3]).contains_only([1, 2]);
+    });
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator contains only the expected items)`\n           found:  [3]"]
 fn fails_when_expected_contains_additional_values() {
-    assert_that([1, 2]).contains_only([1, 2, 3]);
+    failing_assertion!({
+        assert_that([1, 2]).contains_only([1, 2, 3]);
+    });
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator contains only the expected items)`\n           found:  [1]"]
 fn fails_when_actual_contains_additional_duplicated_values() {
-    assert_that([1, 1, 2]).contains_only([1, 2]);
+    failing_assertion!({
+        assert_that([1, 1, 2]).contains_only([1, 2]);
+    });
 }

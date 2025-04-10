@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, EqualityAssertion, IteratorAssertion};
 
 mod first {
@@ -11,11 +12,12 @@ mod first {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Iterator has first item)`\n           found:  None"]
     fn fails_with_empty_vec() {
-        assert_that::<Vec<&str>>(vec![])
-            .first()
-            .equals("Hello World!");
+        failing_assertion!({
+            assert_that::<Vec<&str>>(vec![])
+                .first()
+                .equals("Hello World!");
+        });
     }
 }
 
@@ -30,11 +32,12 @@ mod second {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Iterator has second item)`\n           found:  None"]
     fn fails_with_empty_vec() {
-        assert_that::<Vec<&str>>(vec![])
-            .second()
-            .equals("Hello World!");
+        failing_assertion!({
+            assert_that::<Vec<&str>>(vec![])
+                .second()
+                .equals("Hello World!");
+        });
     }
 }
 
@@ -49,11 +52,12 @@ mod third {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Iterator has third item)`\n           found:  None"]
     fn fails_with_empty_vec() {
-        assert_that::<Vec<&str>>(vec![])
-            .third()
-            .equals("Hello World!");
+        failing_assertion!({
+            assert_that::<Vec<&str>>(vec![])
+                .third()
+                .equals("Hello World!");
+        });
     }
 }
 
@@ -68,11 +72,12 @@ mod nth {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Iterator has 2th item)`\n           found:  None"]
     fn fails_with_empty_vec() {
-        assert_that::<Vec<&str>>(vec![])
-            .nth(2)
-            .equals("Hello World!");
+        failing_assertion!({
+            assert_that::<Vec<&str>>(vec![])
+                .nth(2)
+                .equals("Hello World!");
+        });
     }
 }
 

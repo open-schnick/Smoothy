@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, IteratorAssertion};
 
 #[test]
@@ -7,8 +8,9 @@ fn succeeds() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator is empty)`\n           found:  [\"\"]"]
 fn fails() {
-    let vec: Vec<String> = vec![String::default()];
-    assert_that(vec).is_empty();
+    failing_assertion!({
+        let vec: Vec<String> = vec!["Hello".to_string()];
+        assert_that(vec).is_empty();
+    });
 }

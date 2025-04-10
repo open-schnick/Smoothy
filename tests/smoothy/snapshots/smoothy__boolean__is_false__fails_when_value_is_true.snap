@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/boolean.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Value is false)`
+           found:  true

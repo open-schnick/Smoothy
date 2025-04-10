@@ -1,0 +1,5 @@
+---
+source: tests/smoothy/json.rs
+expression: assertion_failed_output
+---
+assertion failed: `(JSON Object has kef 'does not exist')`

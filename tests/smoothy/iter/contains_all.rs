@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, IteratorAssertion};
 
 #[test]
@@ -48,7 +49,8 @@ fn expected_items_are_converted_via_into() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Iterator contains items)`\n           found:  [4, 420]"]
 fn fails_when_expected_contains_a_value_not_in_actual() {
-    assert_that([1, 2, 2, 1, 3, 3]).contains_all([4, 420]);
+    failing_assertion!({
+        assert_that([1, 2, 2, 1, 3, 3]).contains_all([1, 420]);
+    });
 }

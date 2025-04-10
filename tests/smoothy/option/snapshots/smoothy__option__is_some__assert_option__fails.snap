@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/option/is_some.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Option is Some)`
+           found:  None

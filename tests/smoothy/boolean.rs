@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, BooleanAssertion};
 
 #[cfg(test)]
@@ -15,9 +16,10 @@ mod is_true {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Value is true)`\n           found:  false"]
     fn fails_when_value_is_false() {
-        assert_that(false).is_true();
+        failing_assertion!({
+            assert_that(false).is_true();
+        });
     }
 }
 
@@ -36,9 +38,10 @@ mod is_false {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Value is false)`\n           found:  true"]
     fn fails_when_value_is_true() {
-        assert_that(true).is_false();
+        failing_assertion!({
+            assert_that(true).is_false();
+        });
     }
 }
 

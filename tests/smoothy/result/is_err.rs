@@ -1,4 +1,7 @@
-use crate::result::is_err::setup::{ComparableError, ConvertableError, NonComparableError};
+use crate::{
+    failing_assertion,
+    result::is_err::setup::{ComparableError, ConvertableError, NonComparableError},
+};
 use smoothy::{assert_that, EqualityAssertion, ResultAssertion};
 use std::fmt::Display;
 
@@ -12,10 +15,11 @@ mod assert_result {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(Result is Err)`\n           found:  Ok(())"]
     fn is_an_error_fails() {
-        let result: Result<(), String> = Ok(());
-        assert_that(result).is_err();
+        failing_assertion!({
+            let result: Result<(), String> = Ok(());
+            assert_that(result).is_err();
+        });
     }
 }
 
@@ -56,14 +60,16 @@ mod assert_error {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails() {
-        let result: Result<(), ComparableError> = Err(ComparableError(String::from("Hello There")));
+        failing_assertion!({
+            let result: Result<(), ComparableError> =
+                Err(ComparableError(String::from("Hello There")));
 
-        assert_that(result)
-            .is_err()
-            .and_error()
-            .equals(ConvertableError(String::from("yo")));
+            assert_that(result)
+                .is_err()
+                .and_error()
+                .equals(ConvertableError(String::from("yo")));
+        });
     }
 }
 

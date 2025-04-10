@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/iter/contains_all.rs
+expression: assertion_failed_output
+---
+assertion failed: `(Iterator contains items)`
+           found:  [420]

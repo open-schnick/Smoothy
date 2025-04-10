@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, OptionAssertion};
 
 #[test]
@@ -8,9 +9,10 @@ fn succeeds() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(Option is None)`"]
 fn fails() {
-    let option: Option<()> = Some(());
+    failing_assertion!({
+        let option: Option<()> = Some(());
 
-    assert_that(option).is_none();
+        assert_that(option).is_none();
+    });
 }
