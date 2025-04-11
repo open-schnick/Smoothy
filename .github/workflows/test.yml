@@ -24,4 +24,4 @@ jobs:
         with:
           toolchain: ${{ matrix.toolchain }}
       - name: cargo test
-        run: cargo test --all --all-features
+        run: cargo test --workspace --all-features
