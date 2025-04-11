@@ -373,44 +373,51 @@ where
     ) -> AssertionConnector<Vec<Item>> {
         let actual_items = self.value.into_iter().collect::<Vec<Item>>();
         #[allow(clippy::shadow_reuse)]
-        let mut expected_items = expected_items
+        let expected_items = expected_items
             .into_iter()
             .map(Into::into)
             .collect::<Vec<Item>>();
 
-        let mut missing_in_expected = Vec::with_capacity(actual_items.len());
+        let mut expected_item_indices = (0..expected_items.len()).collect::<Vec<_>>();
+
+        let mut extra_items_in_actual = Vec::with_capacity(actual_items.len());
 
         for actual in &actual_items {
-            match expected_items
-                .iter()
-                .position(|expected| expected == actual)
-            {
+            #[allow(clippy::unwrap_used)]
+            let matching_available_item_found_in_expected =
+                expected_item_indices
+                    .iter()
+                    .position(|available_expected_item| {
+                        expected_items.get(*available_expected_item).unwrap() == actual
+                    });
+            match matching_available_item_found_in_expected {
                 None => {
                     // Element not found in expected -> actual has more elements than expected
-                    missing_in_expected.push(actual);
+                    extra_items_in_actual.push(actual);
                 }
                 Some(index) => {
-                    expected_items.remove(index);
+                    // Actual was matched by an item in expected -> removing the index from the available items
+                    expected_item_indices.remove(index);
                 }
             }
         }
 
         // TODO: the output is really not good
-        if !missing_in_expected.is_empty() {
-            implementation::assert(
-                missing_in_expected.is_empty(),
-                "Iterator contains only the expected items",
-                &missing_in_expected,
-            );
-        }
+        implementation::assert(
+            extra_items_in_actual.is_empty(),
+            "Iterator contains only the expected items",
+            &extra_items_in_actual,
+        );
 
-        if !expected_items.is_empty() {
-            implementation::assert(
-                expected_items.is_empty(),
-                "Iterator contains only the expected items",
-                &expected_items,
-            );
-        }
+        implementation::assert(
+            expected_item_indices.is_empty(),
+            "Iterator contains only the expected items",
+            #[allow(clippy::unwrap_used)]
+            expected_item_indices
+                .iter()
+                .map(|index| expected_items.get(*index).unwrap())
+                .collect::<Vec<&Item>>(),
+        );
 
         AssertionConnector {
             value: actual_items,

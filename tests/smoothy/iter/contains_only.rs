@@ -39,7 +39,7 @@ fn expected_items_are_converted_via_into() {
 #[test]
 fn fails_when_actual_contains_additional_values() {
     failing_assertion!({
-        assert_that([1, 2, 2, 1, 3, 3]).contains_only([1, 2]);
+        assert_that([1, 2, 3]).contains_only([1, 2]);
     });
 }
 
@@ -54,5 +54,12 @@ fn fails_when_expected_contains_additional_values() {
 fn fails_when_actual_contains_additional_duplicated_values() {
     failing_assertion!({
         assert_that([1, 1, 2]).contains_only([1, 2]);
+    });
+}
+
+#[test]
+fn fails_when_expected_contains_additional_duplicated_values() {
+    failing_assertion!({
+        assert_that([1, 2]).contains_only([1, 1, 2]);
     });
 }
