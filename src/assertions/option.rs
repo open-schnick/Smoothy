@@ -50,7 +50,7 @@ where
     OptionValue: Debug,
 {
     fn is_some(self) -> SomeAsserter<OptionValue> {
-        implementation::assert(self.value.is_some(), "Option is Some", &self.value);
+        implementation::assert_no_expected(self.value.is_some(), &self.value, "to be Some");
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.unwrap();
@@ -59,7 +59,7 @@ where
     }
 
     fn is_none(self) {
-        implementation::assert(self.value.is_none(), "Option is None", &self.value);
+        implementation::assert_no_expected(self.value.is_none(), &self.value, "to be None");
     }
 }
 

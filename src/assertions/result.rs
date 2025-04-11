@@ -55,7 +55,7 @@ where
     ErrValue: Debug,
 {
     fn is_ok(self) -> OkAsserter<OkValue> {
-        implementation::assert(self.value.is_ok(), "Result is Ok", &self.value);
+        implementation::assert_no_expected(self.value.is_ok(), &self.value, "to be Ok");
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.unwrap();
@@ -64,7 +64,7 @@ where
     }
 
     fn is_err(self) -> ErrAsserter<ErrValue> {
-        implementation::assert(self.value.is_err(), "Result is Err", &self.value);
+        implementation::assert_no_expected(self.value.is_err(), &self.value, "to be Err");
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.err().unwrap();

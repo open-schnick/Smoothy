@@ -2,5 +2,8 @@
 source: tests/smoothy/iter/is_not_empty.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Iterator is not empty)`
-           found:  []
+[31mAssertion failed![0m
+
+Expected
+  [31m[][0m
+to contain at least one item

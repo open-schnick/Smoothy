@@ -2,5 +2,8 @@
 source: tests/smoothy/equality/try_equals.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(TryInto conversion succeeds)`
-           found:  Err(TryFromIntError(()))
+[31mAssertion failed![0m
+
+Expected
+  [31mErr(TryFromIntError(()))[0m
+to be a successful conversion
