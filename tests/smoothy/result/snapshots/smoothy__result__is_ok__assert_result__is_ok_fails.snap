@@ -2,5 +2,8 @@
 source: tests/smoothy/result/is_ok.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Result is Ok)`
-           found:  Err(())
+[31mAssertion failed![0m
+
+Expected
+  [31mErr(())[0m
+to be Ok

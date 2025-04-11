@@ -62,13 +62,14 @@ impl<StringLike> StringAssertion<StringLike> for BasicAsserter<StringLike>
 where
     StringLike: AsRef<str>,
 {
-    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
-        let asserted_value = self.value.as_ref();
+    fn contains(self, expected: impl AsRef<str>) -> AssertionConnector<StringLike> {
+        let actual = self.value.as_ref();
 
         implementation::assert(
-            asserted_value.contains(string.as_ref()),
-            "Value contains string",
-            asserted_value,
+            actual.contains(expected.as_ref()),
+            actual,
+            "to contain",
+            expected.as_ref(),
         );
 
         AssertionConnector { value: self.value }
@@ -76,24 +77,26 @@ where
 
     #[cfg(feature = "regex")]
     fn matches(self, regex: &regex::Regex) -> AssertionConnector<StringLike> {
-        let asserted_value = self.value.as_ref();
+        let actual = self.value.as_ref();
 
         implementation::assert(
-            regex.is_match(asserted_value),
-            "Value is matching regex",
-            asserted_value,
+            regex.is_match(actual),
+            actual,
+            "to be matched by",
+            regex.to_string(),
         );
 
         AssertionConnector { value: self.value }
     }
 
-    fn starts_with(self, string: impl AsRef<str>) -> AssertionConnector<StringLike> {
-        let asserted_value = self.value.as_ref();
+    fn starts_with(self, expected: impl AsRef<str>) -> AssertionConnector<StringLike> {
+        let actual = self.value.as_ref();
 
         implementation::assert(
-            asserted_value.starts_with(string.as_ref()),
-            &format!("Value starts with '{}'", string.as_ref()),
-            asserted_value,
+            actual.starts_with(expected.as_ref()),
+            actual,
+            "to start with",
+            expected.as_ref(),
         );
 
         AssertionConnector { value: self.value }

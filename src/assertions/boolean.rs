@@ -57,7 +57,7 @@ where
     fn is_true(self) -> AssertionConnector<bool> {
         let actual = self.value.into();
 
-        implementation::assert(actual, "Value is true", actual);
+        implementation::assert(actual, actual, "to be", true);
 
         AssertionConnector { value: actual }
     }
@@ -65,7 +65,7 @@ where
     fn is_false(self) -> AssertionConnector<bool> {
         let actual = self.value.into();
 
-        implementation::assert(!actual, "Value is false", actual);
+        implementation::assert(!actual, actual, "to be", false);
 
         AssertionConnector { value: actual }
     }

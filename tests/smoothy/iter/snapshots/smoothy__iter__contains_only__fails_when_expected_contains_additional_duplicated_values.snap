@@ -2,5 +2,11 @@
 source: tests/smoothy/iter/contains_only.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Iterator contains only the expected items)`
-           found:  [1]
+[31mAssertion failed![0m
+
+Expected
+  [31m[1, 2][0m
+to contain only
+  [1, 1, 2]
+but did not contain
+  [32m[1][0m

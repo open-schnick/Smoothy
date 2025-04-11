@@ -2,4 +2,9 @@
 source: tests/smoothy/iter/contains.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Iterator contains item)`
+[31mAssertion failed![0m
+
+Expected
+  [31m["A", "B", "C"][0m
+to contain
+  [32m"Does not exist in iterator"[0m

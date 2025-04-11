@@ -2,5 +2,9 @@
 source: tests/smoothy/boolean.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(Value is true)`
-           found:  false
+[31mAssertion failed![0m
+
+Expected
+  [31mfalse[0m
+to be
+  [32mtrue[0m
