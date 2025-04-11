@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.3](https://github.com/open-schnick/Smoothy/compare/v0.8.2...v0.8.3) - 2025-04-11
+
+### Other
+
+- use insta for snapshot testing assertion messages
+- use .contains on iterator instead of using .any
+- add usage tests for json
+- move json section, add link to top-level docs for iterator assertions
+
 ## [0.8.2](https://github.com/open-schnick/Smoothy/compare/v0.8.1...v0.8.2) - 2025-04-06
 
 ### Added
