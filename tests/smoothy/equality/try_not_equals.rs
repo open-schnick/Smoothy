@@ -21,8 +21,9 @@ mod fails {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left != right)`"]
     fn with_numbers() {
-        assert_that(42u8).try_into_not_equals(42i8);
+        failing_assertion!({
+            assert_that(42u8).try_into_not_equals(42i8);
+        });
     }
 }

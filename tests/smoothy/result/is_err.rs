@@ -101,16 +101,17 @@ mod assert_error_as_string {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails() {
-        let result: Result<(), NonComparableError> =
-            Err(NonComparableError(String::from("Hello There")));
+        failing_assertion!({
+            let result: Result<(), NonComparableError> =
+                Err(NonComparableError(String::from("Hello There")));
 
-        assert_that(result)
-            .is_err()
-            .and_error()
-            .to_string()
-            .equals("yo");
+            assert_that(result)
+                .is_err()
+                .and_error()
+                .to_string()
+                .equals("yo");
+        });
     }
 }
 

@@ -16,10 +16,12 @@ mod succeeds {
 
 mod fails {
     use super::*;
+    use crate::failing_assertion;
 
     #[test]
-    #[should_panic = "assertion failed: `(left != right)`"]
     fn with_matching_values() {
-        assert_that(12).not_equals(12);
+        failing_assertion!({
+            assert_that(12).not_equals(12);
+        });
     }
 }

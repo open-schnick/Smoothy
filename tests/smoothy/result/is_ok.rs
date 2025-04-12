@@ -62,10 +62,11 @@ mod assert_result_value {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails() {
-        let result: Result<String, ()> = Ok(String::from("Hello There"));
+        failing_assertion!({
+            let result: Result<String, ()> = Ok(String::from("Hello There"));
 
-        assert_that(result).is_ok().and_value().equals("yo");
+            assert_that(result).is_ok().and_value().equals("yo");
+        });
     }
 }

@@ -1,0 +1,8 @@
+---
+source: tests/smoothy/equality/try_not_equals.rs
+expression: assertion_failed_output
+---
+assertion failed: `(left != right)`
+
+Both sides:
+42

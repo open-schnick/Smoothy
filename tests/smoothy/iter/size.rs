@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, EqualityAssertion, IteratorAssertion};
 
 #[test]
@@ -6,7 +7,8 @@ fn size_matches() {
 }
 
 #[test]
-#[should_panic = "assertion failed: `(left == right)`"]
 fn size_does_not_match() {
-    assert_that([1, 2, 3]).size().is(42);
+    failing_assertion!({
+        assert_that([1, 2, 3]).size().is(42);
+    });
 }

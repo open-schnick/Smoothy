@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, EqualityAssertion};
 
 mod with_numbers {
@@ -23,10 +24,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u8 = 123;
-            assert_that(random_value).equals(42);
+            failing_assertion!({
+                let random_value: u8 = 123;
+                assert_that(random_value).equals(42);
+            });
         }
     }
 
@@ -56,10 +58,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u16 = 123;
-            assert_that(random_value).equals(321u16);
+            failing_assertion!({
+                let random_value: u16 = 123;
+                assert_that(random_value).equals(321u16);
+            });
         }
     }
 
@@ -95,10 +98,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u32 = 123;
-            assert_that(random_value).equals(321u32);
+            failing_assertion!({
+                let random_value: u32 = 123;
+                assert_that(random_value).equals(321u32);
+            });
         }
     }
 
@@ -140,10 +144,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u64 = 123;
-            assert_that(random_value).equals(321u64);
+            failing_assertion!({
+                let random_value: u64 = 123;
+                assert_that(random_value).equals(321u64);
+            });
         }
     }
 
@@ -191,10 +196,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u128 = 123;
-            assert_that(random_value).equals(321u128);
+            failing_assertion!({
+                let random_value: u128 = 123;
+                assert_that(random_value).equals(321u128);
+            });
         }
     }
 
@@ -218,10 +224,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: i8 = 123;
-            assert_that(random_value).equals(42);
+            failing_assertion!({
+                let random_value: i8 = 123;
+                assert_that(random_value).equals(42);
+            });
         }
     }
 
@@ -251,10 +258,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: i16 = 123;
-            assert_that(random_value).equals(321i16);
+            failing_assertion!({
+                let random_value: i16 = 123;
+                assert_that(random_value).equals(321i16);
+            });
         }
     }
 
@@ -290,10 +298,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: u32 = 123;
-            assert_that(random_value).equals(321u32);
+            failing_assertion!({
+                let random_value: u32 = 123;
+                assert_that(random_value).equals(321u32);
+            });
         }
     }
 
@@ -335,10 +344,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: i64 = 123;
-            assert_that(random_value).equals(321i64);
+            failing_assertion!({
+                let random_value: i64 = 123;
+                assert_that(random_value).equals(321i64);
+            });
         }
     }
 
@@ -387,10 +397,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: i128 = 123;
-            assert_that(random_value).equals(321i128);
+            failing_assertion!({
+                let random_value: i128 = 123;
+                assert_that(random_value).equals(321i128);
+            });
         }
     }
 
@@ -414,10 +425,11 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: f32 = 123.;
-            assert_that(random_value).equals(42.);
+            failing_assertion!({
+                let random_value: f32 = 123.;
+                assert_that(random_value).equals(42.);
+            });
         }
     }
 
@@ -441,17 +453,19 @@ mod with_numbers {
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn cannot_be_compared_to_f32() {
-            let random_value: f64 = 123.45;
-            assert_that(random_value).equals(123.45f32);
+            failing_assertion!({
+                let random_value: f64 = 123.45;
+                assert_that(random_value).equals(123.45f32);
+            });
         }
 
         #[test]
-        #[should_panic = "assertion failed: `(left == right)`"]
         fn fails() {
-            let random_value: f64 = 123.45;
-            assert_that(random_value).equals(321.01);
+            failing_assertion!({
+                let random_value: f64 = 123.45;
+                assert_that(random_value).equals(321.01);
+            });
         }
     }
 }
@@ -465,15 +479,17 @@ mod with_chars {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails_for_wrong_char() {
-        assert_that('a').equals('b');
+        failing_assertion!({
+            assert_that('a').equals('b');
+        });
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails_for_wrong_casing() {
-        assert_that('a').equals('A');
+        failing_assertion!({
+            assert_that('a').equals('A');
+        });
     }
 }
 
@@ -499,9 +515,10 @@ mod with_bools {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails() {
-        assert_that(true).equals(false);
+        failing_assertion!({
+            assert_that(true).equals(false);
+        });
     }
 }
 
@@ -523,9 +540,10 @@ mod with_tuples {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails_with_different_order() {
-        assert_that((1, 2)).equals((2, 1));
+        failing_assertion!({
+            assert_that((1, 2)).equals((2, 1));
+        });
     }
 }
 
@@ -549,17 +567,19 @@ mod with_vecs {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails_with_different_order() {
-        assert_that([1, 2, 3]).equals([3, 2, 1]);
+        failing_assertion!({
+            assert_that([1, 2, 3]).equals([3, 2, 1]);
+        });
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails_with_different_size() {
-        let a = vec![1, 2, 3];
-        let b = vec![1, 2];
-        assert_that(a).equals(b);
+        failing_assertion!({
+            let a = vec![1, 2, 3];
+            let b = vec![1, 2];
+            assert_that(a).equals(b);
+        });
     }
 }
 
@@ -584,15 +604,16 @@ mod with_structs {
     }
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn fails() {
-        let a = Test {
-            data: String::new(),
-        };
-        let b = Test {
-            data: String::from("yo"),
-        };
+        failing_assertion!({
+            let a = Test {
+                data: String::new(),
+            };
+            let b = Test {
+                data: String::from("yo"),
+            };
 
-        assert_that(a).equals(b);
+            assert_that(a).equals(b);
+        });
     }
 }

@@ -1,0 +1,9 @@
+---
+source: tests/smoothy/equality/is.rs
+expression: assertion_failed_output
+---
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<[0m[1;48;5;52;31m2[0m[31m1[0m
+[32m>1[0m[1;48;5;22;32m2[0m

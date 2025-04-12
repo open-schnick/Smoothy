@@ -1,3 +1,4 @@
+use crate::failing_assertion;
 use smoothy::{assert_that, EqualityAssertion};
 
 mod succeeds {
@@ -23,8 +24,9 @@ mod fails {
     use super::*;
 
     #[test]
-    #[should_panic = "assertion failed: `(left == right)`"]
     fn with_not_matching_values() {
-        assert_that(21u8).is(12);
+        failing_assertion!({
+            assert_that(21u8).is(12);
+        });
     }
 }
