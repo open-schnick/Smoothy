@@ -37,7 +37,7 @@ pub(crate) fn assert_not_equals<T>(actual: T, expected: T)
 where
     T: PartialEq + Debug,
 {
-    pretty_assertions::assert_ne!(actual, expected);
+    assert(actual != expected, actual, "to not match", expected);
 }
 
 #[track_caller]

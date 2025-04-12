@@ -16,7 +16,7 @@ macro_rules! failing_assertion {
         let caught_panic = std::panic::catch_unwind(|| $assertion);
 
         // Capture the panic message
-        let caught_panic = caught_panic.err().unwrap();
+        let caught_panic = caught_panic.err().expect("Assertion should panic");
         let assertion_failed_output = caught_panic.downcast_ref::<String>().unwrap();
 
         insta::assert_snapshot!(assertion_failed_output);

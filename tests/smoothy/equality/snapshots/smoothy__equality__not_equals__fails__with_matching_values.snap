@@ -2,7 +2,9 @@
 source: tests/smoothy/equality/not_equals.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(left != right)`
+[31mAssertion failed![0m
 
-Both sides:
-12
+Expected
+  [31m12[0m
+to not match
+  [32m12[0m
