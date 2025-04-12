@@ -294,14 +294,14 @@
 //! ## Accessors
 //!
 //! Sometimes one wants to assert only one specific value of a struct.
-//! To do so one can use the [`map`](struct.BasicAsserter.html#method.map) method.
+//! To do so one can use the [`extract`](struct.BasicAsserter.html#method.extract) method.
 //!
 //! ```
 //! # use smoothy::prelude::*;
 //! struct Struct(pub String);
 //!
 //! assert_that(Struct("hello".to_string()))
-//!     .map(|s| s.0.clone())
+//!     .extract(|s| s.0.clone())
 //!     .equals("hello");
 //! ```
 // Include code samples from the readme as doc-tests
