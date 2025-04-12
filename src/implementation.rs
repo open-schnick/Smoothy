@@ -13,7 +13,7 @@ pub(crate) fn assert_equals<T>(actual: &T, expected: T)
 where
     T: PartialEq + Debug,
 {
-    pretty_assertions::assert_eq!(actual, &expected);
+    similar_asserts::assert_eq!(actual: actual, expected: &expected);
 }
 
 #[track_caller]

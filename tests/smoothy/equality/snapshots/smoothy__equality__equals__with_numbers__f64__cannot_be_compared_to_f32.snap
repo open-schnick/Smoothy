@@ -2,8 +2,10 @@
 source: tests/smoothy/equality/equals.rs
 expression: assertion_failed_output
 ---
-assertion failed: `(left == right)`
+assertion failed: `(actual == expected)`'
+   actual: `"123.45"`
+ expected: `"123.44999694824219"`
 
-[1mDiff[0m [31m< left[0m / [32mright >[0m :
-[31m<123.4[0m[1;48;5;52;31m5[0m
-[32m>123.4[0m[1;48;5;22;32m4999694824219[0m
+[1mDifferences[0m ([31m[2m-[0m[31mactual[0m|[32m[2m+[0m[32mexpected[0m):
+[31m[1m[2m-[0m[31m123.45[0m
+[32m[1m[2m+[0m[32m123.44999694824219[0m

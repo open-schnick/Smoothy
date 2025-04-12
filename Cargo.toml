@@ -19,7 +19,7 @@ json = ["dep:serde_json"]
 
 [dependencies]
 colored = "3"
-pretty_assertions = "1"
+similar-asserts = "1"
 regex = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 
