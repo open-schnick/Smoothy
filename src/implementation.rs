@@ -9,35 +9,19 @@ use colored::Colorize;
 use std::fmt::Debug;
 
 #[track_caller]
-pub(crate) fn assert_ref_equals<T>(actual: &T, expected: T)
+pub(crate) fn assert_equals<T>(actual: &T, expected: T)
 where
     T: PartialEq + Debug,
 {
-    assert_equals(actual, &expected);
+    pretty_assertions::assert_eq!(actual, &expected);
 }
 
 #[track_caller]
-pub(crate) fn assert_ref_not_equals<T>(actual: &T, expected: T)
+pub(crate) fn assert_not_equals<T>(actual: &T, expected: T)
 where
     T: PartialEq + Debug,
 {
-    assert_not_equals(actual, &expected);
-}
-
-#[track_caller]
-pub(crate) fn assert_equals<T>(actual: T, expected: T)
-where
-    T: PartialEq + Debug,
-{
-    pretty_assertions::assert_eq!(actual, expected);
-}
-
-#[track_caller]
-pub(crate) fn assert_not_equals<T>(actual: T, expected: T)
-where
-    T: PartialEq + Debug,
-{
-    assert(actual != expected, actual, "to not match", expected);
+    assert(actual != &expected, actual, "to not match", &expected);
 }
 
 #[track_caller]

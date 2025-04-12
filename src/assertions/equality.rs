@@ -120,13 +120,13 @@ where
 {
     fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
         let transformed_expected: AssertedType = expected.into();
-        implementation::assert_ref_equals(&self.value, transformed_expected);
+        implementation::assert_equals(&self.value, transformed_expected);
         AssertionConnector { value: self.value }
     }
 
     fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
         let transformed_expected: AssertedType = expected.into();
-        implementation::assert_ref_not_equals(&self.value, transformed_expected);
+        implementation::assert_not_equals(&self.value, transformed_expected);
         AssertionConnector { value: self.value }
     }
 
@@ -146,7 +146,7 @@ where
         #[allow(clippy::unwrap_used)]
         let expected = conversion_result.unwrap();
 
-        implementation::assert_ref_equals(&self.value, expected);
+        implementation::assert_equals(&self.value, expected);
 
         AssertionConnector { value: self.value }
     }
@@ -167,18 +167,18 @@ where
         #[allow(clippy::unwrap_used)]
         let expected = conversion_result.unwrap();
 
-        implementation::assert_ref_not_equals(&self.value, expected);
+        implementation::assert_not_equals(&self.value, expected);
 
         AssertionConnector { value: self.value }
     }
 
     fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
-        implementation::assert_ref_equals(&self.value, expected);
+        implementation::assert_equals(&self.value, expected);
         AssertionConnector { value: self.value }
     }
 
     fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
-        implementation::assert_ref_not_equals(&self.value, expected);
+        implementation::assert_not_equals(&self.value, expected);
         AssertionConnector { value: self.value }
     }
 }
