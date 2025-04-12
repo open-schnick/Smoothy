@@ -6,6 +6,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.3](https://github.com/open-schnick/Smoothy/compare/v0.8.2...v0.8.3) - 2025-04-12
+
+### Added
+
+- deprecate .map() in favour of .extract()
+- use similar_asserts instead of pretty_assertions as this allows us to specify labels for the inputs
+- use own assertions impl instead of assert_ne macro
+- improve output of failing assertions by printing actual and expected and using colored outputs
+
+### Other
+
+- inline unused public method
+- use snapshots testing for failing equality asserts
+- force colored outputs for ci runs
+- remove deprecated cargo command
+- fix output of contains_only and add missing test
+- use insta for snapshot testing assertion messages
+- use .contains on iterator instead of using .any
+- add usage tests for json
+- move json section, add link to top-level docs for iterator assertions
+
 ## [0.8.2](https://github.com/open-schnick/Smoothy/compare/v0.8.1...v0.8.2) - 2025-04-06
 
 ### Added
