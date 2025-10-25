@@ -6,13 +6,15 @@
 //! 4. [Result](#result)
 //! 5. [Option](#option)
 //! 6. [Iterables](#iterables)
-//! 7. [Json](#json)
-//! 8. [Accessors](#accessors)
+//! 7. [Filesystem / Path Assertions](#filesystem--path-assertions)
+//! 8. [File Handle Assertions](#file-handle-assertions)
+//! 9. [Json](#json)
+//! 10. [Accessors](#accessors)
 //!
 //! # Overview
 //!
-//! All asserted are stared by calling [`assert_that`] on a value.
-//! After that various assertions based on the type of the asserted value can be made.
+//! Start asserting by calling [`assert_that`] on a value.
+//! Then chain assertions based on the type you are asserting.
 //!
 //! ## Basic value assertions
 //!
@@ -265,9 +267,96 @@
 //! assert_that([1, 2, 3, 2]).contains_only([3, 1, 2, 2]);
 //! ```
 //!
+//! ## Filesystem / Path Assertions
+//!
+//! Path assertions work with any type implementing [`AsRef<Path>`](std::path::Path) such as [`str`], [`String`], [`&Path`](std::path::Path), and [`PathBuf`](std::path::PathBuf).
+//!
+//! [All path assertions](trait.PathAssertion.html)
+//!
+//! ### Existence checks
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! # use tempfile::NamedTempFile;
+//! let temp_file = NamedTempFile::new().unwrap();
+//!
+//! assert_that(temp_file.path()).exists();
+//! ```
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! assert_that("/path/that/does/not/exist").not_exists();
+//! ```
+//!
+//! ### Type checks
+//!
+//! Check if a path points to a regular file:
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! # use tempfile::NamedTempFile;
+//! let temp_file = NamedTempFile::new().unwrap();
+//!
+//! assert_that(temp_file.path()).is_file();
+//! ```
+//!
+//! Check if a path points to a directory:
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! # use tempfile::TempDir;
+//! let temp_dir = TempDir::new().unwrap();
+//!
+//! assert_that(temp_dir.path()).is_directory();
+//! ```
+//!
+//! Check if a path is a symlink (without following it):
+//!
+//! ```no_run
+//! # use smoothy::prelude::*;
+//! # use std::os::unix::fs::symlink;
+//! # use tempfile::TempDir;
+//! let temp_dir = TempDir::new().unwrap();
+//! let target = temp_dir.path().join("target");
+//! let link = temp_dir.path().join("link");
+//! std::fs::write(&target, "content").unwrap();
+//! symlink(&target, &link).unwrap();
+//!
+//! assert_that(&link).is_symlink();
+//! ```
+//!
+//! ## File Handle Assertions
+//!
+//! File handle assertions work with [`File`](std::fs::File) handles and types that implement [`Borrow<File>`](std::borrow::Borrow).
+//! These assertions check the metadata of the file handle itself.
+//!
+//! [All file assertions](trait.FileAssertion.html)
+//!
+//! Check if a file handle points to a regular file:
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! # use tempfile::tempfile;
+//! let file = tempfile().unwrap();
+//!
+//! assert_that(file).is_file();
+//! ```
+//!
+//! Check if a file handle points to a directory:
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! # use tempfile::TempDir;
+//! # use std::fs::File;
+//! let temp_dir = TempDir::new().unwrap();
+//! let dir = File::open(temp_dir.path()).unwrap();
+//!
+//! assert_that(dir).is_directory();
+//! ```
+//!
 //! ## JSON
 //!
-//! JSON values as used by [`serde_json`] can be asserted about JSON types and valuse.
+//! JSON values as used by [`serde_json`] can be asserted about JSON types and values.
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -320,8 +409,10 @@ pub use assertions::json::{JsonObjectAssertion, JsonValueAssertion};
 pub use assertions::{
     boolean::BooleanAssertion,
     equality::EqualityAssertion,
+    file::FileAssertion,
     iter::IteratorAssertion,
     option::{OptionAssertion, SomeAsserter},
+    path::PathAssertion,
     result::{ErrAsserter, OkAsserter, ResultAssertion},
     string::StringAssertion,
 };
@@ -330,8 +421,8 @@ pub use connector::AssertionConnector;
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
-        assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, IteratorAssertion,
-        OptionAssertion, ResultAssertion, StringAssertion,
+        assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, FileAssertion,
+        IteratorAssertion, OptionAssertion, PathAssertion, ResultAssertion, StringAssertion,
     };
     #[cfg_attr(docsrs, doc(cfg(feature = "json")))]
     #[cfg(feature = "json")]
