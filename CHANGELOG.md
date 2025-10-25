@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.4](https://github.com/open-schnick/Smoothy/compare/v0.8.3...v0.8.4) - 2025-10-25
+
+### Added
+
+- add file and path assertions to check existene and type
+
+### Other
+
+- update the README
+- remove deprecated clippy lint
+- use updated release-plz action
+
 ## [0.8.3](https://github.com/open-schnick/Smoothy/compare/v0.8.2...v0.8.3) - 2025-04-12
 
 ### Added
