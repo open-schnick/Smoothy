@@ -1,0 +1,9 @@
+---
+source: tests/smoothy/path/exists.rs
+expression: assertion_failed_output
+---
+[31mAssertion failed![0m
+
+Expected
+  [31m"/path/that/does/not/exist/file.txt"[0m
+to point at an existing entity in the filesystem

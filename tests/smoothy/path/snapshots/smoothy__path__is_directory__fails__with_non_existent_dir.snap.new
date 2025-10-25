@@ -1,0 +1,6 @@
+---
+source: tests/smoothy/path/is_directory.rs
+assertion_line: 78
+expression: assertion_failed_output
+---
+Failed to read path metadata: Os { code: 2, kind: NotFound, message: "No such file or directory" }
