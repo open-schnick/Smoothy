@@ -13,75 +13,107 @@ The crate is heavily inspired by [AssertJ](https://assertj.github.io/doc/)
 
 - simple and readable syntax
 - assertions based on the type of the asserted value
-- assertion values use type conversion traits to make assertions readable
+- assertion values use type conversion traits to make assertions easier to work with
 
-## Example
+## Why Smoothy?
 
-All asserted are stared by calling `assert_that` on a value.  
-After that various assertions based on the type of the asserted value can be made.
+Standard Rust assertions are quite minimalistic and lack meaningful error messages. Which makes debugging failing tests really hard.
+
+Take the following assertion:
+
+```rust, should_panic
+let result: Result<(), String> = Err("Some Error".to_string());
+
+assert!(result.is_ok());
+```
+
+This will result in a panic that looks like this:
+
+```shell
+thread 'test' panicked at src/lib.rs:42:5:
+assertion failed: result.is_ok()
+```
+
+well... what is the error here?
+
+Without knowing this, one has to rerun the test with logging or a debugger to find out why the assertion failed.
+
+The same assertion looks like this in Smoothy:
+
+```rust, should_panic
+use smoothy::prelude::*;
+
+let result: Result<(), String> = Err("Some Error".to_string());
+
+assert_that(result).is_ok();
+```
+
+which leads to the following output:
+
+```shell
+thread 'test' panicked at src/lib.rs:42:5:
+Assertion failed!
+
+Expected
+  Err("Some Error")
+to be Ok
+```
+
+The output of the default assertions is even worse when you want to assert iterators:
+
+```rust, should_panic
+let vec: Vec<i32> = vec![1, 2, 3];
+
+assert!(vec.contains(&4));
+```
+
+```shell
+thread 'test' panicked at src/lib.rs:42:5:
+assertion failed: vec.contains(&4)
+```
+
+with Smoothy:
+
+```rust, should_panic
+use smoothy::prelude::*;
+
+let vec: Vec<i32> = vec![1, 2, 3];
+
+assert_that(vec).contains(4);
+```
+
+```shell
+thread 'test' panicked at src/lib.rs:42:5:
+Assertion failed!
+
+Expected
+  [1, 2, 3]
+to contain
+  4
+```
+
+## How does it work
+
+Start asserting by calling `assert_that` on a value.
+Then chain assertions based on the type you are asserting.
 
 ```rust
 use smoothy::prelude::*;
 
-assert_that(42).equals(42);
-assert_that(true).is_true();
-assert_that(String::from("Hello")).equals("Hello");
+assert_that("Hello World!").starts_with("Hello").and().contains("World!");
 ```
 
-More examples on [docs.rs](https://docs.rs/smoothy/latest/smoothy/)
+Smoothy uses traits to implement different assertions depending on the type you are asserting. This way you can only write assertions that make sense
 
-## Assertion Structure Diagram
+```rust, compile_fail
+use smoothy::prelude::*;
 
-```mermaid
-stateDiagram-v2
-    [*] --> BasicAsserter&ltAssertable&gt : assert_that
-    BasicAsserter&ltAssertable&gt --> Anything
-    state "Assertable is any type" as Anything {
-        [*] --> AssertionConnector&ltAssertable&gt : is
-        [*] --> AssertionConnector&ltAssertable&gt : is_not
-        [*] --> AssertionConnector&ltAssertable&gt : equals
-        [*] --> AssertionConnector&ltAssertable&gt : not_equals
-        [*] --> AssertionConnector&ltAssertable&gt : try_into_equals
-        [*] --> AssertionConnector&ltAssertable&gt : try_into_not_equals
-        [*] --> AssertionConnector&ltAssertable&gt : map
-        AssertionConnector&ltAssertable&gt --> [*] : and
-    }
-    BasicAsserter&ltAssertable&gt --> Result
-    state "Assertable is Result&ltOk, Err&gt" as Result {
-        [*] --> OkAsserter&ltOk&gt : is_ok
-        OkAsserter&ltOk&gt --> BasicAsserter&ltOk&gt : and_value
-        [*] --> ErrAsserter&ltErr&gt : is_err
-        ErrAsserter&ltErr&gt --> BasicAsserter&ltErr&gt : and_error
-    }
-    BasicAsserter&ltAssertable&gt --> Option
-    state "Assertable is Option&ltSome&gt" as Option {
-        [*] --> [*] : is_none
-        [*] --> SomeAsserter&ltSome&gt : is_some
-        SomeAsserter&ltSome&gt --> BasicAsserter&ltSome&gt : and_value
-    }
-    BasicAsserter&ltAssertable&gt --> ImplString
-    state "Assertable implements ToString" as ImplString {
-        [*] --> BasicAsserter&ltString&gt : to_string
-    }
-    BasicAsserter&ltAssertable&gt --> ImplToBool
-    state "Assertable implements Into<bool>" as ImplToBool {
-        [*] --> BasicAsserter&ltbool&gt : is_true
-        [*] --> BasicAsserter&ltbool&gt : is_false
-    }
-    BasicAsserter&ltAssertable&gt --> ImplAsRefStr
-    state "Assertable implements AsRef&ltstr&gt" as ImplAsRefStr {
-        [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : contains
-        [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : starts_with
-        [*] --> AssertionConnector&ltAsRef&ltstr&gt&gt : matches
-        AssertionConnector&ltAsRef&ltstr&gt&gt --> [*] : and
-    }
-    BasicAsserter&ltAssertable&gt --> ImplIntoIter
-    state "Assertable implements IntoIter&ltItem&gt" as ImplIntoIter {
-        [*] --> [*] : is_empty
-        [*] --> [*] : is_not_empty
-        [*] --> BasicAsserter&ltItem&gt: first
-        [*] --> BasicAsserter&ltItem&gt: second
-        [*] --> BasicAsserter&ltItem&gt: third
-        [*] --> BasicAsserter&ltItem&gt: nth
-    }
+// this obviously makes no sense
+assert_that(42).is_true();
 ```
+
+Smoothy provides a lot of different assertions.
+
+You can find them in the [docs](https://docs.rs/smoothy/latest/smoothy/) or in the structure diagram below.
+
+If you are missing some assertions feel free to open an issue or a pull request :)
