@@ -249,6 +249,78 @@ where
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
     ) -> AssertionConnector<Vec<Item>>;
+
+    /// Asserts that all elements in the iterable match the given predicate.
+    ///
+    /// Succeeds when the iterator is empty. Use [`is_not_empty`](IteratorAssertion::is_not_empty) first to assert that the iterator is empty.
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![2, 4, 6, 8];
+    /// assert_that(vec).all_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![2, 3, 4];
+    /// assert_that(vec).all_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// # Panics
+    /// When at least one element does not match the predicate.
+    #[track_caller]
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
+
+    /// Asserts that at least one element in the iterable matches the given predicate.
+    ///
+    /// Panics when the iterator is empty.
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![1, 2, 3, 4];
+    /// assert_that(vec).any_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![1, 3, 5];
+    /// assert_that(vec).any_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// # Panics
+    /// When no elements match the predicate.
+    #[track_caller]
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
+
+    /// Asserts that no elements in the iterable match the given predicate.
+    ///
+    /// Returns true when the iterator is empty. Use [`is_not_empty`](IteratorAssertion::is_not_empty) first to assert that the iterator is empty.
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![1, 3, 5];
+    /// assert_that(vec).none_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// ```should_panic
+    /// # use smoothy::prelude::*;
+    /// #
+    /// let vec = vec![1, 2, 3];
+    /// assert_that(vec).none_match(|x| x % 2 == 0);
+    /// ```
+    ///
+    /// # Panics
+    /// When at least one element matches the predicate.
+    #[track_caller]
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
 }
 
 impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
@@ -437,5 +509,57 @@ where
         AssertionConnector {
             value: actual_items,
         }
+    }
+
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+        let actual = self.value.into_iter().collect::<Vec<Item>>();
+
+        let non_matching = actual
+            .iter()
+            .filter(|item| !predicate(item))
+            .collect::<Vec<&Item>>();
+
+        implementation::assert_with_additional_info_no_expected(
+            non_matching.is_empty(),
+            &actual,
+            "to have only element matching the predicate",
+            "but found elements that did not match",
+            &non_matching,
+        );
+
+        AssertionConnector { value: actual }
+    }
+
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+        let actual = self.value.into_iter().collect::<Vec<Item>>();
+
+        let has_match = actual.iter().any(predicate);
+
+        implementation::assert_no_expected(
+            has_match,
+            &actual,
+            "to have at least one element matching the predicate",
+        );
+
+        AssertionConnector { value: actual }
+    }
+
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+        let actual = self.value.into_iter().collect::<Vec<Item>>();
+
+        let matching = actual
+            .iter()
+            .filter(|item| predicate(item))
+            .collect::<Vec<&Item>>();
+
+        implementation::assert_with_additional_info_no_expected(
+            matching.is_empty(),
+            &actual,
+            "to have no elements matching the predicate",
+            "but found elements that matched",
+            &matching,
+        );
+
+        AssertionConnector { value: actual }
     }
 }

@@ -1,0 +1,9 @@
+---
+source: tests/smoothy/iter/any_match.rs
+expression: assertion_failed_output
+---
+[31mAssertion failed![0m
+
+Expected
+  [31m[1, 3, 5, 7][0m
+to have at least one element matching the predicate

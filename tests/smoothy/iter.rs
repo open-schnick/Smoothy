@@ -1,7 +1,10 @@
+mod all_match;
+mod any_match;
 mod contains;
 mod contains_all;
 mod contains_only;
 mod indices;
 mod is_empty;
 mod is_not_empty;
+mod none_match;
 mod size;

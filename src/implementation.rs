@@ -64,6 +64,23 @@ pub fn assert_with_additional_info<Actual: Debug, Expected: Debug, Additional: D
 }
 
 #[track_caller]
+pub fn assert_with_additional_info_no_expected<Actual: Debug, Additional: Debug>(
+    assertable: bool,
+    actual: Actual,
+    assertion_desc: &str,
+    additional_desc: &str,
+    additional: Additional,
+) {
+    assert_internal(
+        assertable,
+        actual,
+        assertion_desc,
+        None::<()>,
+        Some((additional_desc, additional)),
+    );
+}
+
+#[track_caller]
 #[allow(clippy::shadow_reuse)]
 fn assert_internal<Actual: Debug, Expected: Debug, Additional: Debug>(
     assertable: bool,

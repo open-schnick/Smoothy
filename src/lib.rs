@@ -267,6 +267,29 @@
 //! assert_that([1, 2, 3, 2]).contains_only([3, 1, 2, 2]);
 //! ```
 //!
+//! ### Predicate-based assertions
+//!
+//! Predicate-based assertions can be used to validate the contents of an iterable.
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! // Assert that all elements match a condition
+//! let numbers = vec![2, 4, 6, 8];
+//! assert_that(numbers).all_match(|x| x % 2 == 0);
+//! ```
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! let numbers = vec![1, 2, 3];
+//! assert_that(numbers).any_match(|x| x % 2 == 0);
+//! ```
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! let numbers = vec![1, 3, 5];
+//! assert_that(numbers).none_match(|x| x % 2 == 0);
+//! ```
+//!
 //! ## Filesystem / Path Assertions
 //!
 //! Path assertions work with any type implementing [`AsRef<Path>`](std::path::Path) such as [`str`], [`String`], [`&Path`](std::path::Path), and [`PathBuf`](std::path::PathBuf).

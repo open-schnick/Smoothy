@@ -1,0 +1,11 @@
+---
+source: tests/smoothy/iter/none_match.rs
+expression: assertion_failed_output
+---
+[31mAssertion failed![0m
+
+Expected
+  [31m[1, 2, 3, 5][0m
+to have no elements matching the predicate
+but found elements that matched
+  [32m[2][0m
