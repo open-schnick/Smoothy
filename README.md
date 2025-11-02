@@ -112,8 +112,6 @@ use smoothy::prelude::*;
 assert_that(42).is_true();
 ```
 
-Smoothy provides a lot of different assertions.
-
-You can find them in the [docs](https://docs.rs/smoothy/latest/smoothy/) or in the structure diagram below.
+Smoothy provides a lot of different assertions documented [here](https://docs.rs/smoothy/latest/smoothy/).
 
 If you are missing some assertions feel free to open an issue or a pull request :)
