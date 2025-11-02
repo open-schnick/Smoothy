@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.5](https://github.com/open-schnick/Smoothy/compare/v0.8.4...v0.8.5) - 2025-11-02
+
+### Added
+
+- add any_matches, all_matches and none_matches iterator assertions
+
+### Other
+
+- fix outdated ref in README.md
+
 ## [0.8.4](https://github.com/open-schnick/Smoothy/compare/v0.8.3...v0.8.4) - 2025-10-25
 
 ### Added
