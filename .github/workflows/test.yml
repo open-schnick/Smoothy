@@ -1,9 +1,13 @@
+name: test
+
 permissions:
   contents: read
+
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
@@ -13,16 +17,15 @@ env:
   CLICOLOR_FORCE: 1
   COLORTERM: "truecolor"
 
-name: test
 jobs:
   test:
     runs-on: ubuntu-latest
     name: ${{ matrix.toolchain }} / test
     strategy:
       matrix:
-        toolchain: [ stable ]
+        toolchain: [stable]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Install ${{ matrix.toolchain }}

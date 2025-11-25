@@ -1,22 +1,26 @@
+name: check
+
 permissions:
   contents: read
+
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
-name: check
+
 jobs:
   fmt:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        toolchain: [ nightly ]
+        toolchain: [nightly]
     name: ${{ matrix.toolchain }} / fmt
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Install ${{ matrix.toolchain }}
@@ -26,6 +30,7 @@ jobs:
           components: rustfmt
       - name: cargo +${{ matrix.toolchain }} fmt --check
         run: cargo +${{ matrix.toolchain }} fmt --check
+
   clippy:
     runs-on: ubuntu-latest
     name: ${{ matrix.toolchain }} / clippy
@@ -35,9 +40,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        toolchain: [ stable, beta ]
+        toolchain: [stable, beta]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Install ${{ matrix.toolchain }}
@@ -50,12 +55,13 @@ jobs:
         with:
           reporter: "github-pr-check"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          clippy_flags: '--all --all-features --all-targets'
+          clippy_flags: "--all --all-features --all-targets"
+
   docs:
     runs-on: ubuntu-latest
     name: stable / doc
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: Install stable
