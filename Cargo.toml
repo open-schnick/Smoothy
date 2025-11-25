@@ -11,6 +11,7 @@ license = "MIT"
 keywords = ["testing", "assert", "assertions", "fluent", "tests"]
 categories = ["development-tools::testing"]
 edition = "2021"
+rust-version = "1.81"
 
 [features]
 default = ["regex", "json"]
