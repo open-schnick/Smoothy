@@ -1,12 +1,12 @@
 use crate::{implementation, private, AssertionConnector, BasicAsserter};
-use std::{borrow::Borrow, fmt::Debug, fs::File};
+use std::{borrow::Borrow, fs::File};
 
 /// Specifies various assertions on file handles. Implemented on [`BasicAsserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait FileAssertion<FileLike>: private::Sealed
 where
-    FileLike: Borrow<File> + Debug,
+    FileLike: Borrow<File>,
 {
     /// Asserts that the file handle points to a regular file
     ///
@@ -53,7 +53,7 @@ where
 
 impl<FileLike> FileAssertion<FileLike> for BasicAsserter<FileLike>
 where
-    FileLike: Borrow<File> + Debug,
+    FileLike: Borrow<File>,
 {
     #[allow(clippy::expect_used)]
     fn is_file(self) -> AssertionConnector<FileLike> {
