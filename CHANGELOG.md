@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0](https://github.com/open-schnick/Smoothy/compare/v0.8.5...v0.9.0) - 2025-11-25
+
+### Other
+
+- [**breaking**] remove deprecated map function
+- move assertion specific trait bounds to assertions
+- remove redundant trait bound for file assertions
+- specify minimal rust-version
+- update gitignore
+- update actions/checkout -> v6
+
 ## [0.8.5](https://github.com/open-schnick/Smoothy/compare/v0.8.4...v0.8.5) - 2025-11-02
 
 ### Added
