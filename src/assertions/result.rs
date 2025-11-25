@@ -1,14 +1,10 @@
 use crate::{implementation, private, BasicAsserter};
-use std::fmt::Debug;
+use std::fmt::{self, Debug};
 
 /// Specifies various assertions on [`Result`]. Implemented on [`BasicAsserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
-pub trait ResultAssertion<OkValue, ErrValue>: private::Sealed
-where
-    OkValue: Debug,
-    ErrValue: Debug,
-{
+pub trait ResultAssertion<OkValue, ErrValue>: private::Sealed {
     /// Asserts that the [Result] is an [Ok].
     ///
     /// Allows the usage of chained assertions on an ok-value (see [`OkAsserter`]).
@@ -26,7 +22,9 @@ where
     /// When the [Result] is an [Err]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_ok(self) -> OkAsserter<OkValue>;
+    fn is_ok(self) -> OkAsserter<OkValue>
+    where
+        ErrValue: Debug;
 
     /// Asserts that the [Result] is an [Err].
     ///
@@ -45,17 +43,37 @@ where
     /// When the [Result] is an [Ok]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_err(self) -> ErrAsserter<ErrValue>;
+    fn is_err(self) -> ErrAsserter<ErrValue>
+    where
+        OkValue: Debug;
+}
+
+struct ErrWrapper<'a, E>(&'a E);
+
+impl<E: Debug> Debug for ErrWrapper<'_, E> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Err({:?})", self.0)
+    }
+}
+
+struct OkWrapper<'a, O>(&'a O);
+
+impl<O: Debug> Debug for OkWrapper<'_, O> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Ok({:?})", self.0)
+    }
 }
 
 impl<OkValue, ErrValue> ResultAssertion<OkValue, ErrValue>
     for BasicAsserter<Result<OkValue, ErrValue>>
-where
-    OkValue: Debug,
-    ErrValue: Debug,
 {
-    fn is_ok(self) -> OkAsserter<OkValue> {
-        implementation::assert_no_expected(self.value.is_ok(), &self.value, "to be Ok");
+    fn is_ok(self) -> OkAsserter<OkValue>
+    where
+        ErrValue: Debug,
+    {
+        if let Err(ref e) = self.value {
+            implementation::assert_no_expected(false, ErrWrapper(e), "to be Ok");
+        }
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.unwrap();
@@ -63,8 +81,13 @@ where
         OkAsserter { value }
     }
 
-    fn is_err(self) -> ErrAsserter<ErrValue> {
-        implementation::assert_no_expected(self.value.is_err(), &self.value, "to be Err");
+    fn is_err(self) -> ErrAsserter<ErrValue>
+    where
+        OkValue: Debug,
+    {
+        if let Ok(ref v) = self.value {
+            implementation::assert_no_expected(false, OkWrapper(v), "to be Err");
+        }
 
         #[allow(clippy::unwrap_used)]
         let value = self.value.err().unwrap();

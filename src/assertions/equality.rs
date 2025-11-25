@@ -6,7 +6,7 @@ use std::fmt::Debug;
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait EqualityAssertion<AssertedType>: private::Sealed
 where
-    AssertedType: PartialEq + Debug,
+    AssertedType: PartialEq,
 {
     // NOTE: the type inference for {integers} is bad as i32 does not implement Into<u16>
     /// Asserts that the assertable is equal to the expected value.
@@ -24,7 +24,9 @@ where
     /// # Panics
     /// When the values are not matching according to [`PartialEq`]
     #[track_caller]
-    fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>;
+    fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug;
 
     // NOTE: the type inference for {integers} is bad as i32 does not implement Into<u16>
     /// Asserts that the assertable is *not* equal to the expected value.
@@ -42,7 +44,9 @@ where
     /// # Panics
     /// When the values are matching according to [`PartialEq`]
     #[track_caller]
-    fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>;
+    fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug;
 
     /// Asserts that the assertable is equal to the expected value.
     ///
@@ -61,6 +65,7 @@ where
     #[track_caller]
     fn try_into_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
+        AssertedType: Debug,
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: Debug;
 
@@ -81,6 +86,7 @@ where
     #[track_caller]
     fn try_into_not_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
+        AssertedType: Debug,
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: Debug;
 
@@ -96,7 +102,9 @@ where
     /// # Panics
     /// When the values are not matching.
     #[track_caller]
-    fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType>;
+    fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug;
 
     /// Asserts that the assertable is *not* equal to the expected value while having the same type.
     ///
@@ -111,20 +119,28 @@ where
     /// When the values are matching.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType>;
+    fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug;
 }
 
 impl<AssertedType> EqualityAssertion<AssertedType> for BasicAsserter<AssertedType>
 where
-    AssertedType: PartialEq + Debug,
+    AssertedType: PartialEq,
 {
-    fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
+    fn equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug,
+    {
         let transformed_expected: AssertedType = expected.into();
         implementation::assert_equals(&self.value, transformed_expected);
         AssertionConnector { value: self.value }
     }
 
-    fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType> {
+    fn not_equals(self, expected: impl Into<AssertedType>) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug,
+    {
         let transformed_expected: AssertedType = expected.into();
         implementation::assert_not_equals(&self.value, transformed_expected);
         AssertionConnector { value: self.value }
@@ -132,6 +148,7 @@ where
 
     fn try_into_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
+        AssertedType: Debug,
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: Debug,
     {
@@ -153,6 +170,7 @@ where
 
     fn try_into_not_equals<T>(self, expected: T) -> AssertionConnector<AssertedType>
     where
+        AssertedType: Debug,
         T: TryInto<AssertedType>,
         <T as TryInto<AssertedType>>::Error: Debug,
     {
@@ -172,12 +190,18 @@ where
         AssertionConnector { value: self.value }
     }
 
-    fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
+    fn is(self, expected: AssertedType) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug,
+    {
         implementation::assert_equals(&self.value, expected);
         AssertionConnector { value: self.value }
     }
 
-    fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType> {
+    fn is_not(self, expected: AssertedType) -> AssertionConnector<AssertedType>
+    where
+        AssertedType: Debug,
+    {
         implementation::assert_not_equals(&self.value, expected);
         AssertionConnector { value: self.value }
     }

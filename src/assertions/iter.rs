@@ -7,7 +7,6 @@ use std::fmt::Debug;
 pub trait IteratorAssertion<Iterable, Item>: private::Sealed
 where
     Iterable: IntoIterator<Item = Item>,
-    Item: Debug + PartialEq,
 {
     /// Convenience function for getting the size of the Iterator.
     ///
@@ -46,7 +45,9 @@ where
     /// When the Iterable is empty.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>;
+    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug;
 
     /// Asserts that the Iterable is empty.
     ///
@@ -62,7 +63,9 @@ where
     /// When the Iterable is not empty.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_empty(self);
+    fn is_empty(self)
+    where
+        Item: Debug;
 
     /// Convenience function for accessing the first (0th) element of the Iterable.
     ///
@@ -85,7 +88,9 @@ where
     /// When the Iterator does not contain a first element.
     #[track_caller]
     #[must_use = "Accessing the first element only asserts that size > 0. If you want to assert the size use assert_that(iter).size().equals(1) instead"]
-    fn first(self) -> BasicAsserter<Item>;
+    fn first(self) -> BasicAsserter<Item>
+    where
+        Item: Debug;
 
     /// Convenience function for accessing the second (1st) element of the Iterable.
     ///
@@ -108,7 +113,9 @@ where
     /// When the Iterator does not contain a second element.
     #[track_caller]
     #[must_use = "Accessing the second element only asserts that size > 1. If you want to assert the size use assert_that(iter).size().equals(2) instead"]
-    fn second(self) -> BasicAsserter<Item>;
+    fn second(self) -> BasicAsserter<Item>
+    where
+        Item: Debug;
 
     /// Convenience function for accessing the third (2nd) element of the Iterable.
     ///
@@ -135,7 +142,9 @@ where
     /// When the Iterator does not contain a third element.
     #[track_caller]
     #[must_use = "Accessing the third element only asserts that size > 2. If you want to assert the size use assert_that(iter).size().equals(3) instead"]
-    fn third(self) -> BasicAsserter<Item>;
+    fn third(self) -> BasicAsserter<Item>
+    where
+        Item: Debug;
 
     /// Convenience function for accessing the nth element of the Iterable.
     ///
@@ -162,7 +171,9 @@ where
     /// When the Iterator does not contain a nth element.
     #[track_caller]
     #[must_use = "Accessing the nth element only asserts that size is at least nth. If you want to assert the size use assert_that(iter).size().equals(nth) instead"]
-    fn nth(self, nth: usize) -> BasicAsserter<Item>;
+    fn nth(self, nth: usize) -> BasicAsserter<Item>
+    where
+        Item: Debug;
 
     /// Asserts that the iterable contains the item at least once in any place in the iterator
     ///
@@ -188,7 +199,9 @@ where
     /// # Panics
     /// When the Iterator does not contain the expected item.
     #[track_caller]
-    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>;
+    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq;
 
     /// Asserts that the iterable contains each item at least once in any place in the iterator
     ///
@@ -217,7 +230,9 @@ where
     fn contains_all(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>;
+    ) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq;
 
     /// Asserts that the iterable contains only the expected items any place in the iterator
     ///
@@ -248,7 +263,9 @@ where
     fn contains_only(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>;
+    ) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq;
 
     /// Asserts that all elements in the iterable match the given predicate.
     ///
@@ -272,7 +289,9 @@ where
     /// # Panics
     /// When at least one element does not match the predicate.
     #[track_caller]
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug;
 
     /// Asserts that at least one element in the iterable matches the given predicate.
     ///
@@ -296,7 +315,9 @@ where
     /// # Panics
     /// When no elements match the predicate.
     #[track_caller]
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug;
 
     /// Asserts that no elements in the iterable match the given predicate.
     ///
@@ -320,20 +341,24 @@ where
     /// # Panics
     /// When at least one element matches the predicate.
     #[track_caller]
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>;
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug;
 }
 
 impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
 where
     Iterable: IntoIterator<Item = Item>,
-    Item: Debug + PartialEq,
 {
     fn size(self) -> BasicAsserter<usize> {
         let size = self.value.into_iter().count();
         BasicAsserter { value: size }
     }
 
-    fn is_not_empty(self) -> AssertionConnector<Vec<Item>> {
+    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
 
         implementation::assert_no_expected(
@@ -345,12 +370,18 @@ where
         AssertionConnector { value: actual }
     }
 
-    fn is_empty(self) {
+    fn is_empty(self)
+    where
+        Item: Debug,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
         implementation::assert_no_expected(actual.is_empty(), &actual, "to be empty");
     }
 
-    fn first(self) -> BasicAsserter<Item> {
+    fn first(self) -> BasicAsserter<Item>
+    where
+        Item: Debug,
+    {
         let mut actual = self.value.into_iter();
         let maybe_item = actual.nth(0);
 
@@ -366,7 +397,10 @@ where
         BasicAsserter { value: item }
     }
 
-    fn second(self) -> BasicAsserter<Item> {
+    fn second(self) -> BasicAsserter<Item>
+    where
+        Item: Debug,
+    {
         let mut actual = self.value.into_iter();
         let maybe_item = actual.nth(1);
 
@@ -382,7 +416,10 @@ where
         BasicAsserter { value: item }
     }
 
-    fn third(self) -> BasicAsserter<Item> {
+    fn third(self) -> BasicAsserter<Item>
+    where
+        Item: Debug,
+    {
         let mut actual = self.value.into_iter();
         let maybe_item = actual.nth(2);
 
@@ -398,7 +435,10 @@ where
         BasicAsserter { value: item }
     }
 
-    fn nth(self, nth: usize) -> BasicAsserter<Item> {
+    fn nth(self, nth: usize) -> BasicAsserter<Item>
+    where
+        Item: Debug,
+    {
         let mut actual = self.value.into_iter();
         let maybe_item = actual.nth(nth);
 
@@ -414,7 +454,10 @@ where
         BasicAsserter { value: item }
     }
 
-    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>> {
+    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
         let expected_item = expected.into();
 
@@ -431,7 +474,10 @@ where
     fn contains_all(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>> {
+    ) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
         #[allow(clippy::shadow_reuse)]
         let expected = expected.into_iter().map(Into::into).collect::<Vec<Item>>();
@@ -456,7 +502,10 @@ where
     fn contains_only(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>> {
+    ) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug + PartialEq,
+    {
         let actual_items = self.value.into_iter().collect::<Vec<Item>>();
         let expected_items = expected.into_iter().map(Into::into).collect::<Vec<Item>>();
 
@@ -511,7 +560,10 @@ where
         }
     }
 
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
 
         let non_matching = actual
@@ -530,7 +582,10 @@ where
         AssertionConnector { value: actual }
     }
 
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
 
         let has_match = actual.iter().any(predicate);
@@ -544,7 +599,10 @@ where
         AssertionConnector { value: actual }
     }
 
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>> {
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    where
+        Item: Debug,
+    {
         let actual = self.value.into_iter().collect::<Vec<Item>>();
 
         let matching = actual

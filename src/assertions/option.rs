@@ -4,10 +4,7 @@ use std::fmt::Debug;
 /// Specifies various assertions on [`Option`]. Implemented on [`BasicAsserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
-pub trait OptionAssertion<OptionValue>: private::Sealed
-where
-    OptionValue: Debug,
-{
+pub trait OptionAssertion<OptionValue>: private::Sealed {
     /// Asserts that the [Option] is [Some].
     ///
     /// Allows the usage of chained assertions on an option-type (see [`SomeAsserter`]).
@@ -25,7 +22,9 @@ where
     /// When the [Option] is [None]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_some(self) -> SomeAsserter<OptionValue>;
+    fn is_some(self) -> SomeAsserter<OptionValue>
+    where
+        OptionValue: Debug;
 
     /// Asserts that the [Option] is [None].
     ///
@@ -42,14 +41,16 @@ where
     /// When the [Option] is [Some]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_none(self);
+    fn is_none(self)
+    where
+        OptionValue: Debug;
 }
 
-impl<OptionValue> OptionAssertion<OptionValue> for BasicAsserter<Option<OptionValue>>
-where
-    OptionValue: Debug,
-{
-    fn is_some(self) -> SomeAsserter<OptionValue> {
+impl<OptionValue> OptionAssertion<OptionValue> for BasicAsserter<Option<OptionValue>> {
+    fn is_some(self) -> SomeAsserter<OptionValue>
+    where
+        OptionValue: Debug,
+    {
         implementation::assert_no_expected(self.value.is_some(), &self.value, "to be Some");
 
         #[allow(clippy::unwrap_used)]
@@ -58,7 +59,10 @@ where
         SomeAsserter { value }
     }
 
-    fn is_none(self) {
+    fn is_none(self)
+    where
+        OptionValue: Debug,
+    {
         implementation::assert_no_expected(self.value.is_none(), &self.value, "to be None");
     }
 }
