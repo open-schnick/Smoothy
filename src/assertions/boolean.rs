@@ -1,4 +1,4 @@
-use crate::{implementation, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 
 /// Specifies various assertions on values that can be converted to a boolean. Implemented on [`BasicAsserter`]
 ///
@@ -26,7 +26,7 @@ where
     /// When the value is false
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_true(self) -> AssertionConnector<bool>;
+    fn is_true(self);
 
     /// Convenience method for asserting that a value is false
     ///
@@ -47,26 +47,22 @@ where
     /// When the value is true
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_false(self) -> AssertionConnector<bool>;
+    fn is_false(self);
 }
 
 impl<IntoBoolean> BooleanAssertion<IntoBoolean> for BasicAsserter<IntoBoolean>
 where
     IntoBoolean: Into<bool>,
 {
-    fn is_true(self) -> AssertionConnector<bool> {
+    fn is_true(self) {
         let actual = self.value.into();
 
         implementation::assert(actual, actual, "to be", true);
-
-        AssertionConnector { value: actual }
     }
 
-    fn is_false(self) -> AssertionConnector<bool> {
+    fn is_false(self) {
         let actual = self.value.into();
 
         implementation::assert(!actual, actual, "to be", false);
-
-        AssertionConnector { value: actual }
     }
 }
