@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0](https://github.com/open-schnick/Smoothy/compare/v0.9.0...v0.10.0) - 2025-12-29
+
+### Added
+
+- [**breaking**] rename BasicAsserter to Asserter
+- [**breaking**] make chaining with and() optional
+- [**breaking**] boolean assertions dont allow chaining assertions
+
 ## [0.9.0](https://github.com/open-schnick/Smoothy/compare/v0.8.5...v0.9.0) - 2025-11-25
 
 ### Other
