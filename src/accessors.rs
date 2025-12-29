@@ -1,6 +1,6 @@
-use crate::{assert_that, BasicAsserter};
+use crate::{assert_that, Asserter};
 
-impl<AssertedType> BasicAsserter<AssertedType> {
+impl<AssertedType> Asserter<AssertedType> {
     /// Extracts the value of an asserted value
     ///
     /// This allows for a property access of inner values or functions
@@ -22,11 +22,11 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     /// struct Struct(pub String);
     ///
     /// pub trait SmoothyExt {
-    ///     fn inner_value(self) -> BasicAsserter<String>;
+    ///     fn inner_value(self) -> Asserter<String>;
     /// }
     ///
-    /// impl SmoothyExt for BasicAsserter<Struct> {
-    ///     fn inner_value(self) -> BasicAsserter<String> {
+    /// impl SmoothyExt for Asserter<Struct> {
+    ///     fn inner_value(self) -> Asserter<String> {
     ///         self.extract(|s| s.0)
     ///     }
     /// }
@@ -40,13 +40,13 @@ impl<AssertedType> BasicAsserter<AssertedType> {
     pub fn extract<NewAssertedType>(
         self,
         extractor: impl FnOnce(AssertedType) -> NewAssertedType,
-    ) -> BasicAsserter<NewAssertedType> {
+    ) -> Asserter<NewAssertedType> {
         let extracted = extractor(self.value);
         assert_that(extracted)
     }
 }
 
-impl<AssertedType> BasicAsserter<AssertedType>
+impl<AssertedType> Asserter<AssertedType>
 where
     AssertedType: ToString,
 {
@@ -56,14 +56,14 @@ where
     /// ```
     /// # use smoothy::prelude::*;
     /// #
-    /// let asserter: BasicAsserter<String> = assert_that(42).to_string();
+    /// let asserter: Asserter<String> = assert_that(42).to_string();
     /// // further assertions
     /// asserter.equals("42");
     /// ```
     #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
-    pub fn to_string(self) -> BasicAsserter<String> {
-        BasicAsserter {
+    pub fn to_string(self) -> Asserter<String> {
+        Asserter {
             value: self.value.to_string(),
         }
     }

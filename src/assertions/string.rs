@@ -1,6 +1,6 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 
-/// Specifies various assertions on [`String`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`String`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait StringAssertion<StringLike>: private::Sealed
@@ -22,7 +22,7 @@ where
     /// # Panics
     /// When the value does not contain the pattern
     #[track_caller]
-    fn contains(self, string: impl AsRef<str>) -> BasicAsserter<StringLike>;
+    fn contains(self, string: impl AsRef<str>) -> Asserter<StringLike>;
 
     /// Asserts that the value is matching the regex
     ///
@@ -41,7 +41,7 @@ where
     #[cfg_attr(docsrs, doc(cfg(feature = "regex")))]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn matches(self, regex: &regex::Regex) -> BasicAsserter<StringLike>;
+    fn matches(self, regex: &regex::Regex) -> Asserter<StringLike>;
 
     /// Asserts that the value starts with the pattern
     ///
@@ -55,10 +55,10 @@ where
     /// # Panics
     /// When the value does not start with the pattern
     #[track_caller]
-    fn starts_with(self, string: impl AsRef<str>) -> BasicAsserter<StringLike>;
+    fn starts_with(self, string: impl AsRef<str>) -> Asserter<StringLike>;
 }
 
-impl<StringLike> StringAssertion<StringLike> for BasicAsserter<StringLike>
+impl<StringLike> StringAssertion<StringLike> for Asserter<StringLike>
 where
     StringLike: AsRef<str>,
 {

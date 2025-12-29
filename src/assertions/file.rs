@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use std::{borrow::Borrow, fs::File};
 
-/// Specifies various assertions on file handles. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on file handles. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait FileAssertion<FileLike>: private::Sealed
@@ -27,7 +27,7 @@ where
     /// When the file handle does not point to a regular file
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_file(self) -> BasicAsserter<FileLike>;
+    fn is_file(self) -> Asserter<FileLike>;
 
     /// Asserts that the file handle points to a directory
     ///
@@ -48,10 +48,10 @@ where
     /// When the file handle does not point to a directory
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_directory(self) -> BasicAsserter<FileLike>;
+    fn is_directory(self) -> Asserter<FileLike>;
 }
 
-impl<FileLike> FileAssertion<FileLike> for BasicAsserter<FileLike>
+impl<FileLike> FileAssertion<FileLike> for Asserter<FileLike>
 where
     FileLike: Borrow<File>,
 {

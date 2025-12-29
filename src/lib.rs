@@ -138,7 +138,7 @@
 //!
 //! ### Ok
 //!
-//! Basic assertion that the result is [Ok]:
+//! Asserts that the result is [Ok]:
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -156,7 +156,7 @@
 //!
 //! ### Err
 //!
-//! Basic assertion that the result is [Err]:
+//! Asserts that the result is [Err]:
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -221,7 +221,7 @@
 //! ```
 //! # use smoothy::prelude::*;
 //! let option: Option<u8> = Some(1);
-//! let asserter: BasicAsserter<u8> = assert_that(option).is_some().and_value();
+//! let asserter: Asserter<u8> = assert_that(option).is_some().and_value();
 //! // further assertions
 //! asserter.equals(1);
 //! ```
@@ -424,7 +424,7 @@
 //! ## Accessors
 //!
 //! Sometimes one wants to assert only one specific value of a struct.
-//! To do so one can use the [`extract`](struct.BasicAsserter.html#method.extract) method.
+//! To do so one can use the [`extract`](struct.Asserter.html#method.extract) method.
 //!
 //! ```
 //! # use smoothy::prelude::*;
@@ -460,7 +460,7 @@ pub use assertions::{
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
     pub use crate::{
-        assert_that, BasicAsserter, BooleanAssertion, EqualityAssertion, FileAssertion,
+        assert_that, Asserter, BooleanAssertion, EqualityAssertion, FileAssertion,
         IteratorAssertion, OptionAssertion, PathAssertion, ResultAssertion, StringAssertion,
     };
     #[cfg_attr(docsrs, doc(cfg(feature = "json")))]
@@ -477,20 +477,20 @@ pub mod prelude {
 /// # use smoothy::prelude::*;
 /// #
 /// let assertable = String::from("Hello World!");
-/// let assertion: BasicAsserter<String> = assert_that(assertable);
+/// let assertion: Asserter<String> = assert_that(assertable);
 /// // add your assertions here
 /// ```
 #[must_use = "Without assertions this function does nothing"]
-pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<AssertedType> {
-    BasicAsserter { value }
+pub const fn assert_that<AssertedType>(value: AssertedType) -> Asserter<AssertedType> {
+    Asserter { value }
 }
 
 /// Main struct with various assertions on `AssertedType`
-pub struct BasicAsserter<AssertedType> {
+pub struct Asserter<AssertedType> {
     pub(crate) value: AssertedType,
 }
 
-impl<AssertedType> BasicAsserter<AssertedType> {
+impl<AssertedType> Asserter<AssertedType> {
     /// Connect two assertions on the same value
     ///
     /// This is purely cosmetic and can be omitted to reduce verbosity
@@ -512,5 +512,5 @@ impl<AssertedType> BasicAsserter<AssertedType> {
 mod private {
     pub trait Sealed {}
 
-    impl<AssertedType> Sealed for crate::BasicAsserter<AssertedType> {}
+    impl<AssertedType> Sealed for crate::Asserter<AssertedType> {}
 }

@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use serde_json::{Map, Number, Value};
 
-/// Specifies various assertions on [`Value`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`Value`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait JsonValueAssertion: private::Sealed {
@@ -25,7 +25,7 @@ pub trait JsonValueAssertion: private::Sealed {
 
     /// Asserts that the [Value] is a [`Value::Bool`].
     ///
-    /// Allows the usage of chained assertions on a bool-value (see [`BasicAsserter`]).
+    /// Allows the usage of chained assertions on a bool-value (see [`Asserter`]).
     ///
     /// # Examples
     /// ```
@@ -41,11 +41,11 @@ pub trait JsonValueAssertion: private::Sealed {
     /// When the [Value] is no [`Value::Bool`]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_boolean(self) -> BasicAsserter<bool>;
+    fn is_boolean(self) -> Asserter<bool>;
 
     /// Asserts that the [Value] is a [`Value::Number`].
     ///
-    /// Allows the usage of chained assertions on a number-value (see [`BasicAsserter`]).
+    /// Allows the usage of chained assertions on a number-value (see [`Asserter`]).
     ///
     /// # Examples
     /// ```
@@ -61,11 +61,11 @@ pub trait JsonValueAssertion: private::Sealed {
     /// When the [Value] is no [`Value::Number`]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_number(self) -> BasicAsserter<Number>;
+    fn is_number(self) -> Asserter<Number>;
 
     /// Asserts that the [Value] is a [`Value::String`].
     ///
-    /// Allows the usage of chained assertions on a string-value (see [`BasicAsserter`]).
+    /// Allows the usage of chained assertions on a string-value (see [`Asserter`]).
     ///
     /// # Examples
     /// ```
@@ -81,11 +81,11 @@ pub trait JsonValueAssertion: private::Sealed {
     /// When the [Value] is no [`Value::String`]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_string(self) -> BasicAsserter<String>;
+    fn is_string(self) -> Asserter<String>;
 
     /// Asserts that the [Value] is a [`Value::Array`].
     ///
-    /// Allows the usage of chained assertions on an array-value (see [`BasicAsserter`]).
+    /// Allows the usage of chained assertions on an array-value (see [`Asserter`]).
     ///
     /// # Examples
     /// ```
@@ -101,11 +101,11 @@ pub trait JsonValueAssertion: private::Sealed {
     /// When the [Value] is no [`Value::Array`]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_array(self) -> BasicAsserter<Vec<Value>>;
+    fn is_array(self) -> Asserter<Vec<Value>>;
 
     /// Asserts that the [Value] is a [`Value::Object`].
     ///
-    /// Allows the usage of chained assertions on an object-value (see [`BasicAsserter`]).
+    /// Allows the usage of chained assertions on an object-value (see [`Asserter`]).
     ///
     /// # Examples
     /// ```
@@ -124,15 +124,15 @@ pub trait JsonValueAssertion: private::Sealed {
     /// When the [Value] is no [`Value::Object`]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_object(self) -> BasicAsserter<Map<String, Value>>;
+    fn is_object(self) -> Asserter<Map<String, Value>>;
 }
 
-impl JsonValueAssertion for BasicAsserter<Value> {
+impl JsonValueAssertion for Asserter<Value> {
     fn is_null(self) {
         implementation::assert_no_expected(self.value.is_null(), self.value, "JSON to be null");
     }
 
-    fn is_boolean(self) -> BasicAsserter<bool> {
+    fn is_boolean(self) -> Asserter<bool> {
         implementation::assert_no_expected(
             self.value.is_boolean(),
             &self.value,
@@ -145,10 +145,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
             unreachable!()
         };
 
-        BasicAsserter { value }
+        Asserter { value }
     }
 
-    fn is_number(self) -> BasicAsserter<Number> {
+    fn is_number(self) -> Asserter<Number> {
         implementation::assert_no_expected(
             self.value.is_number(),
             &self.value,
@@ -161,10 +161,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
             unreachable!()
         };
 
-        BasicAsserter { value }
+        Asserter { value }
     }
 
-    fn is_string(self) -> BasicAsserter<String> {
+    fn is_string(self) -> Asserter<String> {
         implementation::assert_no_expected(
             self.value.is_string(),
             &self.value,
@@ -177,10 +177,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
             unreachable!()
         };
 
-        BasicAsserter { value }
+        Asserter { value }
     }
 
-    fn is_array(self) -> BasicAsserter<Vec<Value>> {
+    fn is_array(self) -> Asserter<Vec<Value>> {
         implementation::assert_no_expected(
             self.value.is_array(),
             &self.value,
@@ -193,10 +193,10 @@ impl JsonValueAssertion for BasicAsserter<Value> {
             unreachable!()
         };
 
-        BasicAsserter { value }
+        Asserter { value }
     }
 
-    fn is_object(self) -> BasicAsserter<Map<String, Value>> {
+    fn is_object(self) -> Asserter<Map<String, Value>> {
         implementation::assert_no_expected(
             self.value.is_object(),
             &self.value,
@@ -209,11 +209,11 @@ impl JsonValueAssertion for BasicAsserter<Value> {
             unreachable!()
         };
 
-        BasicAsserter { value }
+        Asserter { value }
     }
 }
 
-/// Specifies various assertions on [`Map<String, Value>`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`Map<String, Value>`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait JsonObjectAssertion: private::Sealed {
@@ -233,11 +233,11 @@ pub trait JsonObjectAssertion: private::Sealed {
     ///
     /// # Panics
     /// When the [Map<String, Value>] does not contain the key.
-    fn get(self, key: &str) -> BasicAsserter<Value>;
+    fn get(self, key: &str) -> Asserter<Value>;
 }
 
-impl JsonObjectAssertion for BasicAsserter<Map<String, Value>> {
-    fn get(mut self, key: &str) -> BasicAsserter<Value> {
+impl JsonObjectAssertion for Asserter<Map<String, Value>> {
+    fn get(mut self, key: &str) -> Asserter<Value> {
         let maybe_item = self.value.remove(key);
 
         implementation::assert(maybe_item.is_some(), &self.value, "to have the key", key);
@@ -245,6 +245,6 @@ impl JsonObjectAssertion for BasicAsserter<Map<String, Value>> {
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();
 
-        BasicAsserter { value: item }
+        Asserter { value: item }
     }
 }

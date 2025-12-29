@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use std::fmt::Debug;
 
-/// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`IntoIterator`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait IteratorAssertion<Iterable, Item>: private::Sealed
@@ -29,7 +29,7 @@ where
     /// When the Iterator does not contain a first element.
     #[track_caller]
     #[must_use = "Accessing the count of the iterable does not assert anything"]
-    fn size(self) -> BasicAsserter<usize>;
+    fn size(self) -> Asserter<usize>;
 
     /// Asserts that the Iterable is not empty.
     ///
@@ -45,7 +45,7 @@ where
     /// When the Iterable is empty.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not_empty(self) -> BasicAsserter<Vec<Item>>
+    fn is_not_empty(self) -> Asserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -88,7 +88,7 @@ where
     /// When the Iterator does not contain a first element.
     #[track_caller]
     #[must_use = "Accessing the first element only asserts that size > 0. If you want to assert the size use assert_that(iter).size().equals(1) instead"]
-    fn first(self) -> BasicAsserter<Item>
+    fn first(self) -> Asserter<Item>
     where
         Item: Debug;
 
@@ -113,7 +113,7 @@ where
     /// When the Iterator does not contain a second element.
     #[track_caller]
     #[must_use = "Accessing the second element only asserts that size > 1. If you want to assert the size use assert_that(iter).size().equals(2) instead"]
-    fn second(self) -> BasicAsserter<Item>
+    fn second(self) -> Asserter<Item>
     where
         Item: Debug;
 
@@ -142,7 +142,7 @@ where
     /// When the Iterator does not contain a third element.
     #[track_caller]
     #[must_use = "Accessing the third element only asserts that size > 2. If you want to assert the size use assert_that(iter).size().equals(3) instead"]
-    fn third(self) -> BasicAsserter<Item>
+    fn third(self) -> Asserter<Item>
     where
         Item: Debug;
 
@@ -171,7 +171,7 @@ where
     /// When the Iterator does not contain a nth element.
     #[track_caller]
     #[must_use = "Accessing the nth element only asserts that size is at least nth. If you want to assert the size use assert_that(iter).size().equals(nth) instead"]
-    fn nth(self, nth: usize) -> BasicAsserter<Item>
+    fn nth(self, nth: usize) -> Asserter<Item>
     where
         Item: Debug;
 
@@ -199,7 +199,7 @@ where
     /// # Panics
     /// When the Iterator does not contain the expected item.
     #[track_caller]
-    fn contains(self, expected: impl Into<Item>) -> BasicAsserter<Vec<Item>>
+    fn contains(self, expected: impl Into<Item>) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -230,7 +230,7 @@ where
     fn contains_all(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> BasicAsserter<Vec<Item>>
+    ) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -263,7 +263,7 @@ where
     fn contains_only(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> BasicAsserter<Vec<Item>>
+    ) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -289,7 +289,7 @@ where
     /// # Panics
     /// When at least one element does not match the predicate.
     #[track_caller]
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -315,7 +315,7 @@ where
     /// # Panics
     /// When no elements match the predicate.
     #[track_caller]
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -341,21 +341,21 @@ where
     /// # Panics
     /// When at least one element matches the predicate.
     #[track_caller]
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug;
 }
 
-impl<Iterable, Item> IteratorAssertion<Iterable, Item> for BasicAsserter<Iterable>
+impl<Iterable, Item> IteratorAssertion<Iterable, Item> for Asserter<Iterable>
 where
     Iterable: IntoIterator<Item = Item>,
 {
-    fn size(self) -> BasicAsserter<usize> {
+    fn size(self) -> Asserter<usize> {
         let size = self.value.into_iter().count();
-        BasicAsserter { value: size }
+        Asserter { value: size }
     }
 
-    fn is_not_empty(self) -> BasicAsserter<Vec<Item>>
+    fn is_not_empty(self) -> Asserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -367,7 +367,7 @@ where
             "to contain at least one item",
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 
     fn is_empty(self)
@@ -378,7 +378,7 @@ where
         implementation::assert_no_expected(actual.is_empty(), &actual, "to be empty");
     }
 
-    fn first(self) -> BasicAsserter<Item>
+    fn first(self) -> Asserter<Item>
     where
         Item: Debug,
     {
@@ -394,10 +394,10 @@ where
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();
 
-        BasicAsserter { value: item }
+        Asserter { value: item }
     }
 
-    fn second(self) -> BasicAsserter<Item>
+    fn second(self) -> Asserter<Item>
     where
         Item: Debug,
     {
@@ -413,10 +413,10 @@ where
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();
 
-        BasicAsserter { value: item }
+        Asserter { value: item }
     }
 
-    fn third(self) -> BasicAsserter<Item>
+    fn third(self) -> Asserter<Item>
     where
         Item: Debug,
     {
@@ -432,10 +432,10 @@ where
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();
 
-        BasicAsserter { value: item }
+        Asserter { value: item }
     }
 
-    fn nth(self, nth: usize) -> BasicAsserter<Item>
+    fn nth(self, nth: usize) -> Asserter<Item>
     where
         Item: Debug,
     {
@@ -451,10 +451,10 @@ where
         #[allow(clippy::unwrap_used)]
         let item = maybe_item.unwrap();
 
-        BasicAsserter { value: item }
+        Asserter { value: item }
     }
 
-    fn contains(self, expected: impl Into<Item>) -> BasicAsserter<Vec<Item>>
+    fn contains(self, expected: impl Into<Item>) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -468,13 +468,13 @@ where
             expected_item,
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 
     fn contains_all(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> BasicAsserter<Vec<Item>>
+    ) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -496,13 +496,13 @@ where
             &not_found,
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 
     fn contains_only(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> BasicAsserter<Vec<Item>>
+    ) -> Asserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -555,12 +555,12 @@ where
                 .collect::<Vec<&Item>>(),
         );
 
-        BasicAsserter {
+        Asserter {
             value: actual_items,
         }
     }
 
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -579,10 +579,10 @@ where
             &non_matching,
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -596,10 +596,10 @@ where
             "to have at least one element matching the predicate",
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> Asserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -618,6 +618,6 @@ where
             &matching,
         );
 
-        BasicAsserter { value: actual }
+        Asserter { value: actual }
     }
 }

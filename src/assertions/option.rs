@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use std::fmt::Debug;
 
-/// Specifies various assertions on [`Option`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`Option`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait OptionAssertion<OptionValue>: private::Sealed {
@@ -46,7 +46,7 @@ pub trait OptionAssertion<OptionValue>: private::Sealed {
         OptionValue: Debug;
 }
 
-impl<OptionValue> OptionAssertion<OptionValue> for BasicAsserter<Option<OptionValue>> {
+impl<OptionValue> OptionAssertion<OptionValue> for Asserter<Option<OptionValue>> {
     fn is_some(self) -> SomeAsserter<OptionValue>
     where
         OptionValue: Debug,
@@ -87,7 +87,7 @@ impl<SomeValue> SomeAsserter<SomeValue> {
     /// ```
     #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
-    pub fn and_value(self) -> BasicAsserter<SomeValue> {
-        BasicAsserter { value: self.value }
+    pub fn and_value(self) -> Asserter<SomeValue> {
+        Asserter { value: self.value }
     }
 }

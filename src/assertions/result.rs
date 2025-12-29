@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use std::fmt::{self, Debug};
 
-/// Specifies various assertions on [`Result`]. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on [`Result`]. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait ResultAssertion<OkValue, ErrValue>: private::Sealed {
@@ -64,9 +64,7 @@ impl<O: Debug> Debug for OkWrapper<'_, O> {
     }
 }
 
-impl<OkValue, ErrValue> ResultAssertion<OkValue, ErrValue>
-    for BasicAsserter<Result<OkValue, ErrValue>>
-{
+impl<OkValue, ErrValue> ResultAssertion<OkValue, ErrValue> for Asserter<Result<OkValue, ErrValue>> {
     fn is_ok(self) -> OkAsserter<OkValue>
     where
         ErrValue: Debug,
@@ -110,14 +108,14 @@ impl<ErrValue> ErrAsserter<ErrValue> {
     /// #
     /// let result: Result<(), String> = Err(String::from("Hello World!"));
     ///
-    /// let asserter: BasicAsserter<String> = assert_that(result).is_err().and_error();
+    /// let asserter: Asserter<String> = assert_that(result).is_err().and_error();
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
     #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
-    pub fn and_error(self) -> BasicAsserter<ErrValue> {
-        BasicAsserter { value: self.value }
+    pub fn and_error(self) -> Asserter<ErrValue> {
+        Asserter { value: self.value }
     }
 }
 
@@ -135,13 +133,13 @@ impl<OkValue> OkAsserter<OkValue> {
     /// #
     /// let result: Result<String, ()> = Ok(String::from("Hello World!"));
     ///
-    /// let asserter: BasicAsserter<String> = assert_that(result).is_ok().and_value();
+    /// let asserter: Asserter<String> = assert_that(result).is_ok().and_value();
     /// // further assertions
     /// asserter.equals("Hello World!");
     /// ```
     #[track_caller]
     #[must_use = "Transforming the asserted value does not assert anything"]
-    pub fn and_value(self) -> BasicAsserter<OkValue> {
-        BasicAsserter { value: self.value }
+    pub fn and_value(self) -> Asserter<OkValue> {
+        Asserter { value: self.value }
     }
 }

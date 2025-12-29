@@ -1,6 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 
-/// Specifies various assertions on values that can be converted to a boolean. Implemented on [`BasicAsserter`]
+/// Specifies various assertions on values that can be converted to a boolean. Implemented on
+/// [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait BooleanAssertion<IntoBoolean>: private::Sealed
@@ -50,7 +51,7 @@ where
     fn is_false(self);
 }
 
-impl<IntoBoolean> BooleanAssertion<IntoBoolean> for BasicAsserter<IntoBoolean>
+impl<IntoBoolean> BooleanAssertion<IntoBoolean> for Asserter<IntoBoolean>
 where
     IntoBoolean: Into<bool>,
 {

@@ -1,7 +1,7 @@
-use crate::{implementation, private, BasicAsserter};
+use crate::{implementation, private, Asserter};
 use std::fmt::Debug;
 
-/// Specifies various equality assertions. Implemented on [`BasicAsserter`]
+/// Specifies various equality assertions. Implemented on [`Asserter`]
 ///
 /// This trait is sealed and cannot be implemented outside Smoothy.
 pub trait EqualityAssertion<AssertedType>: private::Sealed
@@ -24,7 +24,7 @@ where
     /// # Panics
     /// When the values are not matching according to [`PartialEq`]
     #[track_caller]
-    fn equals(self, expected: impl Into<AssertedType>) -> BasicAsserter<AssertedType>
+    fn equals(self, expected: impl Into<AssertedType>) -> Asserter<AssertedType>
     where
         AssertedType: Debug;
 
@@ -44,7 +44,7 @@ where
     /// # Panics
     /// When the values are matching according to [`PartialEq`]
     #[track_caller]
-    fn not_equals(self, expected: impl Into<AssertedType>) -> BasicAsserter<AssertedType>
+    fn not_equals(self, expected: impl Into<AssertedType>) -> Asserter<AssertedType>
     where
         AssertedType: Debug;
 
@@ -63,7 +63,7 @@ where
     /// # Panics
     /// When the transformation fails or the values are not matching according to [`PartialEq`]
     #[track_caller]
-    fn try_into_equals<T>(self, expected: T) -> BasicAsserter<AssertedType>
+    fn try_into_equals<T>(self, expected: T) -> Asserter<AssertedType>
     where
         AssertedType: Debug,
         T: TryInto<AssertedType>,
@@ -84,7 +84,7 @@ where
     /// # Panics
     /// When the transformation fails or the values are matching according to [`PartialEq`]
     #[track_caller]
-    fn try_into_not_equals<T>(self, expected: T) -> BasicAsserter<AssertedType>
+    fn try_into_not_equals<T>(self, expected: T) -> Asserter<AssertedType>
     where
         AssertedType: Debug,
         T: TryInto<AssertedType>,
@@ -102,7 +102,7 @@ where
     /// # Panics
     /// When the values are not matching.
     #[track_caller]
-    fn is(self, expected: AssertedType) -> BasicAsserter<AssertedType>
+    fn is(self, expected: AssertedType) -> Asserter<AssertedType>
     where
         AssertedType: Debug;
 
@@ -119,12 +119,12 @@ where
     /// When the values are matching.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not(self, expected: AssertedType) -> BasicAsserter<AssertedType>
+    fn is_not(self, expected: AssertedType) -> Asserter<AssertedType>
     where
         AssertedType: Debug;
 }
 
-impl<AssertedType> EqualityAssertion<AssertedType> for BasicAsserter<AssertedType>
+impl<AssertedType> EqualityAssertion<AssertedType> for Asserter<AssertedType>
 where
     AssertedType: PartialEq,
 {

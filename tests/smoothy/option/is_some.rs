@@ -1,5 +1,5 @@
 use crate::failing_assertion;
-use smoothy::{assert_that, BasicAsserter, EqualityAssertion, OptionAssertion};
+use smoothy::{assert_that, Asserter, EqualityAssertion, OptionAssertion};
 
 mod assert_option {
     use super::*;
@@ -28,7 +28,7 @@ mod assert_some {
     fn transforms_to_basic_asserter() {
         let option: Option<String> = Some(String::new());
 
-        let asserter: BasicAsserter<String> = assert_that(option).is_some().and_value();
+        let asserter: Asserter<String> = assert_that(option).is_some().and_value();
         asserter.equals("");
     }
 }
