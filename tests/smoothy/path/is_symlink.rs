@@ -1,6 +1,6 @@
 use crate::failing_assertion;
-use smoothy::{assert_that, AssertionConnector, PathAssertion};
-use std::{fs::File, path::Path};
+use smoothy::{assert_that, PathAssertion};
+use std::path::Path;
 use tempfile::{NamedTempFile, TempDir};
 
 #[cfg(test)]
@@ -80,15 +80,14 @@ mod succeeds {
     }
 
     #[test]
-    fn returns_assertion_connector_with_the_linked_file() {
+    fn and_allows_chaining() {
         let temp_dir = TempDir::new().unwrap();
         let target = NamedTempFile::new().unwrap();
         let link_path = temp_dir.path().join("link");
 
         symlink(target.path(), &link_path).unwrap();
 
-        let _connector: AssertionConnector<File> =
-            assert_that(&link_path).is_symlink().and().is_file();
+        assert_that(link_path).is_symlink().and().is_file();
     }
 }
 

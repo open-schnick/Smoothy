@@ -1,4 +1,4 @@
-use crate::{implementation, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 use std::fmt::Debug;
 
 /// Specifies various assertions on [`IntoIterator`]. Implemented on [`BasicAsserter`]
@@ -45,7 +45,7 @@ where
     /// When the Iterable is empty.
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>
+    fn is_not_empty(self) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -199,7 +199,7 @@ where
     /// # Panics
     /// When the Iterator does not contain the expected item.
     #[track_caller]
-    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>
+    fn contains(self, expected: impl Into<Item>) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -230,7 +230,7 @@ where
     fn contains_all(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>
+    ) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -263,7 +263,7 @@ where
     fn contains_only(
         self,
         expected_items: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>
+    ) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq;
 
@@ -289,7 +289,7 @@ where
     /// # Panics
     /// When at least one element does not match the predicate.
     #[track_caller]
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -315,7 +315,7 @@ where
     /// # Panics
     /// When no elements match the predicate.
     #[track_caller]
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug;
 
@@ -341,7 +341,7 @@ where
     /// # Panics
     /// When at least one element matches the predicate.
     #[track_caller]
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug;
 }
@@ -355,7 +355,7 @@ where
         BasicAsserter { value: size }
     }
 
-    fn is_not_empty(self) -> AssertionConnector<Vec<Item>>
+    fn is_not_empty(self) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -367,7 +367,7 @@ where
             "to contain at least one item",
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 
     fn is_empty(self)
@@ -454,7 +454,7 @@ where
         BasicAsserter { value: item }
     }
 
-    fn contains(self, expected: impl Into<Item>) -> AssertionConnector<Vec<Item>>
+    fn contains(self, expected: impl Into<Item>) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -468,13 +468,13 @@ where
             expected_item,
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 
     fn contains_all(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>
+    ) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -496,13 +496,13 @@ where
             &not_found,
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 
     fn contains_only(
         self,
         expected: impl IntoIterator<Item = impl Into<Item>>,
-    ) -> AssertionConnector<Vec<Item>>
+    ) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug + PartialEq,
     {
@@ -555,12 +555,12 @@ where
                 .collect::<Vec<&Item>>(),
         );
 
-        AssertionConnector {
+        BasicAsserter {
             value: actual_items,
         }
     }
 
-    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn all_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -579,10 +579,10 @@ where
             &non_matching,
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 
-    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn any_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -596,10 +596,10 @@ where
             "to have at least one element matching the predicate",
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 
-    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> AssertionConnector<Vec<Item>>
+    fn none_match(self, predicate: impl Fn(&Item) -> bool) -> BasicAsserter<Vec<Item>>
     where
         Item: Debug,
     {
@@ -618,6 +618,6 @@ where
             &matching,
         );
 
-        AssertionConnector { value: actual }
+        BasicAsserter { value: actual }
     }
 }

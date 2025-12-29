@@ -1,14 +1,12 @@
 use crate::failing_assertion;
-use smoothy::{assert_that, AssertionConnector, PathAssertion};
-use std::{
-    fs::File,
-    path::{Path, PathBuf},
-};
+use smoothy::{assert_that, PathAssertion};
+use std::path::{Path, PathBuf};
 use tempfile::{NamedTempFile, TempDir};
 
 #[cfg(test)]
 mod succeeds {
     use super::*;
+    use smoothy::FileAssertion;
 
     #[test]
     fn with_regular_file() {
@@ -50,10 +48,10 @@ mod succeeds {
     }
 
     #[test]
-    fn returns_assertion_connector() {
+    fn and_allows_chaining() {
         let temp_file = NamedTempFile::new().unwrap();
 
-        let _connector: AssertionConnector<File> = assert_that(temp_file.path()).is_file();
+        assert_that(temp_file.path()).is_file().and().is_file();
     }
 }
 

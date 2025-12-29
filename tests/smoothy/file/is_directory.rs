@@ -1,5 +1,5 @@
 use crate::failing_assertion;
-use smoothy::{assert_that, AssertionConnector, FileAssertion};
+use smoothy::{assert_that, FileAssertion};
 use std::fs::File;
 use tempfile::TempDir;
 
@@ -21,14 +21,6 @@ mod succeeds {
         let dir = File::open(temp_dir.path()).unwrap();
 
         assert_that(&dir).is_directory();
-    }
-
-    #[test]
-    fn returns_assertion_connector() {
-        let temp_dir = TempDir::new().unwrap();
-        let dir = File::open(temp_dir.path()).unwrap();
-
-        let _connector: AssertionConnector<File> = assert_that(dir).is_directory();
     }
 
     #[test]

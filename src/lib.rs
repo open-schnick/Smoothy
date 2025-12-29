@@ -1,20 +1,38 @@
 //! Write smooth assertions in a fluent and human-readable way.
 //!
-//! 1. [Overview](#overview)
-//! 2. [Basic value assertions](#basic-value-assertions)
-//! 3. [String-likes](#string-likes)
-//! 4. [Result](#result)
-//! 5. [Option](#option)
-//! 6. [Iterables](#iterables)
-//! 7. [Filesystem / Path Assertions](#filesystem--path-assertions)
-//! 8. [File Handle Assertions](#file-handle-assertions)
-//! 9. [Json](#json)
-//! 10. [Accessors](#accessors)
-//!
-//! # Overview
+//! # Quick Start
 //!
 //! Start asserting by calling [`assert_that`] on a value.
 //! Then chain assertions based on the type you are asserting.
+//!
+//! ```
+//! # use smoothy::prelude::*;
+//! assert_that("Hello World")
+//!     .contains("Hello")
+//!     .and() // the "and" is purly cosmetic and can be omitted
+//!     .contains("World");
+//! ```
+//!
+//! Smoothy prevents you from writing assertions that make no sense at compile time.
+//!
+//! This also means that the autocompletion will only show meaningful assertions when writing tests.
+//!
+//! ```compile_fail
+//! # use smoothy::prelude::*;
+//! assert_that("Hello World").is_true();
+//! ```
+//!
+//! # Available Assertions
+//!
+//! 1. [Basic value assertions](#basic-value-assertions)
+//! 2. [String-likes](#string-likes)
+//! 3. [Result](#result)
+//! 4. [Option](#option)
+//! 5. [Iterables](#iterables)
+//! 6. [Filesystem / Path Assertions](#filesystem--path-assertions)
+//! 7. [File Handle Assertions](#file-handle-assertions)
+//! 8. [Json](#json)
+//! 9. [Accessors](#accessors)
 //!
 //! ## Basic value assertions
 //!
@@ -423,7 +441,6 @@
 
 mod accessors;
 mod assertions;
-mod connector;
 mod implementation;
 
 #[cfg_attr(docsrs, doc(cfg(feature = "json")))]
@@ -439,7 +456,6 @@ pub use assertions::{
     result::{ErrAsserter, OkAsserter, ResultAssertion},
     string::StringAssertion,
 };
-pub use connector::AssertionConnector;
 
 /// The prelude for smoothy. Contains the most important structs, traits and functions but not all
 pub mod prelude {
@@ -472,6 +488,24 @@ pub const fn assert_that<AssertedType>(value: AssertedType) -> BasicAsserter<Ass
 /// Main struct with various assertions on `AssertedType`
 pub struct BasicAsserter<AssertedType> {
     pub(crate) value: AssertedType,
+}
+
+impl<AssertedType> BasicAsserter<AssertedType> {
+    /// Connect two assertions on the same value
+    ///
+    /// This is purely cosmetic and can be omitted to reduce verbosity
+    ///
+    /// # Examples
+    /// ```
+    /// # use smoothy::prelude::*;
+    /// #
+    /// assert_that(1).equals(1).and().is(1);
+    /// ```
+    #[track_caller]
+    #[must_use = "Connecting an assertion without second assertion does nothing"]
+    pub const fn and(self) -> Self {
+        self
+    }
 }
 
 /// Helper construct to prevent implementation of the assertion extension traits outside the crate

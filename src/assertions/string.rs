@@ -1,4 +1,4 @@
-use crate::{implementation, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 
 /// Specifies various assertions on [`String`]. Implemented on [`BasicAsserter`]
 ///
@@ -22,7 +22,7 @@ where
     /// # Panics
     /// When the value does not contain the pattern
     #[track_caller]
-    fn contains(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
+    fn contains(self, string: impl AsRef<str>) -> BasicAsserter<StringLike>;
 
     /// Asserts that the value is matching the regex
     ///
@@ -41,7 +41,7 @@ where
     #[cfg_attr(docsrs, doc(cfg(feature = "regex")))]
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn matches(self, regex: &regex::Regex) -> AssertionConnector<StringLike>;
+    fn matches(self, regex: &regex::Regex) -> BasicAsserter<StringLike>;
 
     /// Asserts that the value starts with the pattern
     ///
@@ -55,14 +55,14 @@ where
     /// # Panics
     /// When the value does not start with the pattern
     #[track_caller]
-    fn starts_with(self, string: impl AsRef<str>) -> AssertionConnector<StringLike>;
+    fn starts_with(self, string: impl AsRef<str>) -> BasicAsserter<StringLike>;
 }
 
 impl<StringLike> StringAssertion<StringLike> for BasicAsserter<StringLike>
 where
     StringLike: AsRef<str>,
 {
-    fn contains(self, expected: impl AsRef<str>) -> AssertionConnector<StringLike> {
+    fn contains(self, expected: impl AsRef<str>) -> Self {
         let actual = self.value.as_ref();
 
         implementation::assert(
@@ -72,11 +72,11 @@ where
             expected.as_ref(),
         );
 
-        AssertionConnector { value: self.value }
+        self
     }
 
     #[cfg(feature = "regex")]
-    fn matches(self, regex: &regex::Regex) -> AssertionConnector<StringLike> {
+    fn matches(self, regex: &regex::Regex) -> Self {
         let actual = self.value.as_ref();
 
         implementation::assert(
@@ -86,10 +86,10 @@ where
             regex.to_string(),
         );
 
-        AssertionConnector { value: self.value }
+        self
     }
 
-    fn starts_with(self, expected: impl AsRef<str>) -> AssertionConnector<StringLike> {
+    fn starts_with(self, expected: impl AsRef<str>) -> Self {
         let actual = self.value.as_ref();
 
         implementation::assert(
@@ -99,6 +99,6 @@ where
             expected.as_ref(),
         );
 
-        AssertionConnector { value: self.value }
+        self
     }
 }

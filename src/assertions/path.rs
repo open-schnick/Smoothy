@@ -1,4 +1,4 @@
-use crate::{implementation, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 use std::{
     fs::{self, File},
     path::Path,
@@ -34,7 +34,7 @@ where
     /// # Panics
     /// When the path does not exist in the file system
     #[track_caller]
-    fn exists(self) -> AssertionConnector<File>;
+    fn exists(self) -> BasicAsserter<File>;
 
     /// Asserts that the path does not exist in the file system
     ///
@@ -85,7 +85,7 @@ where
     /// When the path is not a symlink or does not exist
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_symlink(self) -> AssertionConnector<File>;
+    fn is_symlink(self) -> BasicAsserter<File>;
 
     /// Asserts that the path points to a regular file
     ///
@@ -106,7 +106,7 @@ where
     /// When the path does not point to a regular file or does not exist
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_file(self) -> AssertionConnector<File>;
+    fn is_file(self) -> BasicAsserter<File>;
 
     /// Asserts that the path points to a directory
     ///
@@ -127,7 +127,7 @@ where
     /// When the path does not point to a directory or does not exist
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_directory(self) -> AssertionConnector<File>;
+    fn is_directory(self) -> BasicAsserter<File>;
 }
 
 impl<PathLike> PathAssertion<PathLike> for BasicAsserter<PathLike>
@@ -135,7 +135,7 @@ where
     PathLike: AsRef<Path>,
 {
     #[allow(clippy::expect_used)]
-    fn exists(self) -> AssertionConnector<File> {
+    fn exists(self) -> BasicAsserter<File> {
         let path = self.value.as_ref();
 
         implementation::assert_no_expected(
@@ -144,7 +144,7 @@ where
             "to point at an existing entity in the filesystem",
         );
 
-        AssertionConnector {
+        BasicAsserter {
             value: File::open(path).expect("Failed to open file"),
         }
     }
@@ -161,7 +161,7 @@ where
     }
 
     #[allow(clippy::expect_used)]
-    fn is_symlink(self) -> AssertionConnector<File> {
+    fn is_symlink(self) -> BasicAsserter<File> {
         let path = self.value.as_ref();
         let metadata = fs::symlink_metadata(path);
 
@@ -170,13 +170,13 @@ where
         #[allow(clippy::unwrap_used)]
         implementation::assert_no_expected(metadata.unwrap().is_symlink(), path, "to be a symlink");
 
-        AssertionConnector {
+        BasicAsserter {
             value: File::open(path).expect("Failed to open file"),
         }
     }
 
     #[allow(clippy::expect_used)]
-    fn is_file(self) -> AssertionConnector<File> {
+    fn is_file(self) -> BasicAsserter<File> {
         let path = self.value.as_ref();
         let metadata = fs::symlink_metadata(path);
 
@@ -189,13 +189,13 @@ where
             "to be a regular file",
         );
 
-        AssertionConnector {
+        BasicAsserter {
             value: File::open(path).expect("Failed to open file"),
         }
     }
 
     #[allow(clippy::expect_used)]
-    fn is_directory(self) -> AssertionConnector<File> {
+    fn is_directory(self) -> BasicAsserter<File> {
         let path = self.value.as_ref();
         let metadata = fs::symlink_metadata(path);
 
@@ -204,7 +204,7 @@ where
         #[allow(clippy::unwrap_used)]
         implementation::assert_no_expected(metadata.unwrap().is_dir(), path, "to be a directory");
 
-        AssertionConnector {
+        BasicAsserter {
             value: File::open(path).expect("Failed to open file"),
         }
     }

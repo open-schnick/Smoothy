@@ -1,4 +1,4 @@
-use crate::{implementation, private, AssertionConnector, BasicAsserter};
+use crate::{implementation, private, BasicAsserter};
 use std::{borrow::Borrow, fs::File};
 
 /// Specifies various assertions on file handles. Implemented on [`BasicAsserter`]
@@ -27,7 +27,7 @@ where
     /// When the file handle does not point to a regular file
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_file(self) -> AssertionConnector<FileLike>;
+    fn is_file(self) -> BasicAsserter<FileLike>;
 
     /// Asserts that the file handle points to a directory
     ///
@@ -48,7 +48,7 @@ where
     /// When the file handle does not point to a directory
     #[track_caller]
     #[allow(clippy::wrong_self_convention)]
-    fn is_directory(self) -> AssertionConnector<FileLike>;
+    fn is_directory(self) -> BasicAsserter<FileLike>;
 }
 
 impl<FileLike> FileAssertion<FileLike> for BasicAsserter<FileLike>
@@ -56,22 +56,22 @@ where
     FileLike: Borrow<File>,
 {
     #[allow(clippy::expect_used)]
-    fn is_file(self) -> AssertionConnector<FileLike> {
+    fn is_file(self) -> Self {
         let file: &File = self.value.borrow();
         let metadata = file.metadata().expect("Failed to read file metadata");
 
         implementation::assert_no_expected(metadata.is_file(), file, "to be a regular file");
 
-        AssertionConnector { value: self.value }
+        self
     }
 
     #[allow(clippy::expect_used)]
-    fn is_directory(self) -> AssertionConnector<FileLike> {
+    fn is_directory(self) -> Self {
         let file: &File = self.value.borrow();
         let metadata = file.metadata().expect("Failed to read file metadata");
 
         implementation::assert_no_expected(metadata.is_dir(), file, "to be a directory");
 
-        AssertionConnector { value: self.value }
+        self
     }
 }

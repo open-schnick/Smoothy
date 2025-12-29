@@ -1,5 +1,5 @@
 use crate::failing_assertion;
-use smoothy::{assert_that, AssertionConnector, FileAssertion};
+use smoothy::{assert_that, FileAssertion};
 use std::fs::File;
 
 #[cfg(test)]
@@ -22,17 +22,10 @@ mod succeeds {
     }
 
     #[test]
-    fn returns_assertion_connector() {
-        let file = tempfile().unwrap();
-
-        let _connector: AssertionConnector<File> = assert_that(file).is_file();
-    }
-
-    #[test]
     fn can_chain_assertions() {
         let file = tempfile().unwrap();
 
-        assert_that(file).is_file().and().is_file();
+        assert_that(file).is_file().and().is_file().is_file();
     }
 }
 
