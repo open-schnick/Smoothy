@@ -30,6 +30,11 @@ jobs:
           components: rustfmt
       - name: cargo +${{ matrix.toolchain }} fmt --check
         run: cargo +${{ matrix.toolchain }} fmt --check
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: taplo 
+      - name: taplo fmt --check
+        run: taplo fmt --check
 
   clippy:
     runs-on: ubuntu-latest
