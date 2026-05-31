@@ -20,7 +20,7 @@ json = ["dep:serde_json"]
 
 [dependencies]
 colored = "3"
-similar-asserts = "1"
+similar-asserts = "2"
 regex = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
 
@@ -89,7 +89,6 @@ mem_forget = "deny"
 missing_assert_message = "deny"
 mod_module_files = "deny"
 mixed_read_write_in_expression = "deny"
-multiple_inherent_impl = "deny"
 needless_raw_strings = "deny"
 print_stderr = "deny"
 print_stdout = "deny"
@@ -111,3 +110,4 @@ redundant_pub_crate = "deny"
 # allow some lints
 module_name_repetitions = "allow"
 tests_outside_test_module = "allow"
+multiple_inherent_impl = "allow"

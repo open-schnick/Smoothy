@@ -410,25 +410,25 @@ mod with_numbers {
 
         #[test]
         fn min() {
-            assert_that(f32::MIN).equals(-3.402_823_5e38);
+            assert_that(f32::MIN).equals(-3.402_823_5e38_f32);
         }
 
         #[test]
         fn max() {
-            assert_that(f32::MAX).equals(3.402_823_5e38);
+            assert_that(f32::MAX).equals(3.402_823_5e38_f32);
         }
 
         #[test]
         fn random_value() {
             let random_value: f32 = 123.45;
-            assert_that(random_value).equals(123.45);
+            assert_that(random_value).equals(123.45_f32);
         }
 
         #[test]
         fn fails() {
             failing_assertion!({
                 let random_value: f32 = 123.;
-                assert_that(random_value).equals(42.);
+                assert_that(random_value).equals(42.0_f32);
             });
         }
     }
